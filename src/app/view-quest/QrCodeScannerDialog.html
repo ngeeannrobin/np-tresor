@@ -1,0 +1,10 @@
+
+<div class="scanner-outer-container">
+
+        Preparing camera...
+        <div class="scanner-container">
+            <zxing-scanner (scanSuccess)="test($event)" [formats]="['BarcodeFormat.QR_CODE']"></zxing-scanner>
+        </div>
+</div>
+
+

@@ -1,0 +1,10 @@
+.scanner-container{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+}
+
+.scanner-outer-container{
+    position: relative;
+}
