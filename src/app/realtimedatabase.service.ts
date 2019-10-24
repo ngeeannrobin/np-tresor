@@ -10,7 +10,10 @@ export class RealtimedatabaseService {
   ref: AngularFireObject<{}>;
   constructor(private db: AngularFireDatabase) { }
 
-  GetRequest(path:string){
+  // Generic method to pull data from firebase,
+  // given a path to pull from.
+  // Authentication is automatically handled by the library.
+  GetRequest(path:string): Promise<any>{
     this.ref = this.db.object(path);
     return new Promise(resolve => {
       this.ref.snapshotChanges().subscribe(

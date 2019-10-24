@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
-import { Type } from '@angular/compiler';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
@@ -13,18 +12,24 @@ export class ViewQuestComponent implements OnInit {
 
   constructor(
     private dbService: RealtimedatabaseService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog
+  ) { }
   
   
   Object = Object;
   quests: any = {};
   difficulty: any = {};
   selectedQuestId: string = null;
+
+
   ngOnInit() {
     this.FetchDifficulty();
     this.FetchQuest();
   }
 
+  // download quest table from firebase
+  // TODO: Refactor this in the future
+  // (player should only download relevant quests depending on gamemode)
   FetchQuest(){
     this.dbService.FetchQuest().then(
       quest => {
@@ -36,6 +41,9 @@ export class ViewQuestComponent implements OnInit {
     )
   }
 
+  // download difficulty table from firebase
+  // TODO: Remove this in the future
+  // (player should not have access to difficulty table, only points given)
   FetchDifficulty(){
     this.dbService.FetchDifficulty().then(
       difficulty => {
@@ -47,21 +55,17 @@ export class ViewQuestComponent implements OnInit {
     )
   }
 
+  // open QR code scanner dialog
   popScanner(){
-    console.log("test");
-    const dialogRef = this.dialog.open(QrCodeScannerDialog, {
-      // panelClass: "full-screen-dialog",
-      // width: "50%",
-      data: {}
-    });
 
-    //dialogRef.componentInstance.username = "";
+    // open the dialog, and keep the reference to said dialog.
+    const dialogRef = this.dialog.open(QrCodeScannerDialog, {});
 
+    // triggered when dialog is closed
     dialogRef.afterClosed().subscribe(
       res => {
+        // res is the data passed by the dialog upon closing (should be a string reflecting the QR code)
         console.log(res);
-        // this.quests["quest999"] = {title: res, difficulty: 4};
-
         if (res == this.selectedQuestId){
           this.popMessage("Ayeeeeeeeee *insert meme*");
         }
@@ -72,16 +76,16 @@ export class ViewQuestComponent implements OnInit {
     )
   }
 
+  // Opens dialog to display message
   popMessage(message:string){
     const dialogRef = this.dialog.open(ViewQuestMessageDialog, {
       width: "50%",
       data: {msg: message}
     });
   }
-
-
 }
 
+// QR Scanner Dialog
 @Component({
   selector: 'QrCodeScannerDialog',
   templateUrl: 'QrCodeScannerDialog.html',
@@ -89,31 +93,31 @@ export class ViewQuestComponent implements OnInit {
 })
 export class QrCodeScannerDialog {
 
-  constructor(
-    public dialogRef: MatDialogRef<QrCodeScannerDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(public dialogRef: MatDialogRef<QrCodeScannerDialog>) {}
 
   ngOnInit(){
+    this.forceBackCamera();
   }
 
+  // Called when camera reads a QR code.
+  dataScanned(qrData){
+    // close the dialog, pass the data to parent component.
+    this.dialogRef.close(qrData);
+  }
 
-  test(event){
-    this.dialogRef.close(event);
+  // force the scanner to use back camera
+  // hypothesis is that this will improve scanner load time
+  forceBackCamera(){
+    console.log("Force Back Camera method not implemented!");
   }
 }
 
+// Message dialog; no functionalities
 @Component({
   selector: 'ViewQuestMessage',
   templateUrl: 'view-quest-message.dialog.html',
   styleUrls: ['view-quest.component.css']
 })
 export class ViewQuestMessageDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<ViewQuestMessageDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
-
-  ngOnInit(){
-    console.log(this.data);
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
