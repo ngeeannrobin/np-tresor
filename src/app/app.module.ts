@@ -8,10 +8,7 @@ import { environment, firebaseConfig} from '../environments/environment';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Components
-import { ARComponent } from './ar/ar.component';
-import { ViewAllQuestComponent } from './view-all-quest/view-all-quest.component';
-import { ViewSingleQuestComponent } from './view-single-quest/view-single-quest.component';
+// Components & Dialogs
 import { ViewQuestComponent, QrCodeScannerDialog, ViewQuestMessageDialog } from './view-quest/view-quest.component';
 
 
@@ -34,11 +31,11 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [
+    // Components
     AppComponent,
-    ARComponent,
-    ViewAllQuestComponent,
-    ViewSingleQuestComponent,
     ViewQuestComponent,
+
+    // Dialogs
     QrCodeScannerDialog,
     ViewQuestMessageDialog
   ],
@@ -68,6 +65,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
   bootstrap: [AppComponent],
 
   entryComponents: [
+    // Dialogs
     QrCodeScannerDialog,
     ViewQuestMessageDialog
   ]
