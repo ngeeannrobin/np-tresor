@@ -1,7 +1,7 @@
 # Tresor
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
-This project has been updated to [Angular CLI](https://github.com/angular/angular-cli) version 8.3.13
+This project has been updated to [Angular CLI](https://github.com/angular/angular-cli) version 8.3.14.
 
 ## Development server
 
