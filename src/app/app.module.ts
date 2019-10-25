@@ -26,6 +26,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // QR Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { LoginComponent } from './login/login.component';
 // import { NgQrScannerModule } from 'angular2-qrscanner';
 
 
@@ -37,7 +38,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
     // Dialogs
     QrCodeScannerDialog,
-    ViewQuestMessageDialog
+    ViewQuestMessageDialog,
+    LoginComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
