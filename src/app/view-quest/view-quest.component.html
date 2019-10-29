@@ -1,15 +1,8 @@
 
-
-<mat-accordion>
+<!-- Original expansion panel -->
+<!-- <mat-accordion>
   <mat-expansion-panel *ngFor="let questId of Object.keys(quests)" (opened)="selectedQuestId = questId">
     <mat-expansion-panel-header>
-      <!-- <mat-panel-title>
-        <span>[{{difficulty[quests[questId].difficulty].point}} points]</span>
-      </mat-panel-title> -->
-      <!-- <mat-panel-description>
-          
-      </mat-panel-description> -->
-
       [{{difficulty[quests[questId].difficulty].point}} points] {{quests[questId].title}}
     </mat-expansion-panel-header>
 
@@ -18,8 +11,10 @@
     
 
   </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion> -->
 
-<div *ngIf="false">
-  <zxing-scanner (scanSuccess)="test($event)"></zxing-scanner>
+<div>
+  <div *ngFor="let questId of Object.keys(quests)" (click)="openPage(questId)" class="outline">
+    <p>{{quests[questId].title}}</p>
+  </div>
 </div>

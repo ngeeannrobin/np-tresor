@@ -8,3 +8,7 @@
 .scanner-outer-container{
     position: relative;
 }
+
+.outline {
+    border: 1px solid black;
+}

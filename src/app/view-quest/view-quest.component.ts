@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,8 @@ export class ViewQuestComponent implements OnInit {
 
   constructor(
     private dbService: RealtimedatabaseService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
   
   
@@ -25,6 +27,12 @@ export class ViewQuestComponent implements OnInit {
   ngOnInit() {
     this.FetchDifficulty();
     this.FetchQuest();
+  }
+
+  openPage(id){
+    
+    console.log(`open page for questId: ${id}`);
+    this.router.navigate([`/ViewQuest/${id}`])
   }
 
   // download quest table from firebase
