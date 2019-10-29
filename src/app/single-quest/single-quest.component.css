@@ -1,0 +1,51 @@
+.QR-button {
+    background-color: orange;
+    color: red;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bolder;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transform: translate(-8px);
+}
+
+/* .scanner-background {
+    top: 0;
+    position: absolute;
+    height: 100vh;                  
+    width: 100%;
+    z-index: 998;
+    
+} */
+
+.scanner-container {
+    z-index: 999;
+    transform: translate(-8px);     /* account for body padding */
+    top: 0;                         /* 0 from top */
+    position: absolute;             /* ignore all elements */
+    height: 100vh;                  
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.scanner{
+    display: inline-block;
+    width: 50%;
+}
+
+/* Dialog */
+
+.message-dialog-container{
+    text-align: center;
+}
+
+.message-dialog-main-text{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.message-dialog-sub-text{
+    font-size: 1.5em;
+}

@@ -10,12 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Components & Dialogs
 import { ViewQuestComponent, QrCodeScannerDialog, ViewQuestMessageDialog } from './view-quest/view-quest.component';
-
+import { LoginComponent } from './login/login.component';
+import { SingleQuestComponent, SingleQuestMessageDialog } from './single-quest/single-quest.component';
 
 // AngularMaterial
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatExpansionModule} from '@angular/material/expansion';
+// import {MatExpansionModule} from '@angular/material/expansion';
 // import {MatListModule} from '@angular/material/list';
 
 
@@ -26,7 +27,6 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 // QR Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { LoginComponent } from './login/login.component';
 // import { NgQrScannerModule } from 'angular2-qrscanner';
 
 
@@ -34,12 +34,14 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     // Components
     AppComponent,
+    LoginComponent,
+    SingleQuestComponent,
     ViewQuestComponent,
-
+    
     // Dialogs
     QrCodeScannerDialog,
+    SingleQuestMessageDialog,
     ViewQuestMessageDialog,
-    LoginComponent
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
@@ -53,7 +55,7 @@ import { LoginComponent } from './login/login.component';
     // AngularMaterial
     MatButtonModule,
     MatDialogModule,
-    MatExpansionModule,
+    // MatExpansionModule,
     // MatListModule,
 
     // AngularFire
@@ -69,6 +71,7 @@ import { LoginComponent } from './login/login.component';
   entryComponents: [
     // Dialogs
     QrCodeScannerDialog,
+    SingleQuestMessageDialog,
     ViewQuestMessageDialog
   ]
 })
