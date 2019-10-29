@@ -63,6 +63,10 @@ export class ViewQuestComponent implements OnInit {
     )
   }
 
+  RandInt(start,end){
+    return Math.floor(Math.random() * (end-start) + start);
+  }
+
   // open QR code scanner dialog
   popScanner(){
 
