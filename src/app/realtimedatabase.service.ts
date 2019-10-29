@@ -32,6 +32,10 @@ export class RealtimedatabaseService {
     return this.GetRequest("/quest");
   }
 
+  FetchSingleQuest(id): Promise<any>{
+    return this.GetRequest(`/quest/${id}`)
+  }
+
   FetchDifficulty(): Promise<any>{
     return this.GetRequest("/difficulty");
   }
