@@ -1,0 +1,10 @@
+<h1>{{quest.title}}</h1>
+<div class="QR-button" (click)="OpenCamera()">
+    Solve
+</div>
+<div class="scanner-container" *ngIf="scanning">
+    <zxing-scanner (scanSuccess)="ScanCallback($event)" [formats]="['BarcodeFormat.QR_CODE']" class="scanner"></zxing-scanner>
+    <!-- <div class="scanner-background" (click)="CloseCamera()"></div> -->
+
+    
+</div>
