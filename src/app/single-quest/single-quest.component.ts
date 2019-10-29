@@ -49,6 +49,8 @@ export class SingleQuestComponent implements OnInit {
     this.CloseCamera();
     if (this.CheckQR(qr_data)){
       this.popCongratsMessageDialog();
+    } else {
+      this.popMessageDialog("You wrong, you lose, so best think you haven't won.","");
     }
   }
 
