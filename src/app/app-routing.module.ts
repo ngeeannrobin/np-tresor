@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ViewQuestComponent } from './view-quest/view-quest.component';
+import { SingleQuestComponent } from './single-quest/single-quest.component';
 
 const routes: Routes = [
   {path: "ViewQuest", component: ViewQuestComponent},
+  {path: "ViewQuest/:id",component: SingleQuestComponent},
   {path: "", pathMatch: "full", redirectTo:"ViewQuest"}
 ];
 
