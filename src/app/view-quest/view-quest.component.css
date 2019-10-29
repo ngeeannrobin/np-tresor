@@ -1,14 +1,25 @@
-.scanner-container{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100vh;
+.heading {
+    font-size: 2em;
+    font-weight: 900;
 }
 
-.scanner-outer-container{
-    position: relative;
+.quest-container {
+    /* border: 1px solid black; */
+    padding: 10px 25px;
+    margin-top: 5px;
+    border-radius: 10px;
+    background-color: rgb(230,230,230);
 }
 
-.outline {
-    border: 1px solid black;
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+
+
+.subtext{
+    font-size: 1.25em;
+    display: block;
+    margin-left: 0.5em;
 }
