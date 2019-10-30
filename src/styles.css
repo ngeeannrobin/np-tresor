@@ -1,2 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+body{
+    background-color: #F7F7F7;
+
+}
+
+/* set default font */
+* {
+    font-family: 'Open Sans', sans-serif;
+}

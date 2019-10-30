@@ -4,6 +4,7 @@ import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single-quest',
@@ -30,7 +31,7 @@ export class SingleQuestComponent implements OnInit {
 
   CheckPermission(){
     let scanner = new ZXingScannerComponent();
-    scanner.askForPermission()
+    scanner.askForPermission();
   }
 
   FetchQuest(id){
