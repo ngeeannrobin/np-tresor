@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Location } from '@angular/common';
+import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single-quest',
@@ -24,7 +26,13 @@ export class SingleQuestComponent implements OnInit {
   ngOnInit() {
     this.questId = this.route.snapshot.paramMap.get("id");
     this.FetchQuest(this.questId);
+    
   }
+
+  // CheckPermission(){
+  //   let scanner = new ZXingScannerComponent();
+  //   scanner.askForPermission();
+  // }
 
   FetchQuest(id){
     this.db.FetchSingleQuest(id).then(
@@ -36,7 +44,6 @@ export class SingleQuestComponent implements OnInit {
       }
     )
   }
-
 
   // using two functions instead of toggling
   // in case user taps an even number of times.
