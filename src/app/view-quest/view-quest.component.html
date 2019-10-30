@@ -1,10 +1,46 @@
-<div>
-  <span class="heading">Quests Available</span>
+current tab: {{tabs[1].text}}
+
+<!-- trust me, just don't look inside this div...  -->
+<div class="three-way-tab-container">
+  <div class="three-way-tab-inner-container">
+    <div class="three-way-tab-bounding-box">&nbsp;</div> <!--Covers up the "overlap"-->
+    <div
+      class="three-way-tab-tab three-way-tab-dummy three-way-tab-repos"
+      [ngClass]="{
+        'three-way-tab-selected-tab': tabs[2].selected,
+        'move-left': animate==-1,
+        'move-right': animate==1
+      }">
+      {{tabs[2].text}}
+    </div>
+    <div class="three-way-tab">
+      <div 
+        (click)="selectTab(tab)"
+        *ngFor="let tab of tabs"
+        class="three-way-tab-tab"
+        [ngClass]="{
+          'three-way-tab-selected-tab': tab.selected,
+          'move-left': animate==-1,
+          'move-right': animate==1
+        }">
+        {{tab.text}}
+      </div>
+    </div>
+    <div
+      class="three-way-tab-tab three-way-tab-dummy"
+      [ngClass]="{
+        'three-way-tab-selected-tab': tabs[0].selected,
+        'move-left': animate==-1,
+        'move-right': animate==1
+      }">
+      {{tabs[0].text}}
+    </div>
+  </div>
 </div>
 <div>
   <div *ngFor="let questId of Object.keys(quests)" (click)="openPage(questId)" class="quest-container">
     <span class="title">{{quests[questId].title}}</span>
-    <span class="subtext">{{RandInt(100,500)}} Points</span>
-    <span class="subtext">{{RandInt(3,7)}} Hints available</span>
+    <!-- <span class="subtext">{{RandInt(100,500)}} Points</span>
+    <span class="subtext">{{RandInt(3,7)}} Hints available</span> -->
   </div>
 </div>

@@ -1,3 +1,95 @@
+/* .test{
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-8px,-8px);
+    padding: 8px;
+    background-color: black;
+} */
+
+.three-way-tab-container {
+    margin-top: 20px;
+    text-align: center;
+    
+}
+
+.three-way-tab-inner-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.three-way-tab {
+    /* padding: 5px; */
+    background-color: #EBEBEB;
+    display: inline-block;
+    height: auto;
+    border-radius: 100px;
+}
+
+.three-way-tab-dummy {
+    display: inline-block;
+    position: absolute;
+}
+
+.three-way-tab-repos {
+    /* I know, cuss at me all you want */
+    left: calc((100vw - 60vw - 40px) / -2 + 4px); 
+}
+
+.three-way-tab-bounding-box {
+    display: inline-block;
+    position: absolute;
+    width: calc(60vw + 40px);
+    padding: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 100px;
+    font-family: PT Sans;
+
+    background-color: unset;
+    box-shadow: #F7F7F7 -20vw 0, #F7F7F7 20vw 0;
+    pointer-events: none; /*ignore any tap interactions*/
+
+    z-index: 999;
+    
+}
+
+.three-way-tab-tab {
+    padding: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    width: 20vw;
+    display: inline-block;
+    font-family: PT Sans;
+}
+
+
+
+.three-way-tab-selected-tab {
+    background-color: #D7D7D7;
+    border-radius: 100px;
+}
+
+.move-left {
+    animation: left-animate 2s;
+}
+.move-right{
+    animation: right-animate 2s;
+}
+
+@keyframes left-animate {
+    from{transform: translateX(0);}
+    50%{transform: translateX(calc(-20vw - 20px));}
+    to{transform: translateX(calc(-20vw - 20px));}
+}
+@keyframes right-animate {
+    from{transform: translateX(0);}
+    50%{transform: translateX(calc(20vw + 20px));}
+    to{transform: translateX(calc(20vw + 20px))}
+}
+
+
+
+
 .heading {
     font-size: 2em;
     font-weight: 900;
@@ -6,9 +98,9 @@
 .quest-container {
     /* border: 1px solid black; */
     padding: 10px 25px;
-    margin-top: 5px;
-    border-radius: 10px;
-    background-color: rgb(230,230,230);
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 5px 3px #ECECEC;
 }
 
 .title {
