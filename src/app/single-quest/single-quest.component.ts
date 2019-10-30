@@ -29,10 +29,10 @@ export class SingleQuestComponent implements OnInit {
     
   }
 
-  CheckPermission(){
-    let scanner = new ZXingScannerComponent();
-    scanner.askForPermission();
-  }
+  // CheckPermission(){
+  //   let scanner = new ZXingScannerComponent();
+  //   scanner.askForPermission();
+  // }
 
   FetchQuest(id){
     this.db.FetchSingleQuest(id).then(
@@ -45,10 +45,9 @@ export class SingleQuestComponent implements OnInit {
     )
   }
 
-
   // using two functions instead of toggling
   // in case user taps an even number of times.
-  OpenCamera(){this.CheckPermission();this.scanning = true;}
+  OpenCamera(){this.scanning = true;}
   CloseCamera(){this.scanning = false;}
 
   ToggleScanLine(){this.scanEffect = (this.scanEffect + 1) % 4;}
