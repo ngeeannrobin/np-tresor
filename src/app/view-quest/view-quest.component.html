@@ -1,20 +1,10 @@
-
-<!-- Original expansion panel -->
-<!-- <mat-accordion>
-  <mat-expansion-panel *ngFor="let questId of Object.keys(quests)" (opened)="selectedQuestId = questId">
-    <mat-expansion-panel-header>
-      [{{difficulty[quests[questId].difficulty].point}} points] {{quests[questId].title}}
-    </mat-expansion-panel-header>
-
-    <button mat-raised-button (click)="popScanner()">Scan QR Code</button>
-    <button mat-raised-button>Hint</button>
-    
-
-  </mat-expansion-panel>
-</mat-accordion> -->
-
 <div>
-  <div *ngFor="let questId of Object.keys(quests)" (click)="openPage(questId)" class="outline">
-    <p>{{quests[questId].title}}</p>
+  <span class="heading">Quests Available</span>
+</div>
+<div>
+  <div *ngFor="let questId of Object.keys(quests)" (click)="openPage(questId)" class="quest-container">
+    <span class="title">{{quests[questId].title}}</span>
+    <span class="subtext">{{RandInt(100,500)}} Points</span>
+    <span class="subtext">{{RandInt(3,7)}} Hints available</span>
   </div>
 </div>

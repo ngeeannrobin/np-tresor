@@ -19,6 +19,8 @@ export class SingleQuestComponent implements OnInit {
   questId: string;
   quest: any = {};
   scanning: boolean = false;
+  scanEffect: number = 0;
+
   ngOnInit() {
     this.questId = this.route.snapshot.paramMap.get("id");
     this.FetchQuest(this.questId);
@@ -41,10 +43,14 @@ export class SingleQuestComponent implements OnInit {
   OpenCamera(){this.scanning = true;}
   CloseCamera(){this.scanning = false;}
 
+  ToggleScanLine(){this.scanEffect = (this.scanEffect + 1) % 4;}
+
   ScanCallback(qr_data){
     this.CloseCamera();
     if (this.CheckQR(qr_data)){
       this.popCongratsMessageDialog();
+    } else {
+      this.popMessageDialog("You wrong, you lose, so best think you haven't won.","");
     }
   }
 
