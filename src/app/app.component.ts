@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   version = 'Release 0.2';
+  dark: boolean = false;
+  toggleTheme(){
+    document.documentElement.setAttribute("data-theme",this.dark?"default":"dark");
+    this.dark = !this.dark;
+
+
+  }
 }

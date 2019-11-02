@@ -26,3 +26,18 @@ body{
     --bar-background-color-selected: rgba(185,185,185,0.4);
     --bar-shadow-color-selected: rgba(0,0,0,0.064);
 }
+
+[data-theme="dark"] {
+    --body-background-color: #080808;
+    --card-background-color: #000000;
+    --main-text-color: #BFBFBF;
+    --sub-text-color: #777777;
+    --main-text-color-disabled: #606060;
+    --sub-text-color-disabled: #4D4D4D;
+    --card-shadow-color: rgba(255,255,255,0.1);
+    --bar-background-color: #141414;
+    --bar-shadow-color: rgba(255,255,255,0.16);
+
+    --bar-background-color-selected: rgba(70,70,70,0.4);
+    --bar-shadow-color-selected: rgba(255,255,255,0.064);
+}

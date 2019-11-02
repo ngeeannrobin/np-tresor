@@ -1,5 +1,7 @@
 .version {
     position: fixed;
-    right: 0;
+    right: 50vw;
     bottom: 0;
+    transform: translateX(50%);
+    color: var(--main-text-color);
 }
