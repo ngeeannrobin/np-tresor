@@ -3,11 +3,26 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 body{
-    background-color: #F7F7F7;
+    background-color: var(--body-background-color);
 
 }
 
 /* set default font */
 * {
     font-family: 'Open Sans', sans-serif;
+}
+
+:root {
+    --body-background-color: #F7F7F7;
+    --card-background-color: #FFFFFF;
+    --main-text-color: #404040;
+    --sub-text-color: #888888;
+    --main-text-color-disabled: #9F9F9F;
+    --sub-text-color-disabled: #B2B2B2;
+    --card-shadow-color: rgba(0,0,0,0.1);
+    --bar-background-color: #EBEBEB;
+    --bar-shadow-color: rgba(0,0,0,0.16);
+
+    --bar-background-color-selected: rgba(185,185,185,0.4);
+    --bar-shadow-color-selected: rgba(0,0,0,0.064);
 }
