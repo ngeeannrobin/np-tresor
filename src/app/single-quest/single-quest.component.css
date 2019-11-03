@@ -142,7 +142,7 @@
 /* Camera */
 
 .camera-container{
-    width: calc(95vw - 39.5px);
+    width: calc(100vw);
     position: absolute;
     top: 0;
 }
@@ -155,7 +155,7 @@
 }
 
 .camera{
-    width: calc(100vw - 39.5px);
+    width: calc(100vw);
 }
 
 /* Buttons */
