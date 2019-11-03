@@ -55,4 +55,16 @@ body{
 
     --bar-background-color-selected: rgba(70,70,70,0.4);
     --bar-shadow-color-selected: rgba(255,255,255,0.064);
+
+    --quest-line-background-color: #141414;
+    --hint-node-background-color: #343434;
+    --hint-text-color: #B9B9B9;
+    --btn-container-image: url("assets/image/darkgray-hill.png");
+    --solve-btn-background-color: #7F4633;
+    --solve-btn-text-color: #1D1D1D;
+    --solve-btn-shadow-color: rgba(255,255,255,0.16);
+    --hint-btn-background-color: #3E3E3E;
+    --hint-btn-text-color:#A0A0A0;
+
+    --back2quest-btn-text-color: #ADADAD;
 }
