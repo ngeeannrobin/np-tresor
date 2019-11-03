@@ -19,14 +19,32 @@ export class SingleQuestComponent implements OnInit {
     private dialog: MatDialog,
     private location: Location) { }
   questId: string;
-  quest: any = {};
-  scanning: boolean = false;
-  scanEffect: number = 0;
+  quest: any = {hint:{}};
+  showCamera: boolean = false;
+  showHint: boolean = true;
+  object = Object;
+  animate: number = 0; // -1 if closing camera, 1 if opening camera
+  correct: boolean = undefined;
+  showMessage: boolean = false;
+  message: string = "";
 
   ngOnInit() {
     this.questId = this.route.snapshot.paramMap.get("id");
     this.FetchQuest(this.questId);
-    
+  }
+
+  InjectFakeHints(){
+    this.quest.hint = {
+      hint0: {text: "fake hint number zero"},
+      hint1: {text: "fake hint number one"},
+      hint2: {text: "fake hint number two"},
+      hint3: {text: "fake hint number three"},
+      hint4: {text: "fake hint number four"},
+      hint5: {text: "fake hint number five"},
+      hint6: {text: "fake hint number six"},
+      hint7: {text: "fake hint number seven"},
+      hint8: {text: "fake hint number eight"}
+    }
   }
 
   // CheckPermission(){
@@ -38,6 +56,7 @@ export class SingleQuestComponent implements OnInit {
     this.db.FetchSingleQuest(id).then(
       quest => {
         this.quest = quest;
+        this.InjectFakeHints();
       },
       err => {
         console.log(err);
@@ -45,19 +64,34 @@ export class SingleQuestComponent implements OnInit {
     )
   }
 
-  // using two functions instead of toggling
-  // in case user taps an even number of times.
-  OpenCamera(){this.scanning = true;}
-  CloseCamera(){this.scanning = false;}
-
-  ToggleScanLine(){this.scanEffect = (this.scanEffect + 1) % 4;}
+async ToggleCamera(){
+  if (this.animate==0){ //no animation playing
+    if (this.showCamera){ // camera is open / hint is not showing
+      this.animate = -1;
+      this.showHint = true;
+      await this.delay(500);
+      this.showCamera = false;
+    } else { // camera not open / hint is showing
+      this.showCamera = true;
+      this.animate = 1;
+      await this.delay(1500);
+      this.showHint = false;
+    }
+    this.animate = 0;
+  }
+}
 
   ScanCallback(qr_data){
-    this.CloseCamera();
+    console.log(qr_data);
+    this.ToggleCamera();
     if (this.CheckQR(qr_data)){
-      this.popCongratsMessageDialog();
+      // this.popCongratsMessageDialog();
+      this.message = "You got it! Tap anywhere to return back to quests!"
+      this.correct = true;
     } else {
-      this.popMessageDialog("You wrong, you lose, so best think you haven't won.","");
+      this.message = "That's ain't it, chief! Tap anywhere to continue."
+      this.correct = false;
+      // this.popMessageDialog("You wrong, you lose, so best think you haven't won.","");
     }
   }
 
@@ -65,17 +99,39 @@ export class SingleQuestComponent implements OnInit {
     return qr_data == this.questId;
   }
 
-  popCongratsMessageDialog(){
-    const dialogRef = this.popMessageDialog(
-      "Congratulations! You did it! Yatta desu ne!",
-      "(dismiss this to return to quest list)"
-    );
+  // popCongratsMessageDialog(){
+  //   const dialogRef = this.popMessageDialog(
+  //     "Congratulations! You did it! Yatta desu ne!",
+  //     "(dismiss this to return to quest list)"
+  //   );
 
-    dialogRef.afterClosed().subscribe(
-      res => {
-        this.location.back();
+  //   dialogRef.afterClosed().subscribe(
+  //     res => {
+  //       this.back();
+  //     }
+  //   )
+  // }
+
+  back(){
+    this.location.back();
+  }
+
+  async dismiss(){
+    console.log(this.animate)
+    if (this.animate == 0){ // don't think need to check, but just in case
+      if (this.correct){
+        this.back();
+      } else { // re-display hints and stuff
+        this.animate = -1;
+        this.showMessage = true;
+        this.correct = undefined;
+        await this.delay(500);
+        this.showMessage = false;
+        this.animate = 0;
       }
-    )
+      
+    }
+
   }
 
   popMessageDialog(message:string, submessage:string){
@@ -84,6 +140,10 @@ export class SingleQuestComponent implements OnInit {
       data: {msg: {main: message, sub: submessage}}
     });
     return dialogRef;
+  }
+
+  async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms));
   }
 
 }
