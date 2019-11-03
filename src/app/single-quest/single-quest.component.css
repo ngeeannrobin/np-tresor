@@ -1,107 +1,12 @@
-.QR-button {
-    background-color: orange;
-    color: red;
-    text-align: center;
-    font-size: 3em;
-    font-weight: bolder;
+
+.all-container{
+    background-color: var(--card-background-color);
+    width: 100vw;
+    height: 100vh;
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    transform: translate(-8px);
+    transform: translate(-8px, -8px);
+    overflow-x: hidden;
 }
-
-/* .scanner-background {
-    top: 0;
-    position: absolute;
-    height: 100vh;                  
-    width: 100%;
-    z-index: 998;
-    
-} */
-
-.scanner-outer-container {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-}
-
-.scanner-background {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100vh;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 998;
-}
-
-.scanner-container{
-    position: relative;
-    top: 0; left: 0;
-    width: 90%;
-    transform: translate(calc(50vw - 50%),calc(50vh - 50%));
-    display: inline-block;
-    z-index: 999;
-}
-
-.scanner{
-    z-index: 998;
-}
-
-.scan-line{
-    position: absolute;
-    width: 100%; height: 3px;
-    background-color: rgba(255,255,255,0.5);
-    animation: up-down-scan 2s infinite;
-}
-
-@keyframes up-down-scan{
-    0%{top: 0;}
-    50%{top: 100%;}
-    100%{top: 0;}
-}
-
-.scan-box{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);;
-    width: 80%;
-    height: 80%;
-    background-color: rgba(255,255,255,0.1);
-}
-
-.scan-box-corner{
-    width: 20%;
-    height: 20%;
-    position: absolute;
-    /* background-color: black;; */
-}
-
-.scan-box-top{
-    top: 0;
-    border-top: 3px solid white;
-}
-.scan-box-bot{
-    bottom: 0;
-    border-bottom: 3px solid white;
-}
-.scan-box-left{
-    left: 0;
-    border-left: 3px solid white;
-}
-
-.scan-box-right{
-    right: 0;
-    border-right: 3px solid white;
-}
-
-.scan-box-text{
-    color: white;
-    padding-left: 10px;
-    padding-top: 10px;
-    font-weight: bold;
-}
-
-
 
 /* Dialog */
 
@@ -116,4 +21,212 @@
 
 .message-dialog-sub-text{
     font-size: 1.5em;
+}
+
+/* Show quest info */
+
+.quest-line{
+    width: 0;
+    min-height: calc(100vh - 4px);
+    height: auto;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 39.5px;
+    border: 2px solid var(--quest-line-background-color);
+    z-index: 900;
+}
+
+.quest-hint-outer-container {
+    margin-top: 55px;
+}
+
+.quest-title-container, .quest-point-container, .quest-hint-container{
+    margin: 0;
+    width: calc(95vw - 39.5px);
+    position: relative;
+}
+.quest-title-container{margin-top: 110px;}
+.quest-point-container{margin-top: 17px;}
+.quest-hint-container{margin-top: 25px;}
+
+.quest-title-node, .quest-point-node, .quest-hint-node, .camera-node, .msg-image-node, .msg-text-node{
+    border-radius: 50%;
+    display: inline-block;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    margin: 0;
+}
+
+.quest-title-node, .camera-node, .msg-image-node{
+    width: 1em; height: 1em;
+    background-color: var(--hint-node-background-color);
+}
+.quest-point-node {
+    width: 0.75em; height: 0.75em;
+    background-color: var(--point-text-color);
+}
+.quest-hint-node, .msg-text-node {
+    width: 0.75em; height: 0.75em;
+    background-color: var(--hint-node-background-color);
+}
+
+.quest-title-text, .quest-point-text, .quest-hint-text, .msg-text{
+    display: inline-block;
+    padding-left: 16.5px;
+    padding-right: 27px;
+}
+
+.quest-title-text, .msg-text{
+    color: var(--main-text-color);
+    font-weight: bold;
+}
+.quest-point-text{
+    color: var(--point-text-color);
+    font-weight: bold;
+}
+.quest-hint-text{
+    color: var(--hint-text-color);
+    font-size: 0.9em;
+}
+
+.quest-point-coin{
+    width: 2em;
+    position: absolute;
+    transform: translateY(-12.5%);
+}
+
+.down-animate{
+    animation: down-animate 1s;
+}
+.up-animate{
+    animation: up-animate 1s;
+}
+/* .up-animate-slow{
+    animation: up-animate 4s;
+} */
+
+@keyframes down-animate {
+    from{transform: translateY(0);}
+    50%{transform: translateY(100vh)}
+    to{transform: translateY(100vh)}
+}
+@keyframes up-animate {
+    from{transform: translateY(100vh);}
+    50%{transform: translateY(0)}
+    to{transform: translateY(0)}
+}
+
+
+/* message */
+.msg-container{
+    width: calc(100vw - 39.5px);
+    top: 0;
+    position: absolute;
+}
+
+.msg-image-container {
+    margin-top: 5vh;
+    position: relative;
+}
+
+.msg-text-container{
+    margin-top: 5px;
+    position: relative;
+}
+
+.msg-image {
+    width: 100%;
+}
+
+/* Camera */
+
+.camera-container{
+    height: 100vh;
+    position: absolute;
+    top: 0;
+}
+
+.camera-load-message{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: -1;
+}
+
+.camera{
+    height: 100vh
+}
+
+/* Buttons */
+
+.button-container{
+    position: fixed;
+    bottom: 0;
+    background-image: var(--btn-container-image);
+    background-size: 100% 100%;
+    transform: translate(-8px,0);
+    width: 100vw;
+    text-align: center;
+    pointer-events: none;
+}
+
+.button-container-resize{
+    visibility: hidden;
+    width: 100vw;
+}
+
+.button-solve, .button-hint{
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    width: 50vw;
+    text-align: center;
+    border-radius: 50vw;
+    pointer-events: auto;
+}
+
+.button-solve{
+    bottom: 162px; 
+    background-color: var(--solve-btn-background-color);
+    color: var(--solve-btn-text-color);
+    padding: 12px;
+    box-shadow: 0 3px 6px var(--solve-btn-shadow-color);
+    margin-bottom: 7px;
+}
+
+.button-hint{
+    font-size: 0.8em;
+    bottom: 125px;
+    padding: 8px;
+    background-color: var(--hint-btn-background-color);
+    color: var(--hint-btn-text-color);
+}
+
+.hint-point-coin{
+    width: 0.8em;
+    transform: translateY(37.5%)
+}
+
+.button-back{
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    position: absolute;
+    bottom: 88px;
+    color: var(--back2quest-btn-text-color);
+    text-decoration: underline;
+    pointer-events: auto;
+}
+
+
+/* others */
+.overlay{
+    position: absolute;
+    top: 0; left:0;
+    width: 100vw; height: 100vh;
+}
+
+:host /deep/ video{
+    height: 100vh !important;
 }

@@ -22,7 +22,7 @@
     position: relative;
 }
 .three-way-tab {
-    background-color: #EBEBEB;
+    background-color: var(--bar-background-color);
     display: inline-block;
     height: auto;
     border-radius: 100px;
@@ -44,7 +44,7 @@
     border-radius: 100px;
 
     background-color: unset;
-    box-shadow: #F7F7F7 -20vw 0, #F7F7F7 20vw 0;
+    box-shadow: var(--body-background-color) -20vw 0, var(--body-background-color) 20vw 0;
     pointer-events: none; /*ignore any tap interactions*/
 
     z-index: 998;
@@ -60,23 +60,23 @@
 
     transform: translate(-50%,-100%);
     background-color: unset;
-    box-shadow: 0px 3px 4px rgba(0,0,0,0.16);
+    box-shadow: 0px 3px 4px var(--bar-shadow-color);
     pointer-events: none; /*ignore any tap interactions*/
 
     z-index: 999;
     
 }
 .three-way-tab-tab {
-    color: #404040;
+    color: var(--main-text-color);
     padding: 10px;
     font-size: 0.9em;
     width: 20vw;
     display: inline-block;
 }
 .three-way-tab-selected-tab {
-    background-color: rgba(185,185,185,0.4);
+    background-color: var(--bar-background-color-selected);
     border-radius: 100px;
-    box-shadow: 1px 2px 3px rgba(0,0,0,0.064);
+    box-shadow: 1px 2px 3px var(--bar-shadow-color-selected);
 }
 .three-way-tab-move-left {
     animation: left-animate 2s;
@@ -99,14 +99,14 @@
     padding: 22px 15px 22px 25px;
     margin-top: 20px;
     margin-left: 21px; margin-right: 21px;
-    background-color: #FFFFFF;
-    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1);
+    background-color: var(--card-background-color);
+    box-shadow: 0px 3px 6px 0px var(--card-shadow-color);
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .quest-title, .quest-greyed-title{
-    font-size: 1.3em;
+    font-size: 1em;
     font-weight: bold;
     white-space: nowrap;
 }
@@ -116,10 +116,10 @@
     display: block;
 }
 
-.quest-title{color: #404040;}
-.quest-hint{color: #888888;}
-.quest-greyed-title{color: #9F9F9F;}
-.quest-greyed-hint{color: #B2B2B2;}
+.quest-title{color: var(--main-text-color)}
+.quest-hint{color: var(--sub-text-color)}
+.quest-greyed-title{color: var(--main-text-color-disabled)}
+.quest-greyed-hint{color: var(--sub-text-color-disabled)}
 
 .quest-point-container, .quest-point-check-container{
     text-align: right;
