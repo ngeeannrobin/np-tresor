@@ -142,7 +142,7 @@
 /* Camera */
 
 .camera-container{
-    /* height: 100vh; */
+    height: 100vh;
     position: absolute;
     top: 0;
 }
@@ -155,7 +155,7 @@
 }
 
 .camera{
-    /* height: 100vh */
+    height: 100vh
 }
 
 /* Buttons */
