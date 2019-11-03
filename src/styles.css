@@ -19,12 +19,27 @@ body{
     --sub-text-color: #888888;
     --main-text-color-disabled: #9F9F9F;
     --sub-text-color-disabled: #B2B2B2;
+    --point-text-color: #F1B012;
     --card-shadow-color: rgba(0,0,0,0.1);
     --bar-background-color: #EBEBEB;
     --bar-shadow-color: rgba(0,0,0,0.16);
 
     --bar-background-color-selected: rgba(185,185,185,0.4);
     --bar-shadow-color-selected: rgba(0,0,0,0.064);
+
+    --camera-dimension-min: 100vw;
+
+    --quest-line-background-color: #EBEBEB;
+    --hint-node-background-color: #CBCBCB;
+    --hint-text-color: #464646;
+    --btn-container-image: url("assets/image/lightgray-hill.png");
+    --solve-btn-background-color: #D57954;
+    --solve-btn-text-color: #E2E2E2;
+    --solve-btn-shadow-color: rgba(0,0,0,0.16);
+    --hint-btn-background-color: #C1C1C1;
+    --hint-btn-text-color:#5F5F5F;
+
+    --back2quest-btn-text-color: #525252;
 }
 
 [data-theme="dark"] {

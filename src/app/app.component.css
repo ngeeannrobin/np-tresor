@@ -4,4 +4,5 @@
     bottom: 0;
     transform: translateX(50%);
     color: var(--main-text-color);
+    z-index: 999;
 }

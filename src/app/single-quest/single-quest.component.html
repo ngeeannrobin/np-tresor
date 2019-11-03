@@ -1,23 +1,51 @@
-<h1>{{quest.title}}</h1>
-<div class="QR-button" (click)="OpenCamera()">
-    Solve
-</div>
-<div class="scanner-outer-container" *ngIf="scanning">
-    <div class="scanner-background" (click)="CloseCamera()"></div>
-    
-    <div class="scanner-container">
-        
-        <zxing-scanner (click)="ToggleScanLine()" (scanSuccess)="ScanCallback($event)" [formats]="['BarcodeFormat.QR_CODE']" class="scanner"></zxing-scanner>
-        <!-- The following two divs are purely for aesthetics and serve no function. -->
-        <div class="scan-line" *ngIf="scanEffect==1">&nbsp;</div>
-        <div class="scan-box" *ngIf="[2,3].includes(scanEffect)">
-            <div class="scan-box-corner scan-box-top scan-box-left"></div>
-            <div class="scan-box-corner scan-box-top scan-box-right"></div>
-            <div class="scan-box-corner scan-box-bot scan-box-left"></div>
-            <div class="scan-box-corner scan-box-bot scan-box-right"></div>
-            
-            <div class="scan-box-text" *ngIf="scanEffect==3">QR Code Cam</div>
-        </div>
+<!-- scanner v1 -->
+<!-- <div class="scanner-container" *ngIf="scanning">
+  <div class="scanner-background">
+    <span class="scanner-load-message">
+      Camera loading...
+    </span>
+  </div>
+  <zxing-scanner (scanSuccess)="ScanCallback($event)" [formats]="['BarcodeFormat.QR_CODE']" class="scanner"></zxing-scanner>
+  <div class="scanner-squarify"></div>
+</div> -->
+
+
+<div class="all-container">
+  <div class="quest-line">
+    <div class="quest-title-container">
+      <div class="quest-title-node"></div>
+      <div class="quest-title-text">{{quest.title}}</div>
     </div>
+    <div class="quest-point-container">
+      <div class="quest-point-node"></div>
+      <div class="quest-point-text">
+        nn <img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
+      </div>
+    </div>
+    <div class="quest-hint-outer-container">
+      <div class="quest-hint-container" *ngFor="let hintId of object.keys(quest.hint)">
+        <div class="quest-hint-node"></div>
+        <div class="quest-hint-text">
+          {{quest.hint[hintId].text}}
+        </div>
+      </div>
+      <div class="quest-hint-container" *ngIf="true"> <!--set to false if no hints avail?-->
+        <div class="quest-hint-node"></div>
+        <div class="quest-hint-text">
+          n hints available
+        </div>
+      </div>
+    </div>
+    <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
+  </div>
+
+</div>
+<div class="button-container">
+  <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
+  <div class="button-solve" (click)="OpenCamera()">Solve!</div>
+  <div class="button-hint">
+    Get Hint (- nn <img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
+  </div>
+  <div class="button-back">Back to quests</div>
 </div>
 
