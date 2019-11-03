@@ -142,7 +142,7 @@
 /* Camera */
 
 .camera-container{
-    width: calc(100vw);
+    /* height: 100vh; */
     position: absolute;
     top: 0;
 }
@@ -155,7 +155,7 @@
 }
 
 .camera{
-    width: calc(100vw);
+    /* height: 100vh */
 }
 
 /* Buttons */
@@ -222,4 +222,8 @@
     position: absolute;
     top: 0; left:0;
     width: 100vw; height: 100vh;
+}
+
+:host /deep/ video{
+    height: 100vh !important;
 }
