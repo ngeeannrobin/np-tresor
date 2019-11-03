@@ -70,7 +70,7 @@ export class SingleQuestComponent implements OnInit {
       } else { // camera not open / hint is showing
         this.showCamera = true;
         this.animate = 1;
-        await this.delay(1500);
+        await this.delay(500);
         this.showHint = false;
       }
       this.animate = 0;

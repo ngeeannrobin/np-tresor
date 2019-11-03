@@ -97,18 +97,18 @@
 }
 
 .down-animate{
-    animation: down-animate 3s;
+    animation: down-animate 1s;
 }
 .up-animate{
     animation: up-animate 1s;
 }
-.up-animate-slow{
+/* .up-animate-slow{
     animation: up-animate 4s;
-}
+} */
 
 @keyframes down-animate {
     from{transform: translateY(0);}
-    16.7%{transform: translateY(100vh)}
+    50%{transform: translateY(100vh)}
     to{transform: translateY(100vh)}
 }
 @keyframes up-animate {
@@ -168,6 +168,7 @@
     transform: translate(-8px,0);
     width: 100vw;
     text-align: center;
+    pointer-events: none;
 }
 
 .button-container-resize{
@@ -182,6 +183,7 @@
     width: 50vw;
     text-align: center;
     border-radius: 50vw;
+    pointer-events: auto;
 }
 
 .button-solve{
@@ -214,6 +216,7 @@
     bottom: 88px;
     color: var(--back2quest-btn-text-color);
     text-decoration: underline;
+    pointer-events: auto;
 }
 
 
