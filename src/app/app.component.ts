@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  version = 'Release 0.2';
+  version = 'Release 0.3';
   dark: boolean = false;
   toggleTheme(){
     document.documentElement.setAttribute("data-theme",this.dark?"default":"dark");
