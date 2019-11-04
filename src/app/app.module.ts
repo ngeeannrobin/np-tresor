@@ -11,7 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Components & Dialogs
 import { ViewQuestComponent } from './view-quest/view-quest.component';
 import { LoginComponent } from './login/login.component';
-import { SingleQuestComponent, SingleQuestMessageDialog } from './single-quest/single-quest.component';
+
+import { SingleQuestComponent } from './single-quest/single-quest.component';
 
 // AngularMaterial
 import {MatButtonModule} from '@angular/material/button';
@@ -37,7 +38,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ViewQuestComponent,
     
     // Dialogs
-    SingleQuestMessageDialog,
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
@@ -63,7 +63,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
   entryComponents: [
     // Dialogs
-    SingleQuestMessageDialog,
   ]
 })
 export class AppModule { }
