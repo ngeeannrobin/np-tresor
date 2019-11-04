@@ -22,6 +22,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 // import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule, AngularFirestore } from "angularfire2/firestore";
 
 // QR Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
@@ -57,7 +58,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     // QR Code Scanner
     ZXingScannerModule,
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent],
 
   entryComponents: [
