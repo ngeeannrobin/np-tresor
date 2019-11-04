@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-<h1>{{quest.title}}</h1>
-<div class="QR-button" (click)="OpenCamera()">
-    Solve
-</div>
-<div class="scanner-outer-container" *ngIf="scanning">
-    <div class="scanner-background" (click)="CloseCamera()"></div>
-    
-    <div class="scanner-container">
-        
-        <zxing-scanner (click)="ToggleScanLine()" (scanSuccess)="ScanCallback($event)" [formats]="['BarcodeFormat.QR_CODE']" class="scanner"></zxing-scanner>
-        <!-- The following two divs are purely for aesthetics and serve no function. -->
-        <div class="scan-line" *ngIf="scanEffect==1">&nbsp;</div>
-        <div class="scan-box" *ngIf="[2,3].includes(scanEffect)">
-            <div class="scan-box-corner scan-box-top scan-box-left"></div>
-            <div class="scan-box-corner scan-box-top scan-box-right"></div>
-            <div class="scan-box-corner scan-box-bot scan-box-left"></div>
-            <div class="scan-box-corner scan-box-bot scan-box-right"></div>
-            
-            <div class="scan-box-text" *ngIf="scanEffect==3">QR Code Cam</div>
-        </div>
-    </div>
-</div>
-
-=======
 <div class="all-container">
   <!-- VERTICAL LINE -->
   <div class="quest-line">
@@ -126,8 +101,5 @@
   </div>
   <div class="button-back" (click)="back()">Back to quests</div>
 </div>
-
 <div class="overlay" *ngIf="correct!=undefined" (click)="dismiss()">
-
 </div>
->>>>>>> master

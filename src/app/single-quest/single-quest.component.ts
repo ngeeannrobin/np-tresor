@@ -59,7 +59,6 @@ export class SingleQuestComponent implements OnInit {
       }
     )
   }
-
   async ToggleCamera(){
     if (this.animate==0){ //no animation playing
       if (this.showCamera){ // camera is open / hint is not showing
@@ -92,7 +91,6 @@ export class SingleQuestComponent implements OnInit {
   CheckQR(qr_data):boolean{
     return qr_data == this.questId;
   }
-
   back(){
     this.location.back();
   }
