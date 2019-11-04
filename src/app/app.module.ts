@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Components & Dialogs
 import { ViewQuestComponent } from './view-quest/view-quest.component';
 import { LoginComponent } from './login/login.component';
+
 import { SingleQuestComponent } from './single-quest/single-quest.component';
 
 // AngularMaterial
