@@ -43,6 +43,9 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(firebaseConfig),
 
+    // Enable offline support
+    AngularFirestoreModule.enablePersistence(),
+
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
