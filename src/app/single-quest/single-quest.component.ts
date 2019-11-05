@@ -14,6 +14,8 @@ export class SingleQuestComponent implements OnInit {
     private route: ActivatedRoute,
     private db: RealtimedatabaseService,
     private location: Location) { }
+
+  loaded: boolean = false;zzzzzzzz
   questId: string;
   quest: any = {hint:{}};
   showCamera: boolean = false;
@@ -23,6 +25,10 @@ export class SingleQuestComponent implements OnInit {
   correct: boolean = undefined;
   showMessage: boolean = false;
   message: string = "";
+  hintTaken: number = 0;
+  hintAvailable: number = 0;
+  pointAwarded: number = 0;
+  
 
   ngOnInit() {
     this.questId = this.route.snapshot.paramMap.get("id");
@@ -52,14 +58,30 @@ export class SingleQuestComponent implements OnInit {
     this.db.FetchSingleQuest(id).then(
       quest => {
         this.quest = quest;
+        this.hintAvailable = this.quest.hint.length - this.hintTaken;
+        this.pointAwarded = this.quest.point;
         console.log(quest);
-        this.InjectFakeHints();  
+        // this.InjectFakeHints();  
       },
       err => {
         console.log(err);
       }
     )
   }
+
+  TakeHint(){
+    // console.log(this.quest.hint.length)
+    if (this.hintTaken < this.quest.hint.length){
+      this.pointAwarded -= this.quest.hint[this.hintTaken].point
+      this.hintTaken += 1;
+      this.hintAvailable = this.quest.hint.length - this.hintTaken;
+
+    }
+      
+    // console.log(this.hintTaken)
+  }
+
+
   async ToggleCamera(){
     if (this.animate==0){ //no animation playing
       if (this.showCamera){ // camera is open / hint is not showing

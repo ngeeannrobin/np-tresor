@@ -20,7 +20,7 @@
       }">
       <div class="quest-point-node"></div>
       <div class="quest-point-text">
-        {{quest.point}}<img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
+        {{pointAwarded}}<img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
       </div>
     </div>
     <!-- HINT -->
@@ -30,16 +30,20 @@
         'down-animate':animate==1,
         'up-animate':animate==-1
       }">
-      <div class="quest-hint-container" *ngFor="let hintId of object.keys(quest.hint)">
-        <div class="quest-hint-node"></div>
-        <div class="quest-hint-text">
-          {{quest.hint[hintId].text}}
+      <div class="quest-hint-container" *ngFor="let hintIndex of object.keys(quest.hint)">
+        <div *ngIf="hintIndex < hintTaken">
+          <div class="quest-hint-node"></div>
+          <div class="quest-hint-text">
+            {{quest.hint[hintIndex].text}}
+          </div>
         </div>
+
       </div>
       <div class="quest-hint-container" *ngIf="true"> <!--set to false if no hints avail?-->
         <div class="quest-hint-node"></div>
         <div class="quest-hint-text">
-          n hints available
+
+          {{hintAvailable>0?hintAvailable:"No"}} hint{{hintAvailable==1?"":"s"}} available
         </div>
       </div>
     </div>
@@ -96,8 +100,13 @@
 <div class="button-container">
   <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
   <div class="button-solve" (click)="ToggleCamera()">{{showHint?"Solve!":"Nevermind"}}</div>
-  <div class="button-hint">
-    Get Hint (- nn <img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
+  <div class="button-hint" (click)="TakeHint()" >
+    <span *ngIf="hintAvailable>0">
+      Get Hint (- {{quest.hint[hintTaken].point}} <img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
+    </span>
+    <span *ngIf="hintAvailable==0">
+      No more hints :(
+    </span>
   </div>
   <div class="button-back" (click)="back()">Back to quests</div>
 </div>
