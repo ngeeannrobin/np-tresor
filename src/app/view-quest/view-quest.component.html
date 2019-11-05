@@ -55,7 +55,7 @@
     <span class="quest-title">{{quests.notdone[questId].title}}</span>
     <span class="quest-hint">n hints available</span>
     <div class="quest-point-container">
-        <span class="quest-point">nn</span>
+        <span class="quest-point">{{quests.notdone[questId].point}}</span>
       <img src="../../assets/image/gold_coin.png" alt="points" class="quest-coin">
     </div>
   </div>
@@ -67,7 +67,7 @@
     <span class="quest-greyed-title">{{quests.done[questId].title}}</span>
     <span class="quest-greyed-hint">n hints available</span>
     <div class="quest-point-check-container">
-        <span class="quest-point-check">nn</span>
+        <span class="quest-point-check">{{quests.done[questId].point}}</span>
       <img src="../../assets/image/green_check.png" alt="points earned" class="quest-check">
     </div>
   </div>
