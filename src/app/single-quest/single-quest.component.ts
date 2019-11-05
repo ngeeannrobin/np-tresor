@@ -52,7 +52,8 @@ export class SingleQuestComponent implements OnInit {
     this.db.FetchSingleQuest(id).then(
       quest => {
         this.quest = quest;
-        this.InjectFakeHints();
+        console.log(quest);
+        this.InjectFakeHints();  
       },
       err => {
         console.log(err);
@@ -89,7 +90,7 @@ export class SingleQuestComponent implements OnInit {
   }
 
   CheckQR(qr_data):boolean{
-    return qr_data == this.questId;
+    return qr_data == this.quest.qr;
   }
   back(){
     this.location.back();
