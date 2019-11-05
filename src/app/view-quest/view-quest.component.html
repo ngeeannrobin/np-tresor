@@ -51,7 +51,7 @@
 <!-- <div class="three-way-tab-phantom"></div> -->
 <!-- Display quests that are not completed -->
 <div *ngIf="['All','Not done'].includes(this.tabs[1].text)">
-  <div *ngFor="let questId of Object.keys(quests.notdone)" (click)="openPage(questId)" class="quest-container">
+  <div *ngFor="let questId of Object.keys(quests.notdone)" (click)="openNotDonePage(questId)" class="quest-container">
     <span class="quest-title">{{quests.notdone[questId].title}}</span>
     <span class="quest-hint">n hints available</span>
     <div class="quest-point-container">
@@ -63,7 +63,7 @@
 
 <!-- Display quests that are completed -->
 <div *ngIf="['All','Done'].includes(this.tabs[1].text)">
-  <div *ngFor="let questId of Object.keys(quests.done)" (click)="openPage(questId)" class="quest-container">
+  <div *ngFor="let questId of Object.keys(quests.done)" (click)="openDonePage(questId)" class="quest-container">
     <span class="quest-greyed-title">{{quests.done[questId].title}}</span>
     <span class="quest-greyed-hint">n hints available</span>
     <div class="quest-point-check-container">

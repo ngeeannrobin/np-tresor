@@ -32,9 +32,8 @@ export class ViewQuestComponent implements OnInit {
     this.FetchQuest();
   }
 
-  openPage(id){
-    console.log(`open page for questId: ${id}`);
-    this.router.navigate([`/ViewQuest/${id}`])
+  openNotDonePage(questIndex){
+    this.router.navigate([`/ViewQuest/${this.quests.notdone[questIndex].questId}`])
   }
 
 
@@ -48,7 +47,6 @@ export class ViewQuestComponent implements OnInit {
       const goLeft = this.tabs.indexOf(selectedTab)==2;
 
       this.animate = goLeft?-1:1;
-      console.log(goLeft);
       await this.delay(1000);
       this.animate = 0;
       if (goLeft){

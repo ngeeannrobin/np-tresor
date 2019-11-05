@@ -6,6 +6,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 @Injectable({
   providedIn: 'root'
 })
+// THIS SERVICE USES FIRESTORE, NOT REALTIME DATABASE!!!
 export class RealtimedatabaseService {
 
   ref: AngularFireObject<{}>;
@@ -18,7 +19,6 @@ export class RealtimedatabaseService {
     return new Promise(resolve => {
       doc.valueChanges().subscribe(
         data => { 
-          console.log(data);
           resolve(data);
         },
         err => {
