@@ -47,6 +47,11 @@ body{
     --hint-btn-text-color:#5F5F5F;
 
     --back2quest-btn-text-color: #525252;
+
+    --auth-bg-img-top: url("assets/image/auth/bg_default_top.png");
+    --auth-bg-img-bottom: url("assets/image/auth/bg_default_bottom.png");
+
+    --highlight-color: #C88771;
 }
 
 [data-theme="dark"] {
@@ -74,4 +79,9 @@ body{
     --hint-btn-text-color:#A0A0A0;
 
     --back2quest-btn-text-color: #ADADAD;
+
+    --auth-bg-img-top: url("assets/image/auth/bg_dark_top.png");
+    --auth-bg-img-bottom: url("assets/image/auth/bg_dark_bottom.png");
+
+    --highlight-color: #DCE1E7;
 }

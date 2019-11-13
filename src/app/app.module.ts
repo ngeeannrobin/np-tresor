@@ -28,6 +28,9 @@ import { AngularFirestoreModule, AngularFirestore } from "angularfire2/firestore
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 // import { NgQrScannerModule } from 'angular2-qrscanner'; (look into this if zxing cmi)
 
+// Initialize Firebase app
+import * as firebase from 'firebase';
+firebase.initializeApp(firebaseConfig);
 
 @NgModule({
   declarations: [
@@ -50,7 +53,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     BrowserAnimationsModule,
     BrowserModule,
     
-    
     // AngularMaterial
     MatButtonModule,
     MatDialogModule,
@@ -59,9 +61,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     AngularFireDatabaseModule,
 
     // QR Code Scanner
-    ZXingScannerModule,
+    ZXingScannerModule
   ],
-  providers: [AngularFirestore],
   bootstrap: [AppComponent],
 
   entryComponents: [
