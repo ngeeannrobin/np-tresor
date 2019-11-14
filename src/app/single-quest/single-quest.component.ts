@@ -76,7 +76,7 @@ export class SingleQuestComponent implements OnInit {
     // console.log(this.quest.hint.length)
     if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
       this.loadingHint = true;
-      this.gameservice.TakeHint(this.questId,"HXGiedlU8GZhuoUfES5ABoSI4Rl2",this.quest.hintTakenCount).then(
+      this.gameservice.TakeHint(this.quest,"HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
         _ => {
           this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
           this.quest.hintTakenCount += 1;
@@ -118,6 +118,7 @@ export class SingleQuestComponent implements OnInit {
     this.ToggleCamera();
     if (this.CheckQR(qr_data)){
       this.message = "You got it! Tap anywhere to return back to quests!"
+      
       this.correct = true;
     } else {
       this.message = "That's ain't it, chief! Tap anywhere to continue."
@@ -136,7 +137,10 @@ export class SingleQuestComponent implements OnInit {
     console.log(this.animate)
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
-        this.back();
+        this.gameservice.CompleteQuest(this.quest, "HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(_=>{
+          this.back();
+        })
+        
       } else { // re-display hints and stuff
         this.animate = -1;
         this.showMessage = true;

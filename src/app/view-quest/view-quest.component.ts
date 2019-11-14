@@ -73,7 +73,7 @@ export class ViewQuestComponent implements OnInit {
   // (player should only download relevant quests depending on gamemode)
   FetchQuest(){
     // hardcoded uuid
-    this.gameservice.FetchQuest("rfzsuKftCNYb3GtednLrRFtr6Uu2").then(
+    this.gameservice.FetchQuest("HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
       quest => {
         // randomly set ~80% of quests to notdone, the rest is done
         // Object.keys(quest).forEach(questId => {

@@ -65,7 +65,7 @@
 <div *ngIf="['All','Done'].includes(this.tabs[1].text)">
   <div *ngFor="let quest of quests.done" (click)="openDonePage(quest.questId)" class="quest-container">
     <span class="quest-greyed-title">{{quest.title}}</span>
-    <span class="quest-greyed-hint">{{quest.availHintCount}} hints available</span>
+    <span class="quest-greyed-hint">{{quest.availHintCount>0?quest.availHintCount:"no"}} hint{{quest.availHintCount!=1?"s":""}} available</span>
     <div class="quest-point-check-container">
         <span class="quest-point-check">{{quest.point}}</span>
       <img src="../../assets/image/green_check.png" alt="points earned" class="quest-check">

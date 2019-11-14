@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireObject } from "@angular/fire/database";
 import { reject } from 'q';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { firestore } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -76,11 +77,33 @@ export class RealtimedatabaseService {
     return promise;
   }
 
-  TakeHint(id,uuid,currentCount): Promise<any> {
-    let ref = this.db.doc(`user/${uuid}`);
+  TakeHint(quest,uuid): Promise<any> {
+    let userRef = this.db.doc(`user/${uuid}`);
     let obj = {};
-    obj[id] = currentCount+1;
-    return ref.set({hintTaken: obj},{merge: true});
+    obj[quest.questId] = quest.hintTakenCount+1;
+    return userRef.set({hintTaken: obj},{merge: true});
+  }
+
+  private AwardPoint(point,uuid): Promise<any> {
+    let userRef = this.db.doc(`user/${uuid}`);
+    return userRef.update({totalPoint: firestore.FieldValue.increment(point)});
+  }
+
+  private QuestDone(questId,uuid): Promise<any> {
+    let userRef = this.db.doc(`user/${uuid}`);
+    return userRef.update({questCompleted: firestore.FieldValue.arrayUnion(questId)});
+  }
+
+  CompleteQuest(quest,uuid): Promise<any> {
+    const promise = new Promise((res,rej)=>{
+      Promise.all([
+        this.AwardPoint(quest.point,uuid),
+        this.QuestDone(quest.questId,uuid)]).then(values=>{
+          res(undefined);
+      })
+    })
+
+    return promise;
   }
 
   // FetchCompletedQuest(uid): Promise<any> {

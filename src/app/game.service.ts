@@ -10,13 +10,24 @@ export class GameService {
 
   constructor(public db: RealtimedatabaseService) { }
 
-  FetchQuest(uuid): Promise<any> {
-    return this.db.FetchQuest(uuid);
+  FetchQuest(uuid,mode="all"): Promise<any> {
+    switch(mode){
+      case "wander":
+        return;
+      case "campaign":
+        return;
+      case "all":
+      default:
+        return this.db.FetchQuest(uuid);
+    }
   }
   FetchSingleQuest(id,uuid): Promise<any> {
     return this.db.FetchSingleQuest(id,uuid);
   }
-  TakeHint(id,uuid,currentCount): Promise<any> {
-    return this.db.TakeHint(id,uuid,currentCount);
+  TakeHint(quest,uuid): Promise<any> {
+    return this.db.TakeHint(quest,uuid);
+  }
+  CompleteQuest(quest,uuid): Promise<any> {
+    return this.db.CompleteQuest(quest,uuid)
   }
 }
