@@ -19,7 +19,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 
 // AngularFire
-// import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule, AngularFirestore } from "angularfire2/firestore";
@@ -60,6 +60,7 @@ firebase.initializeApp(firebaseConfig);
     MatDialogModule,
 
     // AngularFire
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
 
     // QR Code Scanner

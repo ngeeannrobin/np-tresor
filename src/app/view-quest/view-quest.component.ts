@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { Router } from '@angular/router';
 import { GameService } from '../game.service';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { GameService } from '../game.service';
 export class ViewQuestComponent implements OnInit {
 
   constructor(
+    private auth: AuthService,
     private gameservice: GameService,
     private router: Router
   ) { }
@@ -28,9 +30,12 @@ export class ViewQuestComponent implements OnInit {
     {text: "Done", selected: false},
   ];
   animate: number = 0; // -1 = left, +1 = right
+  userId: string = ""
 
   ngOnInit() {
+    this.userId = this.auth.GetUserId();
     this.FetchQuest();
+    
   }
 
   openNotDonePage(questId){
@@ -73,7 +78,7 @@ export class ViewQuestComponent implements OnInit {
   // (player should only download relevant quests depending on gamemode)
   FetchQuest(){
     // hardcoded uuid
-    this.gameservice.FetchQuest("HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
+    this.gameservice.FetchQuest(this.userId).then(
       quest => {
         // randomly set ~80% of quests to notdone, the rest is done
         // Object.keys(quest).forEach(questId => {
