@@ -26,6 +26,7 @@ import { AngularFirestoreModule, AngularFirestore } from "angularfire2/firestore
 
 // QR Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { CuriousUserComponent } from './curious-user/curious-user.component';
 // import { NgQrScannerModule } from 'angular2-qrscanner'; (look into this if zxing cmi)
 
 
@@ -36,6 +37,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     LoginComponent,
     SingleQuestComponent,
     ViewQuestComponent,
+    CuriousUserComponent,
     
     // Dialogs
   ],
