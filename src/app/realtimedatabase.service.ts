@@ -28,13 +28,46 @@ export class RealtimedatabaseService {
     })
   }
 
-  FetchQuest(): Promise<any>{
-    return this.GetRequest(this.db.collection("quest"));
+  FetchQuest(uuid): Promise<any> {
+    const allQuest = this.GetRequest(this.db.collection("quest"))
+    const completedQuest = this.GetRequest(this.db.doc(`user/${uuid}`))
+    const promise = new Promise((res,rej)=>{
+      Promise.all([allQuest,completedQuest]).then(values=>{
+        const allQuest = values[0];
+        const questCompleted: Array<any> = values[1].questCompleted?values[1].questCompleted:[];
+        const hintTaken: Array<any> = values[1].hintTaken?values[1].hintTaken:[];
+        const sortedQuest = {done: [], notdone: []};
+        allQuest.forEach(quest => {
+          // inititalise available hint count to the number of hints available
+          quest.availHintCount = quest.hint.length;
+          // subtract hints taken by user from the total number of hints available
+          if (hintTaken[quest.questId]){
+            quest.availHintCount -= hintTaken[quest.questId];
+          }
+          // sort quests by done/notdone
+          if (questCompleted.includes(quest.questId)){
+            sortedQuest.done.push(quest);
+          } else {
+            sortedQuest.notdone.push(quest);
+          }
+        });
+
+
+
+        console.log(sortedQuest);
+        res(sortedQuest);
+      })
+    })
+    return promise;
   }
 
-  FetchSingleQuest(id): Promise<any>{
+  FetchSingleQuest(id): Promise<any> {
     return this.GetRequest(this.db.doc(`quest/${id}`));
   }
+
+  // FetchCompletedQuest(uid): Promise<any> {
+  //   return this.GetRequest(this.db.doc(`user/${uid}/questCompleted`))
+  // }
 
   Test() {
     let col = this.db.collection("quest").ref

@@ -10,11 +10,13 @@ export class GameService {
 
   constructor(public db: RealtimedatabaseService) { }
 
-  FetchQuest(): Promise<any>{
-    return this.db.FetchQuest();
+  FetchQuest(uuid): Promise<any> {
+    return this.db.FetchQuest(uuid);
   }
-
-  FetchSingleQuest(id): Promise<any>{
+  FetchSingleQuest(id): Promise<any> {
     return this.db.FetchSingleQuest(id);
   }
+  // FetchCompletedQuest(uid): Promise<any> {
+  //   return this.db.FetchCompletedQuest(uid);
+  // } 
 }
