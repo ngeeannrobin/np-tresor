@@ -16,7 +16,7 @@ export class GameService {
   FetchSingleQuest(id,uuid): Promise<any> {
     return this.db.FetchSingleQuest(id,uuid);
   }
-  // FetchCompletedQuest(uid): Promise<any> {
-  //   return this.db.FetchCompletedQuest(uid);
-  // } 
+  TakeHint(id,uuid,currentCount): Promise<any> {
+    return this.db.TakeHint(id,uuid,currentCount);
+  }
 }

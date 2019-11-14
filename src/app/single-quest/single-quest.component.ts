@@ -25,6 +25,7 @@ export class SingleQuestComponent implements OnInit {
   correct: boolean = undefined;
   showMessage: boolean = false;
   message: string = "";
+  loadingHint: boolean = false;
   // hintTaken: number = 0;
   // hintAvailable: number = 0;
   // pointAwarded: number = 0;
@@ -73,11 +74,22 @@ export class SingleQuestComponent implements OnInit {
 
   TakeHint(){
     // console.log(this.quest.hint.length)
-    if (this.quest.hintTakenCount < this.quest.hint.length){
-      this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
-      this.quest.hintTakenCount += 1;
-      this.quest.hintAvailCount -= 1;
+    if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
+      this.loadingHint = true;
+      this.gameservice.TakeHint(this.questId,"HXGiedlU8GZhuoUfES5ABoSI4Rl2",this.quest.hintTakenCount).then(
+        _ => {
+          this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
+          this.quest.hintTakenCount += 1;
+          this.quest.hintAvailCount -= 1;
 
+          this.loadingHint = false;
+          console.log(_);
+        },
+        err=>{
+          this.loadingHint = false;
+          console.log(err);
+        }
+      )
     }
       
     // console.log(this.hintTaken)

@@ -70,13 +70,17 @@ export class RealtimedatabaseService {
         for (let i=0; i<hintTakenCount; i++){
           quest.point -= quest.hint[i].point;
         }
-
-        console.log(hintTakenCount);
         res(quest);
       })
     })
-
     return promise;
+  }
+
+  TakeHint(id,uuid,currentCount): Promise<any> {
+    let ref = this.db.doc(`user/${uuid}`);
+    let obj = {};
+    obj[id] = currentCount+1;
+    return ref.set({hintTaken: obj},{merge: true});
   }
 
   // FetchCompletedQuest(uid): Promise<any> {
