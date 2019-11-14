@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { Router } from '@angular/router';
+import { GameService } from '../game.service';
 
 
 @Component({
@@ -11,15 +12,15 @@ import { Router } from '@angular/router';
 export class ViewQuestComponent implements OnInit {
 
   constructor(
-    private dbService: RealtimedatabaseService,
+    private gameservice: GameService,
     private router: Router
   ) { }
   
   
   Object = Object;
   quests: any = {
-    done: {},
-    notdone: {}
+    done: [],
+    notdone: []
   };
   tabs: Array<any> = [
     {text: "Not done",selected: false},
@@ -32,8 +33,12 @@ export class ViewQuestComponent implements OnInit {
     this.FetchQuest();
   }
 
-  openNotDonePage(questIndex){
-    this.router.navigate([`/ViewQuest/${this.quests.notdone[questIndex].questId}`])
+  openNotDonePage(questId){
+    this.router.navigate([`/ViewQuest/${questId}`])
+  }
+
+  openDonePage(questId){
+    console.log(questId);
   }
 
 
@@ -67,15 +72,18 @@ export class ViewQuestComponent implements OnInit {
   // TODO: Refactor this in the future
   // (player should only download relevant quests depending on gamemode)
   FetchQuest(){
-    this.dbService.FetchQuest().then(
+    // hardcoded uuid
+    this.gameservice.FetchQuest("HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
       quest => {
         // randomly set ~80% of quests to notdone, the rest is done
-        Object.keys(quest).forEach(questId => {
-          if (Math.random() > 0.2)
-            this.quests.notdone[questId] = quest[questId];
-          else
-            this.quests.done[questId] = quest[questId];
-        })
+        // Object.keys(quest).forEach(questId => {
+        //   if (Math.random() > 0.2)
+        //     this.quests.notdone[questId] = quest[questId];
+        //   else
+        //     this.quests.done[questId] = quest[questId];
+        // })
+        this.quests = quest;
+
       },err => {
         console.log(err);
       }

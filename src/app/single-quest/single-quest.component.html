@@ -20,7 +20,7 @@
       }">
       <div class="quest-point-node"></div>
       <div class="quest-point-text">
-        {{pointAwarded}}<img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
+        {{quest.point}}<img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
       </div>
     </div>
     <!-- HINT -->
@@ -31,7 +31,7 @@
         'up-animate':animate==-1
       }">
       <div class="quest-hint-container" *ngFor="let hintIndex of object.keys(quest.hint)">
-        <div *ngIf="hintIndex < hintTaken">
+        <div *ngIf="hintIndex < quest.hintTakenCount">
           <div class="quest-hint-node"></div>
           <div class="quest-hint-text">
             {{quest.hint[hintIndex].text}}
@@ -39,11 +39,10 @@
         </div>
 
       </div>
-      <div class="quest-hint-container" *ngIf="true"> <!--set to false if no hints avail?-->
+      <div class="quest-hint-container">
         <div class="quest-hint-node"></div>
         <div class="quest-hint-text">
-
-          {{hintAvailable>0?hintAvailable:"No"}} hint{{hintAvailable==1?"":"s"}} available
+          {{quest.hintAvailCount>0?quest.hintAvailCount:"No"}} hint{{quest.hintAvailCount!=1?"s":""}} available
         </div>
       </div>
     </div>
@@ -101,10 +100,10 @@
   <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
   <div class="button-solve" (click)="ToggleCamera()">{{showHint?"Solve!":"Nevermind"}}</div>
   <div class="button-hint" (click)="TakeHint()" >
-    <span *ngIf="hintAvailable>0">
-      Get Hint (- {{quest.hint[hintTaken].point}} <img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
+    <span *ngIf="quest.hintAvailCount>0">
+      Get Hint (- {{quest.hint[quest.hintTakenCount].point}} <img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
     </span>
-    <span *ngIf="hintAvailable==0">
+    <span *ngIf="quest.hintAvailCount==0">
       No more hints :(
     </span>
   </div>

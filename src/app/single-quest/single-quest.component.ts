@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { Location } from '@angular/common';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-single-quest',
@@ -12,7 +12,7 @@ export class SingleQuestComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private db: RealtimedatabaseService,
+    private gameservice: GameService,
     private location: Location) { }
 
   loaded: boolean = false;zzzzzzzz
@@ -25,9 +25,10 @@ export class SingleQuestComponent implements OnInit {
   correct: boolean = undefined;
   showMessage: boolean = false;
   message: string = "";
-  hintTaken: number = 0;
-  hintAvailable: number = 0;
-  pointAwarded: number = 0;
+  loadingHint: boolean = false;
+  // hintTaken: number = 0;
+  // hintAvailable: number = 0;
+  // pointAwarded: number = 0;
   
 
   ngOnInit() {
@@ -55,11 +56,13 @@ export class SingleQuestComponent implements OnInit {
   // }
 
   FetchQuest(id){
-    this.db.FetchSingleQuest(id).then(
+    // hardcoded uuid
+    this.gameservice.FetchSingleQuest(id,"HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
       quest => {
         this.quest = quest;
-        this.hintAvailable = this.quest.hint.length - this.hintTaken;
-        this.pointAwarded = this.quest.point;
+        
+        // this.hintAvailable = this.quest.hint.length - this.hintTaken;
+        // this.pointAwarded = this.quest.point;
         console.log(quest);
         // this.InjectFakeHints();  
       },
@@ -71,11 +74,22 @@ export class SingleQuestComponent implements OnInit {
 
   TakeHint(){
     // console.log(this.quest.hint.length)
-    if (this.hintTaken < this.quest.hint.length){
-      this.pointAwarded -= this.quest.hint[this.hintTaken].point
-      this.hintTaken += 1;
-      this.hintAvailable = this.quest.hint.length - this.hintTaken;
+    if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
+      this.loadingHint = true;
+      this.gameservice.TakeHint(this.quest,"HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
+        _ => {
+          this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
+          this.quest.hintTakenCount += 1;
+          this.quest.hintAvailCount -= 1;
 
+          this.loadingHint = false;
+          console.log(_);
+        },
+        err=>{
+          this.loadingHint = false;
+          console.log(err);
+        }
+      )
     }
       
     // console.log(this.hintTaken)
@@ -104,6 +118,7 @@ export class SingleQuestComponent implements OnInit {
     this.ToggleCamera();
     if (this.CheckQR(qr_data)){
       this.message = "You got it! Tap anywhere to return back to quests!"
+      
       this.correct = true;
     } else {
       this.message = "That's ain't it, chief! Tap anywhere to continue."
@@ -122,7 +137,10 @@ export class SingleQuestComponent implements OnInit {
     console.log(this.animate)
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
-        this.back();
+        this.gameservice.CompleteQuest(this.quest, "HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(_=>{
+          this.back();
+        })
+        
       } else { // re-display hints and stuff
         this.animate = -1;
         this.showMessage = true;
