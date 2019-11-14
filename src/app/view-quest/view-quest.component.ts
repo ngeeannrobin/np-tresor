@@ -35,7 +35,6 @@ export class ViewQuestComponent implements OnInit {
   ngOnInit() {
     this.userId = this.auth.GetUserId();
     this.FetchQuest();
-    
   }
 
   openNotDonePage(questId){
@@ -57,7 +56,7 @@ export class ViewQuestComponent implements OnInit {
       const goLeft = this.tabs.indexOf(selectedTab)==2;
 
       this.animate = goLeft?-1:1;
-      await this.delay(1000);
+      await this.delay(500);
       this.animate = 0;
       if (goLeft){
         let temp = this.tabs.shift();

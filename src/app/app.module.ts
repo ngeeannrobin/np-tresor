@@ -40,7 +40,7 @@ firebase.initializeApp(firebaseConfig);
     LoginComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent,
+    CuriousUserComponent
     
     // Dialogs
   ],
