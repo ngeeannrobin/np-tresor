@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { Location } from '@angular/common';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-single-quest',
@@ -12,7 +12,7 @@ export class SingleQuestComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private db: RealtimedatabaseService,
+    private gameservice: GameService,
     private location: Location) { }
 
   loaded: boolean = false;zzzzzzzz
@@ -55,7 +55,7 @@ export class SingleQuestComponent implements OnInit {
   // }
 
   FetchQuest(id){
-    this.db.FetchSingleQuest(id).then(
+    this.gameservice.FetchSingleQuest(id).then(
       quest => {
         this.quest = quest;
         this.hintAvailable = this.quest.hint.length - this.hintTaken;

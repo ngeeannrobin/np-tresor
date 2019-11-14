@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { Router } from '@angular/router';
+import { GameService } from '../game.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class ViewQuestComponent implements OnInit {
 
   constructor(
-    private dbService: RealtimedatabaseService,
+    private gameservice: GameService,
     private router: Router
   ) { }
   
@@ -67,7 +68,7 @@ export class ViewQuestComponent implements OnInit {
   // TODO: Refactor this in the future
   // (player should only download relevant quests depending on gamemode)
   FetchQuest(){
-    this.dbService.FetchQuest().then(
+    this.gameservice.FetchQuest().then(
       quest => {
         // randomly set ~80% of quests to notdone, the rest is done
         Object.keys(quest).forEach(questId => {
