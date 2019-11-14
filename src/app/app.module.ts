@@ -29,6 +29,9 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { CuriousUserComponent } from './curious-user/curious-user.component';
 // import { NgQrScannerModule } from 'angular2-qrscanner'; (look into this if zxing cmi)
 
+// Initialize Firebase app
+import * as firebase from 'firebase';
+firebase.initializeApp(firebaseConfig);
 
 @NgModule({
   declarations: [
@@ -45,10 +48,12 @@ import { CuriousUserComponent } from './curious-user/curious-user.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(firebaseConfig),
 
+    // Enable offline support
+    AngularFirestoreModule.enablePersistence(),
+
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    
     
     // AngularMaterial
     MatButtonModule,
@@ -58,9 +63,8 @@ import { CuriousUserComponent } from './curious-user/curious-user.component';
     AngularFireDatabaseModule,
 
     // QR Code Scanner
-    ZXingScannerModule,
+    ZXingScannerModule
   ],
-  providers: [AngularFirestore],
   bootstrap: [AppComponent],
 
   entryComponents: [
