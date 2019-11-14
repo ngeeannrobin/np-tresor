@@ -29,10 +29,10 @@ export class RealtimedatabaseService {
   }
 
   FetchQuest(uuid): Promise<any> {
-    const allQuest = this.GetRequest(this.db.collection("quest"))
-    const completedQuest = this.GetRequest(this.db.doc(`user/${uuid}`))
+    const allQuestPromise = this.GetRequest(this.db.collection("quest"));
+    const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
     const promise = new Promise((res,rej)=>{
-      Promise.all([allQuest,completedQuest]).then(values=>{
+      Promise.all([allQuestPromise,userPromise]).then(values=>{
         const allQuest = values[0];
         const questCompleted: Array<any> = values[1].questCompleted?values[1].questCompleted:[];
         const hintTaken: Array<any> = values[1].hintTaken?values[1].hintTaken:[];
@@ -51,18 +51,32 @@ export class RealtimedatabaseService {
             sortedQuest.notdone.push(quest);
           }
         });
-
-
-
-        console.log(sortedQuest);
         res(sortedQuest);
       })
     })
     return promise;
   }
 
-  FetchSingleQuest(id): Promise<any> {
-    return this.GetRequest(this.db.doc(`quest/${id}`));
+  FetchSingleQuest(id,uuid): Promise<any> {
+    const questPromise = this.GetRequest(this.db.doc(`quest/${id}`));
+    const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
+    const promise = new Promise((res,rej)=>{
+      Promise.all([questPromise,userPromise]).then(values=>{
+        const quest = values[0];
+        const hintTakenCount = values[1].hintTaken[id]?values[1].hintTaken[id]:0;
+        quest.hintAvailCount = quest.hint.length - hintTakenCount;
+        quest.hintTakenCount = hintTakenCount;
+
+        for (let i=0; i<hintTakenCount; i++){
+          quest.point -= quest.hint[i].point;
+        }
+
+        console.log(hintTakenCount);
+        res(quest);
+      })
+    })
+
+    return promise;
   }
 
   // FetchCompletedQuest(uid): Promise<any> {

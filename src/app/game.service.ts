@@ -13,8 +13,8 @@ export class GameService {
   FetchQuest(uuid): Promise<any> {
     return this.db.FetchQuest(uuid);
   }
-  FetchSingleQuest(id): Promise<any> {
-    return this.db.FetchSingleQuest(id);
+  FetchSingleQuest(id,uuid): Promise<any> {
+    return this.db.FetchSingleQuest(id,uuid);
   }
   // FetchCompletedQuest(uid): Promise<any> {
   //   return this.db.FetchCompletedQuest(uid);

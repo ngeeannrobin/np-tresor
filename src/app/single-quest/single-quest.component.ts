@@ -25,9 +25,9 @@ export class SingleQuestComponent implements OnInit {
   correct: boolean = undefined;
   showMessage: boolean = false;
   message: string = "";
-  hintTaken: number = 0;
-  hintAvailable: number = 0;
-  pointAwarded: number = 0;
+  // hintTaken: number = 0;
+  // hintAvailable: number = 0;
+  // pointAwarded: number = 0;
   
 
   ngOnInit() {
@@ -55,11 +55,13 @@ export class SingleQuestComponent implements OnInit {
   // }
 
   FetchQuest(id){
-    this.gameservice.FetchSingleQuest(id).then(
+    // hardcoded uuid
+    this.gameservice.FetchSingleQuest(id,"HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
       quest => {
         this.quest = quest;
-        this.hintAvailable = this.quest.hint.length - this.hintTaken;
-        this.pointAwarded = this.quest.point;
+        
+        // this.hintAvailable = this.quest.hint.length - this.hintTaken;
+        // this.pointAwarded = this.quest.point;
         console.log(quest);
         // this.InjectFakeHints();  
       },
@@ -71,10 +73,10 @@ export class SingleQuestComponent implements OnInit {
 
   TakeHint(){
     // console.log(this.quest.hint.length)
-    if (this.hintTaken < this.quest.hint.length){
-      this.pointAwarded -= this.quest.hint[this.hintTaken].point
-      this.hintTaken += 1;
-      this.hintAvailable = this.quest.hint.length - this.hintTaken;
+    if (this.quest.hintTakenCount < this.quest.hint.length){
+      this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
+      this.quest.hintTakenCount += 1;
+      this.quest.hintAvailCount -= 1;
 
     }
       
