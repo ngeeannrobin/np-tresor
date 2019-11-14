@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
@@ -15,7 +15,8 @@ export class SingleQuestComponent implements OnInit {
     private auth: AuthService,
     private route: ActivatedRoute,
     private gameservice: GameService,
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   loaded: boolean = false;zzzzzzzz
   questId: string;
@@ -35,9 +36,17 @@ export class SingleQuestComponent implements OnInit {
   
 
   ngOnInit() {
-    this.userId = this.auth.GetUserId();
+    this.userId = this.getUID();
     this.questId = this.route.snapshot.paramMap.get("id");
     this.FetchQuest(this.questId);
+  }
+
+  getUID(){
+    const uid = this.auth.GetUserId();
+    if (uid){
+      return uid
+    }
+    this.router.navigate(["login"]);
   }
 
   InjectFakeHints(){
