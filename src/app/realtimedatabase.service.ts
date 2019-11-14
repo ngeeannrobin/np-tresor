@@ -63,15 +63,20 @@ export class RealtimedatabaseService {
     const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
     const promise = new Promise((res,rej)=>{
       Promise.all([questPromise,userPromise]).then(values=>{
-        const quest = values[0];
-        const hintTakenCount = values[1].hintTaken[id]?values[1].hintTaken[id]:0;
-        quest.hintAvailCount = quest.hint.length - hintTakenCount;
-        quest.hintTakenCount = hintTakenCount;
-
-        for (let i=0; i<hintTakenCount; i++){
-          quest.point -= quest.hint[i].point;
+        const completedQuest = values[1].questCompleted?values[1].questCompleted:[];
+        if (completedQuest.includes(id)){
+          res(null);
+        } else {
+          const quest = values[0];
+          const hintTakenCount = values[1].hintTaken?(values[1].hintTaken[id]?values[1].hintTaken[id]:0):0;
+          quest.hintAvailCount = quest.hint.length - hintTakenCount;
+          quest.hintTakenCount = hintTakenCount;
+  
+          for (let i=0; i<hintTakenCount; i++){
+            quest.point -= quest.hint[i].point;
+          }
+          res(quest);
         }
-        res(quest);
       })
     })
     return promise;
