@@ -71,7 +71,6 @@ export class RealtimedatabaseService {
           const hintTakenCount = values[1].hintTaken?(values[1].hintTaken[id]?values[1].hintTaken[id]:0):0;
           quest.hintAvailCount = quest.hint.length - hintTakenCount;
           quest.hintTakenCount = hintTakenCount;
-  
           for (let i=0; i<hintTakenCount; i++){
             quest.point -= quest.hint[i].point;
           }
@@ -110,10 +109,6 @@ export class RealtimedatabaseService {
 
     return promise;
   }
-
-  // FetchCompletedQuest(uid): Promise<any> {
-  //   return this.GetRequest(this.db.doc(`user/${uid}/questCompleted`))
-  // }
 
   Test() {
     let col = this.db.collection("quest").ref

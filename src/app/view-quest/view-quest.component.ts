@@ -53,7 +53,6 @@ export class ViewQuestComponent implements OnInit {
   }
 
   openDonePage(questId){
-    console.log(questId);
   }
 
 
@@ -87,16 +86,8 @@ export class ViewQuestComponent implements OnInit {
   // TODO: Refactor this in the future
   // (player should only download relevant quests depending on gamemode)
   FetchQuest(){
-    // hardcoded uuid
     this.gameservice.FetchQuest(this.userId).then(
       quest => {
-        // randomly set ~80% of quests to notdone, the rest is done
-        // Object.keys(quest).forEach(questId => {
-        //   if (Math.random() > 0.2)
-        //     this.quests.notdone[questId] = quest[questId];
-        //   else
-        //     this.quests.done[questId] = quest[questId];
-        // })
         this.quests = quest;
 
       },err => {

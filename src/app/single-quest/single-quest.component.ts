@@ -63,21 +63,10 @@ export class SingleQuestComponent implements OnInit {
     }
   }
 
-  // CheckPermission(){
-  //   let scanner = new ZXingScannerComponent();
-  //   scanner.askForPermission();
-  // }
-
   FetchQuest(id){
-    // hardcoded uuid
     this.gameservice.FetchSingleQuest(id,this.userId).then(
       quest => {
         this.quest = quest;
-        
-        // this.hintAvailable = this.quest.hint.length - this.hintTaken;
-        // this.pointAwarded = this.quest.point;
-        console.log(quest);
-        // this.InjectFakeHints();  
       },
       err => {
         console.log(err);
@@ -86,7 +75,6 @@ export class SingleQuestComponent implements OnInit {
   }
 
   TakeHint(){
-    // console.log(this.quest.hint.length)
     if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
       this.loadingHint = true;
       this.gameservice.TakeHint(this.quest,this.userId).then(
@@ -94,9 +82,7 @@ export class SingleQuestComponent implements OnInit {
           this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
           this.quest.hintTakenCount += 1;
           this.quest.hintAvailCount -= 1;
-
           this.loadingHint = false;
-          console.log(_);
         },
         err=>{
           this.loadingHint = false;
@@ -104,8 +90,6 @@ export class SingleQuestComponent implements OnInit {
         }
       )
     }
-      
-    // console.log(this.hintTaken)
   }
 
 
@@ -127,7 +111,6 @@ export class SingleQuestComponent implements OnInit {
   }
 
   ScanCallback(qr_data){
-    console.log(qr_data);
     this.ToggleCamera();
     if (this.CheckQR(qr_data)){
       this.message = "You got it! Tap anywhere to return back to quests!"
@@ -147,7 +130,6 @@ export class SingleQuestComponent implements OnInit {
   }
 
   async dismiss(){
-    console.log(this.animate)
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
         this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
