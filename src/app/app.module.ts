@@ -1,33 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment, firebaseConfig} from '../environments/environment';
-
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { environment, firebaseConfig} from '../environments/environment';
+import { NgModule } from '@angular/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components & Dialogs
-import { ViewQuestComponent } from './view-quest/view-quest.component';
+import { CuriousUserComponent } from './curious-user/curious-user.component';
 import { LoginComponent } from './login/login.component';
 import { SingleQuestComponent } from './single-quest/single-quest.component';
-
-// AngularMaterial
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
-
+import { ViewQuestComponent } from './view-quest/view-quest.component';
 
 // AngularFire
-// import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFirestoreModule, AngularFirestore } from "angularfire2/firestore";
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from "angularfire2/firestore";
 
 // QR Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { CuriousUserComponent } from './curious-user/curious-user.component';
-// import { NgQrScannerModule } from 'angular2-qrscanner'; (look into this if zxing cmi)
+
 
 // Initialize Firebase app
 import * as firebase from 'firebase';
@@ -40,26 +33,21 @@ firebase.initializeApp(firebaseConfig);
     LoginComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent,
+    CuriousUserComponent
     
     // Dialogs
   ],
   imports: [
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(firebaseConfig),
-
-    // Enable offline support
     AngularFirestoreModule.enablePersistence(),
 
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    
-    // AngularMaterial
-    MatButtonModule,
-    MatDialogModule,
 
     // AngularFire
+    AngularFireAuthModule,
     AngularFireDatabaseModule,
 
     // QR Code Scanner

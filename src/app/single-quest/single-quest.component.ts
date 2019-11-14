@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GameService } from '../game.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-single-quest',
@@ -11,9 +12,11 @@ import { GameService } from '../game.service';
 export class SingleQuestComponent implements OnInit {
 
   constructor(
+    private auth: AuthService,
     private route: ActivatedRoute,
     private gameservice: GameService,
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   loaded: boolean = false;zzzzzzzz
   questId: string;
@@ -26,14 +29,24 @@ export class SingleQuestComponent implements OnInit {
   showMessage: boolean = false;
   message: string = "";
   loadingHint: boolean = false;
+  userId: string = "";
   // hintTaken: number = 0;
   // hintAvailable: number = 0;
   // pointAwarded: number = 0;
   
 
   ngOnInit() {
+    this.userId = this.getUID();
     this.questId = this.route.snapshot.paramMap.get("id");
     this.FetchQuest(this.questId);
+  }
+
+  getUID(){
+    const uid = this.auth.GetUserId();
+    if (uid){
+      return uid
+    }
+    this.router.navigate(["login"]);
   }
 
   InjectFakeHints(){
@@ -50,21 +63,10 @@ export class SingleQuestComponent implements OnInit {
     }
   }
 
-  // CheckPermission(){
-  //   let scanner = new ZXingScannerComponent();
-  //   scanner.askForPermission();
-  // }
-
   FetchQuest(id){
-    // hardcoded uuid
-    this.gameservice.FetchSingleQuest(id,"HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
+    this.gameservice.FetchSingleQuest(id,this.userId).then(
       quest => {
         this.quest = quest;
-        
-        // this.hintAvailable = this.quest.hint.length - this.hintTaken;
-        // this.pointAwarded = this.quest.point;
-        console.log(quest);
-        // this.InjectFakeHints();  
       },
       err => {
         console.log(err);
@@ -73,17 +75,14 @@ export class SingleQuestComponent implements OnInit {
   }
 
   TakeHint(){
-    // console.log(this.quest.hint.length)
     if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
       this.loadingHint = true;
-      this.gameservice.TakeHint(this.quest,"HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(
+      this.gameservice.TakeHint(this.quest,this.userId).then(
         _ => {
           this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
           this.quest.hintTakenCount += 1;
           this.quest.hintAvailCount -= 1;
-
           this.loadingHint = false;
-          console.log(_);
         },
         err=>{
           this.loadingHint = false;
@@ -91,8 +90,6 @@ export class SingleQuestComponent implements OnInit {
         }
       )
     }
-      
-    // console.log(this.hintTaken)
   }
 
 
@@ -114,7 +111,6 @@ export class SingleQuestComponent implements OnInit {
   }
 
   ScanCallback(qr_data){
-    console.log(qr_data);
     this.ToggleCamera();
     if (this.CheckQR(qr_data)){
       this.message = "You got it! Tap anywhere to return back to quests!"
@@ -134,10 +130,9 @@ export class SingleQuestComponent implements OnInit {
   }
 
   async dismiss(){
-    console.log(this.animate)
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
-        this.gameservice.CompleteQuest(this.quest, "HXGiedlU8GZhuoUfES5ABoSI4Rl2").then(_=>{
+        this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
           this.back();
         })
         

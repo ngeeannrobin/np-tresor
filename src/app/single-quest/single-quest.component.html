@@ -101,7 +101,7 @@
   <div class="button-solve" (click)="ToggleCamera()">{{showHint?"Solve!":"Nevermind"}}</div>
   <div class="button-hint" (click)="TakeHint()" >
     <span *ngIf="quest.hintAvailCount>0">
-      Get Hint (- {{quest.hint[quest.hintTakenCount].point}} <img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
+      Get Hint (-{{quest.hint[quest.hintTakenCount].point}}<img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
     </span>
     <span *ngIf="quest.hintAvailCount==0">
       No more hints :(

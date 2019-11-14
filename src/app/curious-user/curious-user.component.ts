@@ -15,8 +15,7 @@ export class CuriousUserComponent implements OnInit {
   }
 
   redirect(){
-    console.log("redirect lol")
-    // this.router.navigate(["/login"]);
+    this.router.navigate(["/login"]);
   }
 
 }

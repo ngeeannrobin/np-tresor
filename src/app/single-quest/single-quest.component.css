@@ -3,7 +3,6 @@
     width: 100vw;
     height: 100vh;
     position: absolute;
-    transform: translate(-8px, -8px);
     overflow-x: hidden;
 }
 
@@ -154,7 +153,9 @@
 }
 
 .camera{
-    height: 100vh
+    height: 100vh;
+    min-width: calc(100vw - 39.5px);
+    /* background-color: gray; */
 }
 
 /* Buttons */
@@ -164,7 +165,8 @@
     bottom: 0;
     background-image: var(--btn-container-image);
     background-size: 100% 100%;
-    transform: translate(-8px,0);
+    max-height: 40vh;
+    /* margin-top: 70vh; */
     width: 100vw;
     text-align: center;
     pointer-events: none;
@@ -186,7 +188,7 @@
 }
 
 .button-solve{
-    bottom: 162px; 
+    bottom: 120px; 
     background-color: var(--solve-btn-background-color);
     color: var(--solve-btn-text-color);
     padding: 12px;
@@ -196,7 +198,7 @@
 
 .button-hint{
     font-size: 0.8em;
-    bottom: 125px;
+    bottom: 85px;
     padding: 8px;
     background-color: var(--hint-btn-background-color);
     color: var(--hint-btn-text-color);
@@ -204,7 +206,7 @@
 
 .hint-point-coin{
     width: 0.8em;
-    transform: translateY(37.5%)
+    transform: translateY(12.5%)
 }
 
 .button-back{
@@ -212,7 +214,7 @@
     transform: translateX(-50%);
     font-size: 0.8em;
     position: absolute;
-    bottom: 88px;
+    bottom: 50px;
     color: var(--back2quest-btn-text-color);
     text-decoration: underline;
     pointer-events: auto;
