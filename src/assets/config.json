@@ -1,0 +1,8 @@
+{
+    "RadiusOfEarthInM": 6371000, 
+    "QuestRangeInM": 50,
+    "UserLocation": {
+        "Latitude": null,
+        "Longitude": null
+    }
+}
