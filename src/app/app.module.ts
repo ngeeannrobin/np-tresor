@@ -24,6 +24,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 // Initialize Firebase app
 import * as firebase from 'firebase';
+import { How2playComponent } from './how2play/how2play.component';
 firebase.initializeApp(firebaseConfig);
 
 @NgModule({
@@ -33,7 +34,8 @@ firebase.initializeApp(firebaseConfig);
     LoginComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent
+    CuriousUserComponent,
+    How2playComponent
     
     // Dialogs
   ],
