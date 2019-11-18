@@ -53,6 +53,7 @@ export class ViewQuestComponent implements OnInit {
   }
 
   openDonePage(questId){
+    this.router.navigate([`/leaderboard`])
   }
 
 

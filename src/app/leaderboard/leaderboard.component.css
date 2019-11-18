@@ -1,0 +1,42 @@
+.leaderboard-container {
+    /* background-color: pink; */
+    padding: 2em;
+}
+
+.player-container {
+    margin-bottom: 0.5em;
+}
+
+.player-position, .player-name, .player-point {
+    /* background-color: white; */
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.player-position {
+    margin-right: 1em;
+    font-weight: bold;
+}
+
+.player-point {
+    float: right;
+    font-weight: bold;
+    color: var(--point-text-color);
+    position: relative;
+    transform: translateX(-1em);
+}
+
+.player-point::after {
+    /* content: url("../../assets/image/gold_coin.png"); */
+    content: "";
+    background: url("../../assets//image/gold_coin.png") no-repeat;
+    background-size: 100%;
+    width: 1em;
+    height: 1em;
+    /* height:10px; */
+    /* background-color: pink; */
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
+}
