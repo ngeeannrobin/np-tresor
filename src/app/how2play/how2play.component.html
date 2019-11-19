@@ -9,7 +9,9 @@
     <div class="instruction-text">
       {{instructions[currentIndex].text}}
     </div>
-    <div class="instruction-image">
+    <div class="instruction-image-container">
+      <img [src]="instructions[currentIndex].img" class="instruction-image">
+      <!-- {{instructions[currentIndex].img}} -->
     </div>
 	</div>
 
@@ -23,16 +25,18 @@
     <div class="instruction-text">
       {{instructions[nextIndex].text}}
     </div>
-    <div class="instruction-image">
+    <div class="instruction-image-container">
+      <img [src]="instructions[nextIndex].img" class="instruction-image">
+      <!-- {{instructions[nextIndex].img}} -->
     </div>
 	</div>
 
 	
 
   <div class="instruction-btn-back" (click)="next(-1)" *ngIf="currentIndex!=0">
-		Back
+		<
 	</div>
   <div class="instruction-btn-next" (click)="next(1)">
-    {{this.currentIndex == this.instructions.length-1?"Continue":"Next"}}
+    {{this.currentIndex == this.instructions.length-1?"Let's play!":">"}}
   </div>
 </div>

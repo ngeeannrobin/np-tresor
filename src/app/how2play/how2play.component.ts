@@ -12,27 +12,32 @@ export class How2playComponent implements OnInit {
   instructions:Array<any> = [
     {
       text: "Hello! Welcome to trésor! A tresure hunting game!",
-      title: "Introduction"
+      title: "Introduction",
+      img: "../../assets/icons/default_icon-512x512.png"
     },
     {
       text: "We will provide you with quests near you to solve.",
-      title: "Quests"
+      title: "Quests",
+      img: "../../assets/image/tutorial/questlist.png"
     },
     {
       text: "Each quest rewards you with a different number of points (we have a leaderboard, GO! GO! GO!).",
-      title: "Points"
+      title: "Points",
+      img: "../../assets/image/tutorial/tutpoint.png"
     },
     {
       text: "You solve these quests by trying to find a QR code somewhere in real life!",
-      title: "Solving"
+      title: "Solving",
+      // img: "../../assets/image/tutorial/tuthint.png"
     },
     {
       text: "When you think you have found the QR code, tap on \"Solve\" to scan it!",
-      title: "Solving"
+      title: "Scanning"
     },
     {
       text: "If you're stuck, take the hints! Keep in mind that you will receive less points when you take hints.",
-      title: "Hints"
+      title: "Hints",
+      img: "../../assets/image/tutorial/tuthint.png"
     }
   ]
 
