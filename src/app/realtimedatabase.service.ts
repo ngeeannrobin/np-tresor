@@ -145,4 +145,17 @@ export class RealtimedatabaseService {
 
     return promise;
   }
+
+  // Profile
+  FetchUsername(uuid): Promise<string> {
+    return new Promise((res,rej)=>{
+      this.FetchUser(uuid).then(userdoc => {
+        res(userdoc.username);
+      })
+    })
+  }
+  SetUsername(username, uuid): Promise<void> {
+    let userRef = this.db.doc(`user/${uuid}`);
+    return userRef.set({username: username},{merge: true});
+  }
 }

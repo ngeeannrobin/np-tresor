@@ -33,4 +33,12 @@ export class GameService {
   FetchTop(n,uuid): Promise<any> {
     return this.db.FetchTop(n,uuid);
   }
+
+  FetchUsername(uuid): Promise<string> {
+    return this.db.FetchUsername(uuid);
+  }
+
+  SetUsername(username, uuid): Promise<void> {
+    return this.db.SetUsername(username, uuid);
+  }
 }
