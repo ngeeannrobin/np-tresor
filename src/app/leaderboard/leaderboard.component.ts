@@ -20,7 +20,6 @@ export class LeaderboardComponent implements OnInit {
   uuid: string;
 
   ngOnInit() {
-
     this.uuid = this.getUID();
     this.FetchTop();
   }
@@ -31,10 +30,10 @@ export class LeaderboardComponent implements OnInit {
       return uid
     }
     console.log(uid);
-    // this.router.navigate(["login"]);
+    this.router.navigate(["login"]);
   }
 
-  FetchTop(n=10){
+  FetchTop(n=20){
     this.gameservice.FetchTop(n,this.uuid).then(
       top=>{
         this.top = top;
