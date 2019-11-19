@@ -141,7 +141,7 @@
 
 .quest-coin{
     width: 2em;
-    /* transform: translateY(12.5%); */
+    margin: 0 2%;
     position: absolute;
 }
 
