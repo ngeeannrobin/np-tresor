@@ -52,6 +52,8 @@ body{
     --auth-bg-img-bottom: url("assets/image/auth/bg_default_bottom.png");
 
     --highlight-color: #C88771;
+
+    --back-button: url("assets/image/back_button_default.png");
 }
 
 [data-theme="dark"] {
@@ -84,4 +86,6 @@ body{
     --auth-bg-img-bottom: url("assets/image/auth/bg_dark_bottom.png");
 
     --highlight-color: #DCE1E7;
+
+    --back-button: url("assets/image/back_button_dark.png");
 }
