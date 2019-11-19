@@ -26,6 +26,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import * as firebase from 'firebase';
 import { How2playComponent } from './how2play/how2play.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 firebase.initializeApp(firebaseConfig);
 
 @NgModule({
@@ -37,7 +38,8 @@ firebase.initializeApp(firebaseConfig);
     ViewQuestComponent,
     CuriousUserComponent,
     How2playComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    NavBarComponent
     
     // Dialogs
   ],
