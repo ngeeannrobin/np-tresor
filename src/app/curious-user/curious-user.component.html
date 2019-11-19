@@ -1,20 +1,48 @@
-<div>
-    wassap curious user. welcome to trésor, a capstone project worked on by three year three IT students.
+<div class="container">
+
+	<div class="inner-container" *ngIf="!showcontact">
+		<div class="title">
+			Hello! This is trésor.
+		</div>
+		<div class="description">
+			<div>
+				trésor is a treasure hunting game developer for a capstone project by three year three students!
+			</div>
+			<div>
+				Tap on "Play now!" to find out more!
+			</div> 
+		</div>
+	</div>
+	<div class="inner-container" *ngIf="showcontact">
+		<div class="title contact">
+			Contacts
+		</div>
+		<div class="contact-container">
+			<div class="contact-name">
+				Nicholas Ong, Design Lead
+			</div>
+			<div class="email">
+				s10182648@connect.np.edu.sg
+			</div>
+		</div>
+		<div class="contact-container">
+			<div class="contact-name">
+				Robin Yong, Technical Lead
+			</div>
+			<div class="email">
+				s10179209@connect.np.edu.sg
+			</div>
+		</div>
+		<div class="contact-container">
+			<div class="contact-name">
+				Sheline Sim, Project Lead
+			</div>
+			<div class="email">
+				s10177516@connect.np.edu.sg
+			</div>
+		</div>
+	</div>
+	<div (click)="redirect()" class="play-btn">Play now!</div>
+	<div (click)="togglecontact()" class="contact-btn">{{showcontact?"Description":"Contact"}}</div>
 </div>
-<br/>
-<div>
-    this is a temporary page, that's why it looks so good.
-</div>
-<br/>
-<div>
-    i promise you the rest of the game looks better.
-</div>
-<br/>
-<div>
-    Please contact any of the following for any inquiries
-    <div>Nicholas Ong, Design Lead (s10182648@connect.np.edu.sg)</div>
-    <div>Robin Yong, Technical Lead (s10179209@connect.np.edu.sg)</div>
-    <div>Sherline Sim, Project Lead (s10177516@connect.np.edu.sg)</div>
-</div>
-<br/>
-<div (click)="redirect()">click here to play lol</div>
+

@@ -28,6 +28,17 @@ export class GameService {
     return this.db.TakeHint(quest,uuid);
   }
   CompleteQuest(quest,uuid): Promise<any> {
-    return this.db.CompleteQuest(quest,uuid)
+    return this.db.CompleteQuest(quest,uuid);
+  }
+  FetchTop(n,uuid): Promise<any> {
+    return this.db.FetchTop(n,uuid);
+  }
+
+  FetchUsername(uuid): Promise<string> {
+    return this.db.FetchUsername(uuid);
+  }
+
+  SetUsername(username, uuid): Promise<void> {
+    return this.db.SetUsername(username, uuid);
   }
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireObject } from "@angular/fire/database";
-import { reject } from 'q';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { firestore } from 'firebase';
 import { AppConfigService } from './app-config.service';
@@ -21,15 +20,30 @@ export class RealtimedatabaseService {
 
 
   GetRequest(doc): Promise<any>{
-    return new Promise(resolve => {
+    return new Promise((res,rej) => {
       doc.valueChanges().subscribe(
         data => { 
-          resolve(data);
+          res(data);
         },
         err => {
-          reject(err);
+          rej(err);
         }
       )
+    })
+  }
+
+  GetRequestByRef(ref): Promise<any>{
+    return new Promise((res,rej)=>{
+      ref.get().then(snapshot=>{
+        if (snapshot.empty) {
+          res({}); 
+        }
+        let array = [];
+        snapshot.forEach(doc => {
+          array.unshift(doc.data());
+        });
+        res(array);
+      })
     })
   }
 
@@ -83,6 +97,7 @@ export class RealtimedatabaseService {
     return promise;
   }
 
+  // Single Quest
   FetchSingleQuest(id,uuid): Promise<any> {
     const questPromise = this.GetRequest(this.db.doc(`quest/${id}`));
     const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
@@ -131,24 +146,41 @@ export class RealtimedatabaseService {
           res(undefined);
       })
     })
+    return promise;
+  }
+
+  private FetchUser(uuid): Promise<any> {
+    const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
+    return userPromise;
+  }
+
+  // Leaderboard
+  FetchTop(n,uuid): Promise<any> {
+    console.log(uuid);
+    const ref = this.db.collection("user").ref.orderBy("totalPoint").limit(n);
+    const topPromise = this.GetRequestByRef(ref);
+    const userPromise = this.FetchUser(uuid);
+
+    const promise = new Promise((res,rej)=>{
+      Promise.all([topPromise,userPromise]).then(values=>{
+        console.log(values);
+        res(values[0]);
+      })
+    })
 
     return promise;
   }
 
-  Test() {
-    let col = this.db.collection("quest").ref
-    
-    col.where("point","==",3).get().then(snapshot => {
-      if (snapshot.empty) {
-        console.log('No matching documents.');
-        return;
-      }  
-      snapshot.forEach(doc => {
-        console.log(doc.id, '=>', doc.data());
-      });
+  // Profile
+  FetchUsername(uuid): Promise<string> {
+    return new Promise((res,rej)=>{
+      this.FetchUser(uuid).then(userdoc => {
+        res(userdoc.username);
+      })
     })
-    .catch(err => {
-      console.log('Error getting documents', err);
-    });
+  }
+  SetUsername(username, uuid): Promise<void> {
+    let userRef = this.db.doc(`user/${uuid}`);
+    return userRef.set({username: username},{merge: true});
   }
 }

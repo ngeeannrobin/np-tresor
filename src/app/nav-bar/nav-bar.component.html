@@ -1,0 +1,9 @@
+<div class="nav-bar">
+  <div class="nav-item-container">
+    <div *ngFor="let nav of navs" (click)="NavTo(nav.route)" class="nav-item">
+      {{nav.text}}
+    </div>
+  </div>
+
+</div>
+<div class="phantom-nav-bar"></div>

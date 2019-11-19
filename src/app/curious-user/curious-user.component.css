@@ -1,0 +1,69 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.title {
+    font-size: 1.75em;
+    font-weight: bold;
+    color: var(--main-text-color);
+}
+
+.description {
+    font-size: 1.25em;
+    color: var(--sub-text-color);
+}
+
+.inner-container {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 2em;
+}
+
+
+.contact-name {
+    margin-top: 0.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--main-text-color);
+}
+
+/* .contact, .contact-container{
+    text-align: center;;
+} */
+
+.email{
+    color: var(--sub-text-color);
+}
+
+.play-btn, .contact-btn {
+    background-color: var(--highlight-color);
+    color: var(--hint-btn-text-color);
+    position: absolute;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1.25em;
+    width: 40vw;
+    text-align: center;
+    overflow: hidden;
+}
+
+.play-btn {
+    
+    bottom: 20px; right: 50%;
+    transform: translateX(-1em);
+    
+
+
+} 
+
+.contact-btn {
+    bottom: 20px; left: 50%;
+    transform: translateX(1em);
+}

@@ -8,7 +8,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components & Dialogs
 import { CuriousUserComponent } from './curious-user/curious-user.component';
+import { How2playComponent } from './how2play/how2play.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { LoginComponent } from './login/login.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SingleQuestComponent } from './single-quest/single-quest.component';
 import { ViewQuestComponent } from './view-quest/view-quest.component';
 
@@ -30,18 +33,21 @@ import { HaversineService } from "ng2-haversine";
 
 // Initialize Firebase app
 import * as firebase from 'firebase';
-import { AppConfigService } from './app-config.service';
 firebase.initializeApp(firebaseConfig);
+
+import { AppConfigService } from './app-config.service';
 
 @NgModule({
   declarations: [
     // Components
     AppComponent,
+    CuriousUserComponent,
+    How2playComponent,
+    LeaderboardComponent,
     LoginComponent,
+    NavBarComponent
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent
-    
     // Dialogs
   ],
   imports: [
