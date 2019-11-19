@@ -110,6 +110,24 @@ export class RealtimedatabaseService {
     return promise;
   }
 
+  GetUserPoints(uuid): Promise<any> {
+    const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
+    const promise = new Promise((res, rej) => {
+      Promise.all([userPromise]).then(values => { res(values[0].totalPoint); })
+    });
+
+    return promise;
+  }
+
+  GetUserCompleteQuests(uuid): Promise<any> {
+    const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
+    const promise = new Promise((res, rej) => {
+      Promise.all([userPromise]).then(values => { res(values[0].questCompleted); })
+    });
+
+    return promise;
+  }
+
   Test() {
     let col = this.db.collection("quest").ref
     
