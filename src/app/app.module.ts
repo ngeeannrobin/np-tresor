@@ -3,7 +3,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { environment, firebaseConfig} from '../environments/environment';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components & Dialogs
@@ -21,9 +21,16 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 // QR Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
+// Http modules
+import { HttpClientModule } from '@angular/common/http';
+
+// To calculate distance between 2 points
+import { HaversineService } from "ng2-haversine";
+
 
 // Initialize Firebase app
 import * as firebase from 'firebase';
+import { AppConfigService } from './app-config.service';
 firebase.initializeApp(firebaseConfig);
 
 @NgModule({
@@ -51,7 +58,21 @@ firebase.initializeApp(firebaseConfig);
     AngularFireDatabaseModule,
 
     // QR Code Scanner
-    ZXingScannerModule
+    ZXingScannerModule,
+
+    // Http
+    HttpClientModule
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AppConfigService],
+      useFactory: (appConfigService: AppConfigService) => {
+        return () => { return appConfigService.loadAppConfig(); };
+      }
+    },
+    HaversineService
   ],
   bootstrap: [AppComponent],
 

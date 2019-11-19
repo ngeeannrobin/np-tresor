@@ -3,6 +3,8 @@ import { AngularFireObject } from "@angular/fire/database";
 import { reject } from 'q';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { firestore } from 'firebase';
+import { AppConfigService } from './app-config.service';
+import { HaversineService } from 'ng2-haversine';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,9 @@ export class RealtimedatabaseService {
 
   ref: AngularFireObject<{}>;
   constructor(
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private appConfigService: AppConfigService,
+    private haversineService: HaversineService
     ) { }
 
 
@@ -38,6 +42,14 @@ export class RealtimedatabaseService {
         const questCompleted: Array<any> = values[1].questCompleted?values[1].questCompleted:[];
         const hintTaken: Array<any> = values[1].hintTaken?values[1].hintTaken:[];
         const sortedQuest = {done: [], notdone: []};
+
+        // get features for filtering quests by range
+        const quest_range = this.appConfigService.QuestRangeInM;
+        const user_location = {
+          latitude: this.appConfigService.UserLocationLatitude,
+          longitude: this.appConfigService.UserLocationLongitude
+        };
+
         allQuest.forEach(quest => {
           // inititalise available hint count to the number of hints available
           quest.availHintCount = quest.hint.length;
@@ -49,7 +61,20 @@ export class RealtimedatabaseService {
           if (questCompleted.includes(quest.questId)){
             sortedQuest.done.push(quest);
           } else {
-            sortedQuest.notdone.push(quest);
+            // only include quests within quest_range in notdone
+            if (user_location == null) {
+              // if no location, show all quests
+              sortedQuest.notdone.push(quest);
+            } else {
+              // get dist in m between quest & user
+              const dist = this.haversineService.getDistanceInMeters(user_location, {
+                latitude: quest.latitude,
+                longitude: quest.longitude
+              });
+
+              // if distance is within defined range, show quest
+              if (dist <= quest_range) { sortedQuest.notdone.push(quest); }
+            }
           }
         });
         res(sortedQuest);
