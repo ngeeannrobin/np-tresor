@@ -20,17 +20,15 @@ export class LeaderboardComponent implements OnInit {
   uuid: string;
 
   ngOnInit() {
-    this.uuid = this.getUID();
-    this.FetchTop();
-  }
-
-  getUID(){
-    const uid = this.auth.GetUserId();
-    if (uid){
-      return uid
-    }
-    console.log(uid);
-    this.router.navigate(["login"]);
+    this.auth.CheckLogin().then(loggedIn=>{
+      if (loggedIn){
+        this.uuid = this.auth.GetUserId();
+        this.FetchTop();
+      } else {
+        this.router.navigate(["login"]);
+        
+      }
+    })
   }
 
   FetchTop(n=20){
