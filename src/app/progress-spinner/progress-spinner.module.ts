@@ -8,6 +8,7 @@ export { ProgressSpinnerComponent } from './progress-spinner.component';
     CommonModule,
     MatProgressSpinnerModule
   ],
+  entryComponents: [ProgressSpinnerComponent],
   declarations: [ProgressSpinnerComponent],
   exports: [ProgressSpinnerComponent]
 })

@@ -7,11 +7,11 @@ import { OverlayService } from '../overlay/overlay.module';
 @Component({
   selector: 'app-progress-spinner',
   templateUrl: './progress-spinner.component.html',
-  styleUrls: ['./progress-spinner.component.css']
+  styleUrls: ['./progress-spinner.component.scss']
 })
 export class ProgressSpinnerComponent {
   @Input() color?: ThemePalette;
-  @Input() diameter?: number = 100;
+  @Input() diameter?: number = 50;
   @Input() mode?: ProgressSpinnerMode;
   @Input() strokeWidth?: number;
   @Input() value?: number;
@@ -19,7 +19,7 @@ export class ProgressSpinnerComponent {
   @Input() positionGloballyCenter = true;
   @Input() displayProgressSpinner: boolean;
 
-  @ViewChild('progressSpinnerRef', { static: true} )
+  @ViewChild('progressSpinnerRef', { static: true } )
   private progressSpinnerRef: TemplateRef<any>;
   private progressSpinnerOverlayConfig: OverlayConfig;
   private overlayRef: OverlayRef;

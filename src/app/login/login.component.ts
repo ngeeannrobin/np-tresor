@@ -25,10 +25,15 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private gameService: GameService,
               private authService: AuthService) {
+
+    // if being redirected from oauth, keep progress spinner on
+    if (document.referrer == "") this.displayProgressSpinner = true;
+
     // Bypass login if already authenticated
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         zone.run(() => {
+
           // stop spinner
           this.displayProgressSpinner = false;
 

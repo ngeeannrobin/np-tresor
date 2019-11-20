@@ -75,7 +75,11 @@ import { AppConfigService } from './app-config.service';
     ZXingScannerModule,
 
     // Http
-    HttpClientModule
+    HttpClientModule,
+
+    // Spinner
+    AppOverlayModule,
+    ProgressSpinnerModule
   ],
   providers: [
     {
@@ -89,10 +93,6 @@ import { AppConfigService } from './app-config.service';
     HaversineService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [
-    // Spinner
-    AppOverlayModule,
-    ProgressSpinnerModule
-  ]
+  entryComponents: [AppComponent, ProgressSpinnerComponent]
 })
 export class AppModule { }
