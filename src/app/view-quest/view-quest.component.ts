@@ -36,7 +36,7 @@ export class ViewQuestComponent implements OnInit {
     this.userId = this.getUID();
 
 
-
+    this.CheckTutorial();
     this.FetchQuest();
   }
 
@@ -53,7 +53,7 @@ export class ViewQuestComponent implements OnInit {
   }
 
   openDonePage(questId){
-    this.router.navigate([`/leaderboard`])
+    // this.router.navigate([`/leaderboard`])
   }
 
 
@@ -93,6 +93,16 @@ export class ViewQuestComponent implements OnInit {
 
       },err => {
         console.log(err);
+      }
+    )
+  }
+
+  CheckTutorial(){
+    this.gameservice.FetchTutorialStatus(this.userId).then(
+      tutDone => {
+        if (!tutDone){
+          this.router.navigate(["/tutorial"]);
+        }
       }
     )
   }

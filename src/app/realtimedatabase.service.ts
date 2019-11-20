@@ -192,7 +192,7 @@ export class RealtimedatabaseService {
   }
 
   Test() {
-    let col = this.db.collection("quest").ref
+    let col = this.db.collection("quest").ref;
     
     col.where("point","==",3).get().then(snapshot => {
       if (snapshot.empty) {
@@ -202,6 +202,8 @@ export class RealtimedatabaseService {
       snapshot.forEach(doc => {
         console.log(doc.id, '=>', doc.data());
       });
+    });
+  }
 
   // Profile
   FetchUsername(uuid): Promise<string> {
@@ -214,5 +216,19 @@ export class RealtimedatabaseService {
   SetUsername(username, uuid): Promise<void> {
     let userRef = this.db.doc(`user/${uuid}`);
     return userRef.set({username: username},{merge: true});
+  }
+
+  // tutorial
+  FetchTutorialStatus(uuid): Promise<boolean> {
+    return new Promise((res,rej)=>{
+      this.FetchUser(uuid).then(userdoc => {
+        res(userdoc.tutorial);
+      })
+    })
+  }
+
+  SetTutorialDone(uuid): Promise<void> {
+    let userRef = this.db.doc(`user/${uuid}`);
+    return userRef.set({tutorial: true},{merge:true});
   }
 }

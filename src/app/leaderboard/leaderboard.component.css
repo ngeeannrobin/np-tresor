@@ -32,10 +32,20 @@
     background-color: var(--leaderboard-odd-background-color);
 }
 
-.player-position, .player-name, .player-point {
+.player-position, .player-point {
     /* background-color: white; */
     display: inline-block;
     font-size: 1.5em;
+}
+
+.player-name {
+    display: inline-block;
+    font-size: 1em;
+    width: 50vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    /* background-color: pink; */
 }
 
 .player-position {

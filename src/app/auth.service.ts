@@ -15,4 +15,6 @@ export class AuthService {
   GetUserDisplayName() {
     return this.auth.auth.currentUser!=null?this.auth.auth.currentUser.displayName:"Player";
   }
+
+
 }

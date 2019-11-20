@@ -37,8 +37,15 @@ export class GameService {
   FetchUsername(uuid): Promise<string> {
     return this.db.FetchUsername(uuid);
   }
-
   SetUsername(username, uuid): Promise<void> {
     return this.db.SetUsername(username, uuid);
+  }
+
+  FetchTutorialStatus(uuid): Promise<boolean> {
+    return this.db.FetchTutorialStatus(uuid);
+  }
+
+  SetTutorialDone(uuid): Promise<void> {
+    return this.db.SetTutorialDone(uuid);
   }
 }

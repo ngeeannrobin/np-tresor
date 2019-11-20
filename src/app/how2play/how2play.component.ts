@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-how2play',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class How2playComponent implements OnInit {
   
-  constructor() { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private gameService: GameService
+  ) { }
 
   instructions:Array<any> = [
     {
@@ -28,11 +35,12 @@ export class How2playComponent implements OnInit {
     {
       text: "You solve these quests by trying to find a QR code somewhere in real life!",
       title: "Solving",
-      // img: "../../assets/image/tutorial/tuthint.png"
+      img: "../../assets/image/tutorial/tutqr.png"
     },
     {
       text: "When you think you have found the QR code, tap on \"Solve\" to scan it!",
-      title: "Scanning"
+      title: "Scanning",
+      img: "../../assets/image/tutorial/tutcan.png"
     },
     {
       text: "If you're stuck, take the hints! Keep in mind that you will receive less points when you take hints.",
@@ -58,7 +66,11 @@ export class How2playComponent implements OnInit {
       }
       else {
         if (this.currentIndex){
-          console.log("redirect!")
+          this.gameService.SetTutorialDone(this.auth.GetUserId()).then(
+            _ => {
+              this.router.navigate(["/ViewQuest"]);
+            }
+          )
         }
       }
     }
