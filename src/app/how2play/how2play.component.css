@@ -1,0 +1,78 @@
+.instruction-container{
+    /* background-color: pink; */
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 1em;
+    position: relative;
+}
+
+.instruction-inner-container{
+    width: calc(100vw - 2em);
+}
+
+.instruction-title{
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--main-text-color);
+}
+
+.instruction-text{
+    font-size: 1.25em;
+    color: var(--sub-text-color)
+}
+
+.instruction-image-container{
+    background-color: pink;
+    width: 100%;
+}
+.instruction-image {
+    width: 100%;
+}
+
+
+.instruction-btn-next, .instruction-btn-back{
+    padding: 10px 20px;
+    background-color: var(--hint-btn-background-color);
+    color: var(--hint-btn-text-color);
+    border-radius: 20px;
+    font-size: 1.25em;
+    position: absolute;
+}
+
+.instruction-btn-next{bottom: 20px; right: 20px;}
+.instruction-btn-back{bottom: 20px; left: 20px;}
+
+.phantom {
+    position: absolute;
+    top: 1em;
+    /* transform: translateY(-100%); */
+}
+
+.left-out {animation: left-out 1s;}
+@keyframes left-out {
+    from{transform: translateX(0);}
+    50%{transform: translateX(-100vw);}
+    to{transform: translateX(-100vw);}
+}
+
+.right-out {animation: right-out 1s;}
+@keyframes right-out {
+    from{transform: translateX(0);}
+    50%{transform: translateX(100vw);}
+    to{transform: translateX(100vw);}
+}
+
+.left-in {animation: left-in 1s;}
+@keyframes left-in {
+    from{transform: translateX(-100vw);}
+    50%{transform: translateX(0);}
+    to{transform: translateX(0);}
+}
+
+.right-in {animation: right-in 1s;}
+@keyframes right-in {
+    from{transform: translateX(100vw);}
+    50%{transform: translateX(0);}
+    to{transform: translateX(0);}
+}

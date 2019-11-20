@@ -30,7 +30,7 @@ export class ViewQuestComponent implements OnInit {
     {text: "Done", selected: false},
   ];
   animate: number = 0; // -1 = left, +1 = right
-  userId: string = ""
+  userId: string = "";
 
   ngOnInit() {
     this.userId = this.getUID();
@@ -53,6 +53,7 @@ export class ViewQuestComponent implements OnInit {
   }
 
   openDonePage(questId){
+    this.router.navigate([`/leaderboard`])
   }
 
 
