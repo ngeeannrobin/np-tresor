@@ -47,7 +47,7 @@
 .profile .player-info .quests-completed {
     height: 20%;
     text-align: center;
-    padding: 5% 0;
+    padding-bottom: 1em;
 }
 
 .profile .player-info .total-points .points,
@@ -57,7 +57,7 @@
     vertical-align: middle;
 
     font-weight: bold;
-    font-size: 3em; 
+    font-size: 2em; 
 }
 
 .profile .player-info .total-points .points {
@@ -72,17 +72,18 @@
 .profile .player-info .quests-completed img {
     max-height: 20%;
     vertical-align: middle;
-    width: 15%;
+    width: 2em;
     margin: 0 3%;
 }
 
 .profile .logout {
+    background-color: var(--body-background-color);
     width: 100%;
     text-decoration: underline;
     text-align: center;
     color: #E33232;
     font-size: .8em;
-    position: absolute;
+    position: fixed;
     bottom: 10%;
 }
 

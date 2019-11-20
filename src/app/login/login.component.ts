@@ -13,45 +13,75 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private zone: NgZone,
-              private router: Router,
-              private gameService: GameService,
-              private authService: AuthService) {
-    // Bypass login if already authenticated
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        zone.run(() => {
-          // get username
-          this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
-            // check if username is initital value
-            if (username=="Player"){
-              // set uesrname
-              this.gameService.SetUsername(this.authService.GetUserDisplayName(), this.authService.GetUserId()).then(_=>{
-                // redirect upon completion
-                router.navigate(["/ViewQuest"]);
-              })
-            } else {
-              // redirect if username isnt initial value
-              router.navigate(['/ViewQuest'])
-            }
+  constructor(
+    private router: Router,
+    private gameService: GameService,
+    private authService: AuthService) {
+
+    
+    // // Bypass login if already authenticated
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     zone.run(() => {
+    //       // get username
+    //       this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
+    //         // check if username is initital value
+    //         if (username=="Player"){
+    //           // set uesrname
+    //           this.gameService.SetUsername(this.authService.GetUserDisplayName(), this.authService.GetUserId()).then(_=>{
+    //             // redirect upon completion
+    //             router.navigate(["/ViewQuest"]);
+    //           })
+    //         } else {
+    //           // redirect if username isnt initial value
+    //           router.navigate(['/ViewQuest'])
+    //         }
             
-          })
+    //       })
 
 
           
-        });
-      } else {
-        console.log("Invalid authentication attempt...");
-      }
-    });
+    //     });
+    //   } else {
+    //     console.log("Invalid authentication attempt...");
+    //   }
+    // });
+
+
   }
 
+  message: string = "Redirecting...";
+  loggedIn:boolean = true;
+
   signInWithGoogle() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    if (!this.loggedIn){
+      var provider = new firebase.auth.GoogleAuthProvider();
+      console.log("test");
+      firebase.auth().signInWithRedirect(provider);
+    }
   }
 
   ngOnInit() {
+    console.log("init")
+    this.authService.CheckLogin().then(loggedIn=>{
+      if (loggedIn){
+        this.checkInitialUsername();
+      } else {
+        this.loggedIn = false;
+      }
+    })
+  }
+
+  checkInitialUsername(){
+    this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
+      if (username=="Player"){
+        this.gameService.SetUsername(this.authService.GetUserDisplayName(),this.authService.GetUserId()).then(_=>{
+          this.router.navigate(["/ViewQuest"]);
+        })
+      } else {
+        this.router.navigate(["/ViewQuest"]);
+      }
+    })
   }
 
 }

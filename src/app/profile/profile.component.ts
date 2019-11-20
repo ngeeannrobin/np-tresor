@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
 import { NumberFormatStyle, Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,26 +26,35 @@ export class ProfileComponent implements OnInit {
   constructor(
     public db: RealtimedatabaseService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
-    var user = firebase.auth().currentUser;
 
-    if (user != null) {
-      this.name = user.displayName;
-      this.email = user.email;
-      this.photoUrl = user.photoURL;
-      this.id = user.uid;
-    }
+    this.auth.CheckLogin().then(loggedIn=>{
+      if (loggedIn){
+        let user = firebase.auth().currentUser;
+        if (user != null) {
+          this.name = user.displayName;
+          this.email = user.email;
+          this.photoUrl = user.photoURL;
+          this.id = user.uid;
+        }
+        this.db.GetUserPoints(this.id).then(pts => {
+          this.total_points = pts;
+        });
+        this.db.GetUserCompleteQuests(this.id).then(quests => {
+          this.quests_completed = quests.length;
+        });
+      } else {
+        this.router.navigate(["login"]);
+      }
+    })
 
-    this.db.GetUserPoints(this.id).then(pts => {
-      this.total_points = pts;
-    });
 
-    this.db.GetUserCompleteQuests(this.id).then(quests => {
-      this.quests_completed = quests.length;
-    });
+
+
     
   }
 
