@@ -38,6 +38,7 @@ import * as firebase from 'firebase';
 firebase.initializeApp(firebaseConfig);
 
 import { AppConfigService } from './app-config.service';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AppConfigService } from './app-config.service';
     ProfileComponent,
     SingleQuestComponent,
     ViewQuestComponent,
+    SettingComponent,
     
     // Dialogs
   ],
