@@ -34,19 +34,15 @@ export class ViewQuestComponent implements OnInit {
   userId: string = "";
 
   ngOnInit() {
-    this.userId = this.getUID();
-
-
-    this.CheckTutorial();
-    this.FetchQuest();
-  }
-
-  getUID(){
-    const uid = this.auth.GetUserId();
-    if (uid){
-      return uid
-    }
-    this.router.navigate(["login"]);
+    this.auth.CheckLogin().then(loggedIn=>{
+      if (loggedIn){
+        this.userId = this.auth.GetUserId();
+        this.CheckTutorial();
+        this.FetchQuest();
+      } else {
+        this.router.navigate(["login"]);
+      }
+    })
   }
 
   openNotDonePage(questId){

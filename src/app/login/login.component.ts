@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit {
   mode = 'indeterminate';
   value = 50;
 
+  message: string = "Redirecting...";
+  loggedIn:boolean = true;
+
   constructor(private zone: NgZone,
               private router: Router,
               private gameService: GameService,
@@ -31,46 +34,45 @@ export class LoginComponent implements OnInit {
     // if being redirected from oauth, keep progress spinner on
     if (routingStateService.getPreviousUrl() == undefined && !routingStateService.isFirstUrl()) this.displayProgressSpinner = true;
 
-    // Bypass login if already authenticated
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        zone.run(() => {
-
-          // stop spinner
-          this.displayProgressSpinner = false;
-
-          // get username
-          this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
-            // check if username is initital value
-            if (username=="Player"){
-              // set uesrname
-              this.gameService.SetUsername(this.authService.GetUserDisplayName(), this.authService.GetUserId()).then(_=>{
-                // redirect upon completion
-                router.navigate(["/ViewQuest"]);
-              })
-            } else {
-              // redirect if username isnt initial value
-              router.navigate(['/ViewQuest'])
-            }
-            
-          })
-          
-        });
-      } else {
-        console.log("Invalid authentication attempt...");
-      }
-    });
   }
+  
 
   signInWithGoogle() {
     // start spinner
     this.displayProgressSpinner = true;
-  
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
+
+    if (!this.loggedIn){
+      var provider = new firebase.auth.GoogleAuthProvider();
+      console.log("test");
+      firebase.auth().signInWithPopup(provider).then((result) => {
+        console.log("init")
+        this.authService.CheckLogin().then(loggedIn=>{
+          if (loggedIn){
+            // stop spinner
+            this.displayProgressSpinner = false;
+
+            this.checkInitialUsername();
+          } else {
+            this.loggedIn = false;
+          }
+        })
+      });
+    }
   }
 
   ngOnInit() {
+  }
+
+  checkInitialUsername(){
+    this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
+      if (username=="Player"){
+        this.gameService.SetUsername(this.authService.GetUserDisplayName(),this.authService.GetUserId()).then(_=>{
+          this.router.navigate(["/ViewQuest"]);
+        })
+      } else {
+        this.router.navigate(["/ViewQuest"]);
+      }
+    })
   }
 
 }

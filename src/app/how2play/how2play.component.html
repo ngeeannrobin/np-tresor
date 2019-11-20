@@ -32,11 +32,14 @@
 	</div>
 
 	
+  
 
-  <div class="instruction-btn-back" (click)="next(-1)" *ngIf="currentIndex!=0">
-		<
-	</div>
-  <div class="instruction-btn-next" (click)="next(1)">
-    {{this.currentIndex == this.instructions.length-1?"Let's play!":">"}}
-  </div>
+</div>
+
+<div class="phantom-btn"></div>
+<div class="instruction-btn-back" (click)="next(-1)" *ngIf="currentIndex!=0">
+  <
+</div>
+<div class="instruction-btn-next" (click)="next(1)">
+  {{this.currentIndex == this.instructions.length-1?"Let's play!":">"}}
 </div>

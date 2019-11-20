@@ -56,7 +56,6 @@ export class RealtimedatabaseService {
         const questCompleted: Array<any> = values[1].questCompleted?values[1].questCompleted:[];
         const hintTaken: Array<any> = values[1].hintTaken?values[1].hintTaken:[];
         const sortedQuest = {done: [], notdone: []};
-        console.log(allQuest);
         
         // get features for filtering quests by range
         const quest_range = this.appConfigService.QuestRangeInM;
@@ -64,7 +63,6 @@ export class RealtimedatabaseService {
           latitude: this.appConfigService.UserLocationLatitude,
           longitude: this.appConfigService.UserLocationLongitude
         };
-        console.log(user_location);
         allQuest.forEach(quest => {
           // inititalise available hint count to the number of hints available
           quest.availHintCount = quest.hint.length;
@@ -86,7 +84,6 @@ export class RealtimedatabaseService {
                 latitude: quest.latitude,
                 longitude: quest.longitude
               });
-              console.log(dist);
 
               // if distance is within defined range, show quest
               if (dist <= quest_range) { sortedQuest.notdone.push(quest); }
@@ -158,14 +155,13 @@ export class RealtimedatabaseService {
 
   // Leaderboard
   FetchTop(n,uuid): Promise<any> {
-    console.log(uuid);
-    const ref = this.db.collection("user").ref.orderBy("totalPoint").limit(n);
+    const ref = this.db.collection("user").ref.orderBy("totalPoint").limitToLast(n);
     const topPromise = this.GetRequestByRef(ref);
-    const userPromise = this.FetchUser(uuid);
+    // const userPromise = this.FetchUser(uuid);
 
     const promise = new Promise((res,rej)=>{
-      Promise.all([topPromise,userPromise]).then(values=>{
-        console.log(values);
+      Promise.all([topPromise]).then(values=>{
+      // Promise.all([topPromise,userPromise]).then(values=>{
         res(values[0]);
       })
     })

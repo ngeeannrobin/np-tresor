@@ -11,7 +11,8 @@ export class CuriousUserComponent implements OnInit {
   constructor(private router: Router) { }
   showcontact = false;
   ngOnInit() {
-    
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
 
   redirect(){

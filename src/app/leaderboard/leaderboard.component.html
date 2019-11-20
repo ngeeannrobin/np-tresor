@@ -7,12 +7,17 @@
             <div class="player-position">
                 {{i+1}}.
             </div>
-            <div class="player-name">
-                {{player.username}}
+            <div class="player-name-container">
+                <span class="player-name">
+                    {{player.username}}
+                </span>
+                
             </div>
-            <div class="player-point">
-                {{player.totalPoint}}
+            <div class="player-point-container">
+                <span class="player-point">{{player.totalPoint}}</span>
+                <img src="../../assets/image/gold_coin.png" alt="points" class="player-point-coin">
             </div>
+            <div></div>
         </div>
     </div>
 </div>

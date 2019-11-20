@@ -37,31 +37,13 @@ export class SingleQuestComponent implements OnInit {
   
 
   ngOnInit() {
-    this.userId = this.getUID();
-    this.questId = this.route.snapshot.paramMap.get("id");
-    this.FetchQuest(this.questId);
-  }
-
-  getUID(){
-    const uid = this.auth.GetUserId();
-    if (uid){
-      return uid
-    }
-    this.router.navigate(["login"]);
-  }
-
-  InjectFakeHints(){
-    this.quest.hint = {
-      hint0: {text: "fake hint number zero"},
-      hint1: {text: "fake hint number one"},
-      hint2: {text: "fake hint number two"},
-      hint3: {text: "fake hint number three"},
-      hint4: {text: "fake hint number four"},
-      hint5: {text: "fake hint number five"},
-      hint6: {text: "fake hint number six"},
-      hint7: {text: "fake hint number seven"},
-      hint8: {text: "fake hint number eight"}
-    }
+    this.auth.CheckLogin().then(loggedIn => {
+      if (loggedIn){
+        this.userId = this.auth.GetUserId();
+        this.questId = this.route.snapshot.paramMap.get("id");
+        this.FetchQuest(this.questId);
+      }
+    })
   }
 
   FetchQuest(id){
@@ -76,6 +58,9 @@ export class SingleQuestComponent implements OnInit {
   }
 
   TakeHint(){
+    if (this.showCamera){
+      this.ToggleCamera();
+    }
     if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
       this.loadingHint = true;
       this.gameservice.TakeHint(this.quest,this.userId).then(
