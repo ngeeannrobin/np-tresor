@@ -77,7 +77,7 @@ export class RealtimedatabaseService {
             sortedQuest.done.push(quest);
           } else {
             // only include quests within quest_range in notdone
-            if (user_location == null) {
+            if (user_location.latitude == null || user_location.longitude == null) {
               // if no location, show all quests
               sortedQuest.notdone.push(quest);
             } else {
