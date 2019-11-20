@@ -155,12 +155,13 @@ export class RealtimedatabaseService {
 
   // Leaderboard
   FetchTop(n,uuid): Promise<any> {
-    const ref = this.db.collection("user").ref.orderBy("totalPoint").limit(n);
+    const ref = this.db.collection("user").ref.orderBy("totalPoint").limitToLast(n);
     const topPromise = this.GetRequestByRef(ref);
-    const userPromise = this.FetchUser(uuid);
+    // const userPromise = this.FetchUser(uuid);
 
     const promise = new Promise((res,rej)=>{
-      Promise.all([topPromise,userPromise]).then(values=>{
+      Promise.all([topPromise]).then(values=>{
+      // Promise.all([topPromise,userPromise]).then(values=>{
         res(values[0]);
       })
     })
