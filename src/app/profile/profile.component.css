@@ -5,8 +5,8 @@
 .profile .back-bar .back {
     display: inline-block;
     
-    width: 25px;
-    height: 25px;
+    width: 5vw;
+    height: 5vw;
     margin: 5%;
 
     background-image: var(--back-button);
@@ -16,7 +16,7 @@
 .profile .profile-img {
     width: 30%;
     display: block;
-    margin: 5% auto;
+    margin: 1% auto;
     border-radius: 50%;
 }
 
@@ -83,8 +83,7 @@
     text-align: center;
     color: #E33232;
     font-size: .8em;
-    position: fixed;
-    bottom: 10%;
+    padding: 15% 0;
 }
 
 .version {
