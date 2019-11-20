@@ -6,4 +6,6 @@
         <a (click)="signInWithGoogle()"><img src="../../assets/image/auth/sign_in_with_google_button_transparent.png" class="g-signin-btn"></a>
     </div> 
 </div>
-<mat-spinner></mat-spinner>
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
+ [displayProgressSpinner]="displayProgressSpinner">
+</app-progress-spinner>

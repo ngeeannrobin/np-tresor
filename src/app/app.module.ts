@@ -22,7 +22,8 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 // For spinner
-import { MatProgressSpinnerModule } from '@angular/material';
+import { AppOverlayModule } from './overlay/overlay.module';
+import { ProgressSpinnerModule, ProgressSpinnerComponent } from './progress-spinner/progress-spinner.module';
 
 
 // Initialize Firebase app
@@ -57,8 +58,10 @@ firebase.initializeApp(firebaseConfig);
     ZXingScannerModule,
 
     // Spinner
-    MatProgressSpinnerModule
+    AppOverlayModule,
+    ProgressSpinnerModule
   ],
+  entryComponents: [AppComponent,ProgressSpinnerComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

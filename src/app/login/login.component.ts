@@ -2,8 +2,6 @@ import { Component, NgZone, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { MatSpinner } from '@angular/material';
-
 import * as firebase from 'firebase/app';
 
 @Component({
