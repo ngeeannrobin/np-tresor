@@ -18,7 +18,7 @@ export class SingleQuestComponent implements OnInit {
     private location: Location,
     private router: Router) { }
 
-  loaded: boolean = false;zzzzzzzz
+  loaded: boolean = false;
   questId: string;
   quest: any = {hint:{}};
   showCamera: boolean = false;
@@ -30,6 +30,7 @@ export class SingleQuestComponent implements OnInit {
   message: string = "";
   loadingHint: boolean = false;
   userId: string = "";
+  awarding: boolean = false;
   // hintTaken: number = 0;
   // hintAvailable: number = 0;
   // pointAwarded: number = 0;
@@ -132,10 +133,12 @@ export class SingleQuestComponent implements OnInit {
   async dismiss(){
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
-        this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
-          this.back();
-        })
-        
+        if (!this.awarding){
+          this.awarding = true;
+          this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
+            this.back();
+          })
+        }
       } else { // re-display hints and stuff
         this.animate = -1;
         this.showMessage = true;

@@ -1,0 +1,42 @@
+<div class="instruction-container">
+  <div [ngClass]="{
+			'left-out': animate==1,
+			'right-out': animate==-1
+		}" class="instruction-inner-container">
+    <div class="instruction-title">
+      {{instructions[currentIndex].title}}
+    </div>
+    <div class="instruction-text">
+      {{instructions[currentIndex].text}}
+    </div>
+    <div class="instruction-image-container">
+      <img [src]="instructions[currentIndex].img" class="instruction-image">
+      <!-- {{instructions[currentIndex].img}} -->
+    </div>
+	</div>
+
+	<div *ngIf="animate!=0" class="phantom instruction-inner-container" [ngClass]="{
+		'right-in': animate==1,
+		'left-in': animate==-1
+	}">
+    <div class="instruction-title">
+      {{instructions[nextIndex].title}}
+    </div>
+    <div class="instruction-text">
+      {{instructions[nextIndex].text}}
+    </div>
+    <div class="instruction-image-container">
+      <img [src]="instructions[nextIndex].img" class="instruction-image">
+      <!-- {{instructions[nextIndex].img}} -->
+    </div>
+	</div>
+
+	
+
+  <div class="instruction-btn-back" (click)="next(-1)" *ngIf="currentIndex!=0">
+		<
+	</div>
+  <div class="instruction-btn-next" (click)="next(1)">
+    {{this.currentIndex == this.instructions.length-1?"Let's play!":">"}}
+  </div>
+</div>

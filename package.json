@@ -31,6 +31,7 @@
     "core-js": "^2.5.4",
     "firebase": "^7.3.0",
     "jquery": "^3.4.1",
+    "ng2-haversine": "^0.1.1",
     "rxjs": "~6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

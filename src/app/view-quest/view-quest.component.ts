@@ -31,13 +31,13 @@ export class ViewQuestComponent implements OnInit {
     {text: "Done", selected: false},
   ];
   animate: number = 0; // -1 = left, +1 = right
-  userId: string = ""
+  userId: string = "";
 
   ngOnInit() {
     this.userId = this.getUID();
 
 
-
+    this.CheckTutorial();
     this.FetchQuest();
   }
 
@@ -54,6 +54,7 @@ export class ViewQuestComponent implements OnInit {
   }
 
   openDonePage(questId){
+    // this.router.navigate([`/leaderboard`])
   }
 
 
@@ -93,6 +94,16 @@ export class ViewQuestComponent implements OnInit {
 
       },err => {
         console.log(err);
+      }
+    )
+  }
+
+  CheckTutorial(){
+    this.gameservice.FetchTutorialStatus(this.userId).then(
+      tutDone => {
+        if (!tutDone){
+          this.router.navigate(["/tutorial"]);
+        }
       }
     )
   }

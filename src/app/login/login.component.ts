@@ -3,6 +3,8 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase/app';
+import { GameService } from '../game.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,14 +22,33 @@ export class LoginComponent implements OnInit {
   value = 50;
 
   constructor(private zone: NgZone,
-              private router: Router) {
+              private router: Router,
+              private gameService: GameService,
+              private authService: AuthService) {
     // Bypass login if already authenticated
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        // stop spinner
-        this.displayProgressSpinner = false;
+        zone.run(() => {
+          // stop spinner
+          this.displayProgressSpinner = false;
 
-        zone.run(() => router.navigate(['/ViewQuest']));
+          // get username
+          this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
+            // check if username is initital value
+            if (username=="Player"){
+              // set uesrname
+              this.gameService.SetUsername(this.authService.GetUserDisplayName(), this.authService.GetUserId()).then(_=>{
+                // redirect upon completion
+                router.navigate(["/ViewQuest"]);
+              })
+            } else {
+              // redirect if username isnt initial value
+              router.navigate(['/ViewQuest'])
+            }
+            
+          })
+          
+        });
       } else {
         console.log("Invalid authentication attempt...");
       }

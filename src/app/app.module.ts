@@ -3,12 +3,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { environment, firebaseConfig} from '../environments/environment';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components & Dialogs
 import { CuriousUserComponent } from './curious-user/curious-user.component';
+import { How2playComponent } from './how2play/how2play.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { LoginComponent } from './login/login.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SingleQuestComponent } from './single-quest/single-quest.component';
 import { ViewQuestComponent } from './view-quest/view-quest.component';
 
@@ -25,20 +29,33 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { AppOverlayModule } from './overlay/overlay.module';
 import { ProgressSpinnerModule, ProgressSpinnerComponent } from './progress-spinner/progress-spinner.module';
 
+// Http modules
+import { HttpClientModule } from '@angular/common/http';
+
+// To calculate distance between 2 points
+import { HaversineService } from "ng2-haversine";
+
 
 // Initialize Firebase app
 import * as firebase from 'firebase';
+
 firebase.initializeApp(firebaseConfig);
+
+import { AppConfigService } from './app-config.service';
 
 @NgModule({
   declarations: [
     // Components
     AppComponent,
+    CuriousUserComponent,
+    How2playComponent,
+    LeaderboardComponent,
     LoginComponent,
+    NavBarComponent,
+    ProfileComponent,
     SingleQuestComponent,
     ViewQuestComponent,
     CuriousUserComponent
-
     // Dialogs
   ],
   imports: [
@@ -57,11 +74,25 @@ firebase.initializeApp(firebaseConfig);
     // QR Code Scanner
     ZXingScannerModule,
 
+    // Http
+    HttpClientModule
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AppConfigService],
+      useFactory: (appConfigService: AppConfigService) => {
+        return () => { return appConfigService.loadAppConfig(); };
+      }
+    },
+    HaversineService
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
     // Spinner
     AppOverlayModule,
     ProgressSpinnerModule
-  ],
-  entryComponents: [AppComponent,ProgressSpinnerComponent],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }

@@ -1,0 +1,20 @@
+<div class="title">
+    Leaderboard
+</div>
+<div class="leaderboard-container">
+    <div *ngFor="let player of top; let i = index" class="player-container">
+        <div class="player-inner-container">
+            <div class="player-position">
+                {{i+1}}.
+            </div>
+            <div class="player-name">
+                {{player.username}}
+            </div>
+            <div class="player-point">
+                {{player.totalPoint}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-nav-bar></app-nav-bar> 

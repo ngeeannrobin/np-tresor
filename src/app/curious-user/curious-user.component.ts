@@ -9,13 +9,17 @@ import { Router } from '@angular/router';
 export class CuriousUserComponent implements OnInit {
 
   constructor(private router: Router) { }
-
+  showcontact = false;
   ngOnInit() {
     
   }
 
   redirect(){
     this.router.navigate(["/login"]);
+  }
+
+  togglecontact(){
+    this.showcontact = !this.showcontact;
   }
 
 }
