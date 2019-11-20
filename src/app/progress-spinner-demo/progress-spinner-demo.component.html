@@ -1,0 +1,11 @@
+<section class="example-section">
+	<button mat-raised-button color="primary" (click)="showProgressSpinner()">Spinner With Backdrop</button>
+	<button mat-raised-button color="accent" (click)="showSpinnerWithoutBackdrop()">Spinner Without Backdrop</button>
+</section>
+
+
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
+ [displayProgressSpinner]="displayProgressSpinner">
+</app-progress-spinner>
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="false" [displayProgressSpinner]="spinnerWithoutBackdrop">
+</app-progress-spinner>
