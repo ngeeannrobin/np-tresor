@@ -12,12 +12,13 @@
 }
 
 .player-inner-container {
-    
+    position: relative;
 }
 
 .player-container {
     padding: 0.25em 2em;
     background-color: var(--leaderboard-even-background-color);
+
 }
 
 .player-container:first-child{
@@ -38,40 +39,45 @@
     font-size: 1.5em;
 }
 
-.player-name {
+.player-name-container {
     display: inline-block;
     font-size: 1em;
     width: 50vw;
+    height: 100%;
+    /* background-color: pink; */
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    /* background-color: pink; */
+    position: absolute;
+}
+
+.player-name {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .player-position {
-    margin-right: 1em;
+    width: 15vw;
     font-weight: bold;
+}
+
+.player-point-container{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    transform: translateX(-1.5em);
 }
 
 .player-point {
-    float: right;
     font-weight: bold;
     color: var(--point-text-color);
-    position: relative;
-    transform: translateX(-1em);
+    
 }
 
-.player-point::after {
-    /* content: url("../../assets/image/gold_coin.png"); */
-    content: "";
-    background: url("../../assets//image/gold_coin.png") no-repeat;
-    background-size: 100%;
-    width: 1em;
-    height: 1em;
-    /* height:10px; */
-    /* background-color: pink; */
-    display: inline-block;
+.player-point-coin {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    width: 1.5em;
 }
