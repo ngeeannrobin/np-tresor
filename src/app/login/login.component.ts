@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
+import { RoutingStateService } from '../routing-state.service';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,11 @@ export class LoginComponent implements OnInit {
   constructor(private zone: NgZone,
               private router: Router,
               private gameService: GameService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private routingStateService: RoutingStateService) {
 
     // if being redirected from oauth, keep progress spinner on
-    if (document.referrer == "") this.displayProgressSpinner = true;
+    if (routingStateService.getPreviousUrl() == undefined) this.displayProgressSpinner = true;
 
     // Bypass login if already authenticated
     firebase.auth().onAuthStateChanged((user) => {
