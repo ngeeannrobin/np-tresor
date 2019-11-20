@@ -58,6 +58,9 @@ export class SingleQuestComponent implements OnInit {
   }
 
   TakeHint(){
+    if (this.showCamera){
+      this.ToggleCamera();
+    }
     if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
       this.loadingHint = true;
       this.gameservice.TakeHint(this.quest,this.userId).then(
