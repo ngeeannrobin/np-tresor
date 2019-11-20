@@ -53,6 +53,8 @@ body{
 
     --highlight-color: #C88771;
 
+    --back-button: url("assets/image/back_button_default.png");
+  
     --leaderboard-odd-background-color: #EAEAEA;
     --leaderboatd-event-background-color: #F8F6F7;
 }
@@ -87,6 +89,8 @@ body{
     --auth-bg-img-bottom: url("assets/image/auth/bg_dark_bottom.png");
 
     --highlight-color: #DCE1E7;
+
+    --back-button: url("assets/image/back_button_dark.png");
 
     --leaderboard-odd-background-color: #151515;
     --leaderboatd-event-background-color: #070908;

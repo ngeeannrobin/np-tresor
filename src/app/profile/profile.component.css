@@ -1,0 +1,87 @@
+.profile .back-bar {
+    height: 10%;
+}
+
+.profile .back-bar .back {
+    display: inline-block;
+    
+    width: 25px;
+    height: 25px;
+    margin: 5%;
+
+    background-image: var(--back-button);
+    background-size: contain;
+}
+
+.profile .profile-img {
+    width: 30%;
+    display: block;
+    margin: 5% auto;
+    border-radius: 50%;
+}
+
+.profile .google-info * {
+    font-family: "PT Sans", "Arial", sans-serif;
+    text-align: center;
+}
+
+.profile .google-info .name {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: var(--main-text-color);
+}
+
+.profile .google-info .email {
+    color: var(--sub-text-color);
+}
+
+.profile .player-info .header {
+    text-align: center;
+    font-size: .8em;
+    color: var(--sub-text-color);
+    margin: 10% 30%;
+    border-bottom: 1px solid var(--sub-text-color-disabled);
+}
+
+.profile .player-info .total-points,
+.profile .player-info .quests-completed {
+    height: 20%;
+    text-align: center;
+    padding: 5% 0;
+}
+
+.profile .player-info .total-points .points,
+.profile .player-info .quests-completed .quests {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+
+    font-weight: bold;
+    font-size: 3em; 
+}
+
+.profile .player-info .total-points .points {
+    color: #F1B012;
+}
+
+.profile .player-info .quests-completed .quests {
+    color: #A3D876;
+}
+
+.profile .player-info .total-points img,
+.profile .player-info .quests-completed img {
+    max-height: 20%;
+    vertical-align: middle;
+    width: 15%;
+    margin: 0 3%;
+}
+
+.profile .logout {
+    width: 100%;
+    text-decoration: underline;
+    text-align: center;
+    color: #E33232;
+    font-size: .8em;
+    position: absolute;
+    bottom: 10%;
+}
