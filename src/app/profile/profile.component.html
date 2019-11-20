@@ -1,7 +1,7 @@
 <div class="profile">
-    <div class="back-bar">
+    <!-- <div class="back-bar">
         <a (click)="goBack()" class="back"></a>
-    </div>
+    </div> -->
     <img src="{{photoUrl?photoUrl:defaultPhotoUrl}}" class="profile-img" />
     <div class="google-info">
         <div class="name">{{name?name:"Guest"}}</div>
@@ -22,7 +22,8 @@
         <a (click)="signOut()">Logout</a>
     </div>
 </div>
-<div class="version">
+<!-- <div class="version">
     v1.5
-</div>
+</div> -->
 <app-nav-bar></app-nav-bar> 
+<app-setting></app-setting>  

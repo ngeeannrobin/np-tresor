@@ -8,8 +8,19 @@ import { Component, OnInit } from '@angular/core';
 export class SettingComponent implements OnInit {
 
   constructor() { }
-
+  show:boolean = false;
+  dark:boolean = false;
   ngOnInit() {
+  }
+
+  Toggle(){
+    console.log("toggle")
+    this.show = !this.show;
+  }
+
+  toggleTheme(){
+    document.documentElement.setAttribute("data-theme",this.dark?"default":"dark");
+    this.dark = !this.dark;
   }
 
 }

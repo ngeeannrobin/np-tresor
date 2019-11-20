@@ -1,1 +1,21 @@
-<p>setting works!</p>
+<div class="setting-outer-container" [ngClass]="{'pointerall': show}">
+    <div class="setting-container" *ngIf="true" [ngClass]="{'setting-container-toggle':show}">
+        <div>Use Location</div>
+        <div (click)="toggleTheme()">Dark Theme</div>
+
+
+
+        <div class="setting-version">
+            v1.5
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="hamburger-container" (click)="Toggle()" [ngClass]="{'hamburger-container-toggle':show}">
+    <div class="hamburger" [ngClass]="{'hamburger-toggle': show}"></div>
+</div>

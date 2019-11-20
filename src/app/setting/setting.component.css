@@ -1,0 +1,83 @@
+.hamburger-container, .hamburger::before, .hamburger::after {
+    transition: 500ms ease-in-out;
+}
+
+.hamburger-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* background-color: var(--body-background-color); */
+    padding: 1em; 
+}
+
+
+.hamburger, .hamburger::before, .hamburger::after{
+    height: 2.5px;
+    width: 30px;
+    background-color: var(--sub-text-color);
+}
+
+.hamburger {margin: 10px 0;}
+
+.hamburger::before, .hamburger::after {
+    position: absolute;
+    transform-origin: right;
+    content: "";
+}
+
+.hamburger::before {top: 1em;}
+.hamburger::after{bottom: 1em;}
+
+.hamburger-toggle::before {
+    transform-origin: right;
+    transform: scaleX(0.5) translateY(10px) rotate(15deg);
+}
+.hamburger-toggle::after {
+    transform-origin: right;
+    transform: scaleX(0.5) translateY(-10px) rotate(-15deg);
+}
+
+.hamburger-container-toggle {
+    background-color: var(--bar-background-color);
+    box-shadow: var(--bar-shadow-color) -3px 1.5px 3px;
+    transform: translateX(calc(-50vw + 1px));
+}
+
+.setting-outer-container {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 100%;
+    height: auto;
+    /* background-color: pink; */
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.setting-container {
+    
+    
+    height: 100%;
+    width: 50vw;
+    position: absolute;
+    right: -50vw;
+    transition: 500ms ease-in-out;
+}
+
+.setting-container-toggle {
+    background-color: var(--bar-background-color);
+    box-shadow: var(--bar-shadow-color) -3px 0 3px;
+    transform: translateX(-50vw);
+}
+
+.pointerall {
+    pointer-events: all;
+}
+
+
+.setting-version {
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--sub-text-color-disabled)
+}
