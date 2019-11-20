@@ -12,10 +12,10 @@ const routes: Routes = [
   {path: "ViewQuest", component: ViewQuestComponent},
   {path: "ViewQuest/:id",component: SingleQuestComponent},
   {path: "leaderboard", component: LeaderboardComponent},
+  {path: "qr", component: CuriousUserComponent},
   {path: "qr/:random",component: CuriousUserComponent},
   {path: "tutorial", component: How2playComponent},
   {path: "", pathMatch: "full", redirectTo:"login"}
-
 ];
 
 @NgModule({
