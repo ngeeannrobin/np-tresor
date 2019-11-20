@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
               private routingStateService: RoutingStateService) {
 
     // if being redirected from oauth, keep progress spinner on
-    if (routingStateService.getPreviousUrl() == undefined) this.displayProgressSpinner = true;
+    if (routingStateService.getPreviousUrl() == undefined && !routingStateService.isFirstUrl()) this.displayProgressSpinner = true;
 
     // Bypass login if already authenticated
     firebase.auth().onAuthStateChanged((user) => {
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     this.displayProgressSpinner = true;
   
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    firebase.auth().signInWithPopup(provider);
   }
 
   ngOnInit() {

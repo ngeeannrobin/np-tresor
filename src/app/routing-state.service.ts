@@ -28,4 +28,8 @@ export class RoutingStateService {
   public getPreviousUrl(): string {
     return this.history[this.history.length - 2];
   }
+
+  public isFirstUrl(): boolean {
+    return this.history.length == 0;
+  }
 }
