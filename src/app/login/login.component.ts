@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
     private gameService: GameService,
     private authService: AuthService) {
 
-
     
     // // Bypass login if already authenticated
     // firebase.auth().onAuthStateChanged((user) => {
@@ -51,15 +50,24 @@ export class LoginComponent implements OnInit {
 
   }
 
+  message: string = "Redirecting...";
+  loggedIn:boolean = true;
+
   signInWithGoogle() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    if (!this.loggedIn){
+      var provider = new firebase.auth.GoogleAuthProvider();
+      console.log("test");
+      firebase.auth().signInWithRedirect(provider);
+    }
   }
 
   ngOnInit() {
+    console.log("init")
     this.authService.CheckLogin().then(loggedIn=>{
       if (loggedIn){
         this.checkInitialUsername();
+      } else {
+        this.loggedIn = false;
       }
     })
   }
@@ -68,7 +76,7 @@ export class LoginComponent implements OnInit {
     this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
       if (username=="Player"){
         this.gameService.SetUsername(this.authService.GetUserDisplayName(),this.authService.GetUserId()).then(_=>{
-          this.router.navigate(["ViewQuest"]);
+          this.router.navigate(["/ViewQuest"]);
         })
       } else {
         this.router.navigate(["/ViewQuest"]);
