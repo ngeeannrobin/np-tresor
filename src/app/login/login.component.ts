@@ -2,8 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { OverlayService } from '../overlay/overlay.module';
-import { ProgressSpinnerComponent } from '../progress-spinner/progress-spinner.module';
+import { MatSpinner } from '@angular/material';
 
 import * as firebase from 'firebase/app';
 

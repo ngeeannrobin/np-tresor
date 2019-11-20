@@ -22,10 +22,7 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 // For spinner
-import { MatNativeDateModule } from '@angular/material';
-import { ProgressSpinnerDemoComponent } from './progress-spinner-demo/progress-spinner-demo.component';
-import { AppOverlayModule } from './overlay/overlay.module';
-import { ProgressSpinnerModule,ProgressSpinnerComponent } from './progress-spinner/progress-spinner.module';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 
 // Initialize Firebase app
@@ -39,9 +36,7 @@ firebase.initializeApp(firebaseConfig);
     LoginComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent,
-
-    ProgressSpinnerDemoComponent
+    CuriousUserComponent
 
     // Dialogs
   ],
@@ -62,14 +57,8 @@ firebase.initializeApp(firebaseConfig);
     ZXingScannerModule,
 
     // Spinner
-    MatNativeDateModule,
-    AppOverlayModule,
-    ProgressSpinnerModule
+    MatProgressSpinnerModule
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    AppComponent,
-    ProgressSpinnerComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
