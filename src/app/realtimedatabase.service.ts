@@ -56,14 +56,15 @@ export class RealtimedatabaseService {
         const questCompleted: Array<any> = values[1].questCompleted?values[1].questCompleted:[];
         const hintTaken: Array<any> = values[1].hintTaken?values[1].hintTaken:[];
         const sortedQuest = {done: [], notdone: []};
-
+        console.log(allQuest);
+        
         // get features for filtering quests by range
         const quest_range = this.appConfigService.QuestRangeInM;
         const user_location = {
           latitude: this.appConfigService.UserLocationLatitude,
           longitude: this.appConfigService.UserLocationLongitude
         };
-
+        console.log(user_location);
         allQuest.forEach(quest => {
           // inititalise available hint count to the number of hints available
           quest.availHintCount = quest.hint.length;
@@ -85,6 +86,7 @@ export class RealtimedatabaseService {
                 latitude: quest.latitude,
                 longitude: quest.longitude
               });
+              console.log(dist);
 
               // if distance is within defined range, show quest
               if (dist <= quest_range) { sortedQuest.notdone.push(quest); }

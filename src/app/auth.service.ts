@@ -11,4 +11,8 @@ export class AuthService {
   GetUserId(){
     return this.auth.auth.currentUser!=null?this.auth.auth.currentUser.uid:undefined;
   }
+
+  GetUserDisplayName() {
+    return this.auth.auth.currentUser!=null?this.auth.auth.currentUser.displayName:"Player";
+  }
 }

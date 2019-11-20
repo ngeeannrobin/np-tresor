@@ -45,7 +45,7 @@ import { AppConfigService } from './app-config.service';
     How2playComponent,
     LeaderboardComponent,
     LoginComponent,
-    NavBarComponent
+    NavBarComponent,
     SingleQuestComponent,
     ViewQuestComponent,
     // Dialogs
