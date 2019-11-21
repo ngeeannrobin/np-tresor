@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
+import { RoutingStateService } from '../routing-state.service';
 
 @Component({
   selector: 'app-login',
@@ -13,63 +14,53 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(
-    private router: Router,
-    private gameService: GameService,
-    private authService: AuthService) {
+  // indicates whether spinner should be activated
+  displayProgressSpinner = false;
 
-    
-    // // Bypass login if already authenticated
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     zone.run(() => {
-    //       // get username
-    //       this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
-    //         // check if username is initital value
-    //         if (username=="Player"){
-    //           // set uesrname
-    //           this.gameService.SetUsername(this.authService.GetUserDisplayName(), this.authService.GetUserId()).then(_=>{
-    //             // redirect upon completion
-    //             router.navigate(["/ViewQuest"]);
-    //           })
-    //         } else {
-    //           // redirect if username isnt initial value
-    //           router.navigate(['/ViewQuest'])
-    //         }
-            
-    //       })
-
-
-          
-    //     });
-    //   } else {
-    //     console.log("Invalid authentication attempt...");
-    //   }
-    // });
-
-
-  }
+  // spinner features
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
 
   message: string = "Redirecting...";
   loggedIn:boolean = true;
 
+  constructor(private zone: NgZone,
+              private router: Router,
+              private gameService: GameService,
+              private authService: AuthService,
+              private routingStateService: RoutingStateService) {
+
+    // if being redirected from oauth, keep progress spinner on
+    if (routingStateService.getPreviousUrl() == undefined && !routingStateService.isFirstUrl()) this.displayProgressSpinner = true;
+
+  }
+  
+
   signInWithGoogle() {
+    // start spinner
+    this.displayProgressSpinner = true;
+
     if (!this.loggedIn){
       var provider = new firebase.auth.GoogleAuthProvider();
       console.log("test");
-      firebase.auth().signInWithRedirect(provider);
+      firebase.auth().signInWithPopup(provider).then((result) => {
+        console.log("init")
+        this.authService.CheckLogin().then(loggedIn=>{
+          if (loggedIn){
+            // stop spinner
+            this.displayProgressSpinner = false;
+
+            this.checkInitialUsername();
+          } else {
+            this.loggedIn = false;
+          }
+        })
+      });
     }
   }
 
   ngOnInit() {
-    console.log("init")
-    this.authService.CheckLogin().then(loggedIn=>{
-      if (loggedIn){
-        this.checkInitialUsername();
-      } else {
-        this.loggedIn = false;
-      }
-    })
   }
 
   checkInitialUsername(){

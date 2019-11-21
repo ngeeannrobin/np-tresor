@@ -25,6 +25,10 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 // QR Code Scanner
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
+// For spinner
+import { AppOverlayModule } from './overlay/overlay.module';
+import { ProgressSpinnerModule, ProgressSpinnerComponent } from './progress-spinner/progress-spinner.module';
+
 // Http modules
 import { HttpClientModule } from '@angular/common/http';
 
@@ -51,7 +55,7 @@ import { AppConfigService } from './app-config.service';
     ProfileComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    
+    CuriousUserComponent
     // Dialogs
   ],
   imports: [
@@ -71,7 +75,11 @@ import { AppConfigService } from './app-config.service';
     ZXingScannerModule,
 
     // Http
-    HttpClientModule
+    HttpClientModule,
+
+    // Spinner
+    AppOverlayModule,
+    ProgressSpinnerModule
   ],
   providers: [
     {
@@ -85,9 +93,6 @@ import { AppConfigService } from './app-config.service';
     HaversineService
   ],
   bootstrap: [AppComponent],
-
-  entryComponents: [
-    // Dialogs
-  ]
+  entryComponents: [AppComponent, ProgressSpinnerComponent]
 })
 export class AppModule { }

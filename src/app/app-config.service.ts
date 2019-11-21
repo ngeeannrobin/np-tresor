@@ -42,4 +42,14 @@ export class AppConfigService {
     if (!this.appConfig) { throw Error('Config file not loaded!'); }
     this.appConfig.UserLocation.Longitude = lon;
   }
+
+  get IsFirstPage() {
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    return this.appConfig.IsFirstPage;
+  }
+
+  set IsFirstPage(ifp: boolean) {
+    if (!this.appConfig) { throw Error('Config file not loaded!'); }
+    this.appConfig.UserLocation.IsFirstPage = ifp;
+  }
 }

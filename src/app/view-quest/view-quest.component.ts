@@ -18,6 +18,7 @@ export class ViewQuestComponent implements OnInit {
     private router: Router
   ) { }
   
+  displayProgressSpinner = true;
   
   Object = Object;
   quests: any = {

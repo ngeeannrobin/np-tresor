@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import * as firebase from 'firebase/app';
 import { RealtimedatabaseService } from '../realtimedatabase.service';
-import { NumberFormatStyle, Location } from '@angular/common';
+import { NumberFormatStyle } from '@angular/common';
 import { Router } from '@angular/router';
+import { RoutingStateService } from '../routing-state.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     public db: RealtimedatabaseService,
     private router: Router,
-    private location: Location,
+    private routingStateService: RoutingStateService,
     private auth: AuthService
   ) { }
 
@@ -51,15 +52,11 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(["login"]);
       }
     })
-
-
-
-
     
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate([this.routingStateService.getPreviousUrl()]);
   }
 
   signOut() {

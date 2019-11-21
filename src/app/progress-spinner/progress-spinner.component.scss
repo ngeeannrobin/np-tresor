@@ -1,0 +1,9 @@
+.mat-progress-spinner {
+    ::ng-deep circle {
+        stroke: #ffffff;
+    }
+}
+
+::ng-deep .cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0, .6);
+}
