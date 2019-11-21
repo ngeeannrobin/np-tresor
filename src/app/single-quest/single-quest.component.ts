@@ -100,8 +100,12 @@ export class SingleQuestComponent implements OnInit {
     this.ToggleCamera();
     if (this.CheckQR(qr_data)){
       this.message = "You got it! Tap anywhere to return back to quests!"
-      
-      this.correct = true;
+      if (!this.awarding){
+        this.awarding = true;
+        this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
+          this.correct=true;
+        })
+      }
     } else {
       this.message = "That's ain't it, chief! Tap anywhere to continue."
       this.correct = false;
@@ -118,12 +122,7 @@ export class SingleQuestComponent implements OnInit {
   async dismiss(){
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
-        if (!this.awarding){
-          this.awarding = true;
-          this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
-            this.back();
-          })
-        }
+        this.back();
       } else { // re-display hints and stuff
         this.animate = -1;
         this.showMessage = true;
