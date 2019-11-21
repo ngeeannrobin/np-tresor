@@ -44,16 +44,13 @@ export class LoginComponent implements OnInit {
     if (!this.loggedIn){
       var provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider).then((result) => {
-        this.authService.CheckLogin().then(loggedIn=>{
-          if (loggedIn){
-            // stop spinner
-            this.displayProgressSpinner = false;
-
-            this.checkInitialUsername();
-          } else {
-            this.loggedIn = false;
-          }
-        })
+        if (result) {
+          this.loggedIn = true;
+          this.checkInitialUsername();
+          this.displayProgressSpinner = false;
+        } else {
+          this.displayProgressSpinner = false;
+        }
       });
     }
   }
@@ -68,16 +65,25 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  redirect(){
+    this.router.navigate(["/ViewQuest"]);
+  }
+
   checkInitialUsername(){
-    this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
-      if (username=="Player"){
-        this.gameService.SetUsername(this.authService.GetUserDisplayName(),this.authService.GetUserId()).then(_=>{
-          this.router.navigate(["/ViewQuest"]);
-        })
-      } else {
-        this.router.navigate(["/ViewQuest"]);
+    this.gameService.FetchUsername(this.authService.GetUserId()).then(
+      username=>{
+        if (username=="Player"){
+          this.gameService.SetUsername(this.authService.GetUserDisplayName(),this.authService.GetUserId()).then(_=>{
+            this.redirect();
+          })
+        } else {
+          this.redirect();
+        }
+      },
+      err => {
+        this.redirect();
       }
-    })
+    )
   }
 
 }

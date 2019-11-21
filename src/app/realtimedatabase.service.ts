@@ -204,8 +204,12 @@ export class RealtimedatabaseService {
   // Profile
   FetchUsername(uuid): Promise<string> {
     return new Promise((res,rej)=>{
-      this.FetchUser(uuid).then(userdoc => {
-        res(userdoc.username);
+      this.FetchUser(uuid).then(
+        userdoc => {
+          res(userdoc.username),
+        err => {
+          rej(err);
+        }
       })
     })
   }
