@@ -18,7 +18,7 @@ export class How2playComponent implements OnInit {
 
   instructions:Array<any> = [
     {
-      text: "Hello! Welcome to trésor! A tresure hunting game!",
+      text: "Hello! Welcome to trésor! A treasure hunting game!",
       title: "Introduction",
       img: "../../assets/icons/default_icon-512x512.png"
     },
@@ -28,12 +28,12 @@ export class How2playComponent implements OnInit {
       img: "../../assets/image/tutorial/questlist.png"
     },
     {
-      text: "Each quest rewards you with a different number of points (we have a leaderboard, GO! GO! GO!).",
+      text: "Each quest rewards you with a different number of points.",
       title: "Points",
       img: "../../assets/image/tutorial/tutpoint.png"
     },
     {
-      text: "You solve these quests by trying to find a QR code somewhere in real life!",
+      text: "You solve these quests by finding a QR code somewhere!",
       title: "Solving",
       img: "../../assets/image/tutorial/tutqr.png"
     },
@@ -55,7 +55,6 @@ export class How2playComponent implements OnInit {
   ngOnInit() {}
   
   async next(dir){
-    console.log(this.currentIndex);
     if (this.animate==0){
       if (this.currentIndex+dir < this.instructions.length && this.currentIndex+dir>=0){
         this.nextIndex = this.currentIndex + dir;
