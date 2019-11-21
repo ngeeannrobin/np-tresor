@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
   mode = 'indeterminate';
   value = 50;
 
-  message: string = "Redirecting...";
+  // message: string = "Redirecting...";
   loggedIn:boolean = true;
 
-  constructor(private zone: NgZone,
-              private router: Router,
-              private gameService: GameService,
-              private authService: AuthService,
-              private routingStateService: RoutingStateService) {
+  constructor(
+    private router: Router,
+    private gameService: GameService,
+    private authService: AuthService,
+    private routingStateService: RoutingStateService) {
 
     // if being redirected from oauth, keep progress spinner on
     if (routingStateService.getPreviousUrl() == undefined && !routingStateService.isFirstUrl()) this.displayProgressSpinner = true;
@@ -43,9 +43,7 @@ export class LoginComponent implements OnInit {
 
     if (!this.loggedIn){
       var provider = new firebase.auth.GoogleAuthProvider();
-      console.log("test");
       firebase.auth().signInWithPopup(provider).then((result) => {
-        console.log("init")
         this.authService.CheckLogin().then(loggedIn=>{
           if (loggedIn){
             // stop spinner
@@ -61,6 +59,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.CheckLogin().then(loggedIn=>{
+      if (loggedIn){
+        this.checkInitialUsername();
+      } else {
+        this.loggedIn = false;
+      }
+    })
   }
 
   checkInitialUsername(){
