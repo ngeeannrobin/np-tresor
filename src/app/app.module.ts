@@ -42,6 +42,7 @@ import * as firebase from 'firebase';
 firebase.initializeApp(firebaseConfig);
 
 import { AppConfigService } from './app-config.service';
+import { CampaignMapComponent } from './campaign-map/campaign-map.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AppConfigService } from './app-config.service';
     ProfileComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent
+    CuriousUserComponent,
+    CampaignMapComponent
     // Dialogs
   ],
   imports: [
