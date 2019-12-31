@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: "profile", component: ProfileComponent},
   {path: "ViewQuest", component: ViewQuestComponent},
   {path: "ViewQuest/:id",component: SingleQuestComponent},
-  {path: "Campaign",component: CampaignComponent},
+  {path: "Campaign/:id",component: CampaignComponent},
   {path: "leaderboard", component: LeaderboardComponent},
   {path: "qr", component: CuriousUserComponent},
   {path: "qr/:random",component: CuriousUserComponent},

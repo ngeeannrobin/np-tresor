@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-campaign',
@@ -25,13 +27,21 @@ export class CampaignComponent implements OnInit {
 
   constructor(
     private gameservice: GameService,
-    private auth: AuthService
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    
+
+
     this.auth.CheckLogin().then(loggedIn => {
       if (loggedIn){
-        this.FetchCampaign("campaign01");
+        this.FetchCampaign(this.route.snapshot.paramMap.get("id"));
+      } else {
+        this.router.navigate(["login"]);
       }
     })
   }
@@ -41,12 +51,10 @@ export class CampaignComponent implements OnInit {
       campaign => {
         this.campaign = campaign;
         this.questKeys = this.GetQuestKeys(campaign.quest,campaign.startQuest);
-        
 
         this.questKeys.forEach(quest=>{
           this.campaign.quest[quest].done = false;
         })
-
 
         this.state = "backstory";
         this.Next();
@@ -73,20 +81,20 @@ export class CampaignComponent implements OnInit {
   Next(){
     switch(this.state){
       case "backstory":
-        if (this.textindex < this.campaign.backstory.length-1){
+        if (this.textindex < this.campaign.backStory.length-1){
           this.textindex++;
-          this.dISPLAYtEXT(this.campaign.backstory[this.textindex]);
+          this.dISPLAYtEXT(this.campaign.backStory[this.textindex]);
         } else {
           this.textindex = -1;
-          this.state = this.campaign.introtext?"intro":"quests";
+          this.state = this.campaign.introText?"intro":"quests";
           this.showCampaign = true;
           this.Next();
         }
         break;
       case "intro":
-        if (this.textindex < this.campaign.introtext.length-1){
+        if (this.textindex < this.campaign.introText.length-1){
           this.textindex++;  
-          this.dISPLAYtEXT(this.campaign.introtext[this.textindex]);
+          this.dISPLAYtEXT(this.campaign.introText[this.textindex]);
         } else {
           this.textindex = -1;
           this.state = "quests";
@@ -111,16 +119,20 @@ export class CampaignComponent implements OnInit {
             this.nextable = false;
             this.textindex = -1;
           }
+        } else {
+          this.questStoryOver = true;
+          this.nextable = false;
+          this.textindex = -1;
         }
 
         break;
       case "completed":
-        if (this.textindex < this.campaign.endtext.length-1){
+        if (this.textindex < this.campaign.endText.length-1){
 
           this.textindex++;
-          this.dISPLAYtEXT(this.campaign.endtext[this.textindex]);
+          this.dISPLAYtEXT(this.campaign.endText[this.textindex]);
         } else {
-          console.log("redirect");
+          this.back();
           // redirect
         }
         
@@ -177,6 +189,10 @@ export class CampaignComponent implements OnInit {
     let el: Element = document.getElementById(id);
     el.scrollIntoView({behavior:"smooth"});
     
+  }
+
+  back(){
+    this.location.back();
   }
 
 }

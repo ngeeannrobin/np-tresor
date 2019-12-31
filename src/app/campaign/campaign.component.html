@@ -31,7 +31,7 @@
         <quest-proximity (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-proximity>
     </div>
     <div *ngIf="currentQuest.questType == 'qr'">
-        <p (click)="nextQuest()">Placeholder for QR, click me to continue</p>
+        <p (click)="nextQuest()">I'm too scared to touch the code for the qr code, so here is a placeholder for QR Quest, click me to continue</p>
     </div>
     <div *ngIf="currentQuest.questType == 'quiz-mcq'">
         <quest-mcq (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-mcq>
