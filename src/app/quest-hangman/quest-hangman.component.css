@@ -1,0 +1,32 @@
+.answer-container{
+    text-align: center;
+}
+
+.answer {
+    display: inline-block;
+    min-width: 5vw;
+    text-align: center;
+}
+
+.key-outer-container {
+    text-align: center;
+}
+
+.key-container {
+    display: inline-block;
+    margin: 1vw;
+    width: 10vw;
+    height: 10vw;
+    background-color: pink;
+    position: relative;
+}
+
+.key-used-container {
+    background-color: lightgray;
+}
+
+.key {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+}
