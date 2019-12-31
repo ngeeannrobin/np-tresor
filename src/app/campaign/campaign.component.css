@@ -1,0 +1,119 @@
+.cover-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    top: 0; left: 0;
+}
+
+.default-background {
+    background-color: white;
+}
+
+.at-center-of-screen {
+
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.at-bottom-of-screen {  
+    position: fixed;
+    bottom: 10%; left: 50%;
+    transform: translateX(-50%);
+
+}
+
+.at-top-of-screen {
+    position: fixed;
+    top: 10%; left: 50%;
+    transform: translateX(-50%);
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.campaign-title {
+    font-weight: bold;
+    font-size: larger;
+}
+
+.text-box{
+    z-index: 999;
+    background-color: lightgray;
+    border: 1px solid black;
+    font-size: larger;
+    padding: 2.5% 5%;
+    width: 80%;
+    border-radius: 3px;
+}
+
+.arrow-right{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0.5em 0 0.5em 1em;
+    border-color: transparent transparent transparent #000000;
+
+    margin-left: 95%;
+}
+
+.path {
+    background-image: url("../../assets/image/campaign/testpath.png");
+    background-size: 100% 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    height: 200px;
+    position: relative;
+}
+
+.path:nth-child(even){
+    transform: translateX(-50%) scaleX(-1);
+}
+
+.start {
+    background-image: url("../../assets/image/campaign/testpath-start.png");
+}
+
+.end {
+    background-image: url("../../assets/image/campaign/testpath-end.png");
+}
+
+.guy {
+    background-image: url("../../assets/image/campaign/testguy.png");
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    transform:translate(-100%,-50%);
+}
+
+/* consider changing to image */
+.quest-node {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    
+    position: absolute;
+    top: 50%;
+    transform:translate(-50%,-50%);
+
+    margin-left: 74.8%; /* this value changes depending on the image path */
+    background-color: lightgray;
+
+    border: 1px solid #aaaaaa;
+}
+
+.done {
+    background-color: forestgreen;
+}
+
+.blink {
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink{
+    50% {background-color: forestgreen;}
+}
