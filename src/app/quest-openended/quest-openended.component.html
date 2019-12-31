@@ -1,1 +1,6 @@
-<p>quest-openended works!</p>
+<div>
+    {{quest.questData.question}}
+</div>
+<div>
+    <input [(ngModel)]="playerAnswer"/> <span (click)="answer(playerAnswer)">Continue</span>
+</div>

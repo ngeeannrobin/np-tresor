@@ -8,6 +8,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 export class QuestOpenendedComponent implements OnInit {
   @Input() quest: any;
   @Output() eventEmitter = new EventEmitter();
+  playerAnswer:string = "";
   constructor() { }
 
   ngOnInit() {
@@ -16,5 +17,14 @@ export class QuestOpenendedComponent implements OnInit {
   
   emit(data){
     this.eventEmitter.emit(data);
+  }
+
+  answer(answer:string):void{
+    if (answer.toUpperCase()==this.quest.questData.answer.toUpperCase()){
+      this.emit({key:"solved"})
+    } else {
+      this.quest.questData.question+= "-no";
+      this.playerAnswer = "";
+    }
   }
 }
