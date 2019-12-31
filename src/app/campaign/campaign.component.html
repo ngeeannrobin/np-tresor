@@ -33,4 +33,10 @@
     <div *ngIf="currentQuest.questType == 'qr'">
         <p (click)="nextQuest()">Placeholder for QR, click me to continue</p>
     </div>
+    <div *ngIf="currentQuest.questType == 'quiz-mcq'">
+        <quest-mcq (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-mcq>
+    </div>
+    <div *ngIf="currentQuest.questType == 'quiz-oeq'">
+        <quest-openended (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-openended>
+    </div>
 </div>
