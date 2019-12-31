@@ -42,6 +42,11 @@ import * as firebase from 'firebase';
 firebase.initializeApp(firebaseConfig);
 
 import { AppConfigService } from './app-config.service';
+import { CampaignComponent } from './campaign/campaign.component';
+import { QuestHangmanComponent } from './quest-hangman/quest-hangman.component';
+import { QuestProximityComponent } from './quest-proximity/quest-proximity.component';
+import { QuestOpenendedComponent } from './quest-openended/quest-openended.component';
+import { QuestMcqComponent } from './quest-mcq/quest-mcq.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +60,12 @@ import { AppConfigService } from './app-config.service';
     ProfileComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent
+    CuriousUserComponent,
+    CampaignComponent,
+    QuestHangmanComponent,
+    QuestProximityComponent,
+    QuestOpenendedComponent,
+    QuestMcqComponent
     // Dialogs
   ],
   imports: [

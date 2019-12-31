@@ -7,6 +7,7 @@ import { CuriousUserComponent } from './curious-user/curious-user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { How2playComponent } from './how2play/how2play.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { CampaignComponent } from './campaign/campaign.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: "profile", component: ProfileComponent},
   {path: "ViewQuest", component: ViewQuestComponent},
   {path: "ViewQuest/:id",component: SingleQuestComponent},
+  {path: "Campaign",component: CampaignComponent},
   {path: "leaderboard", component: LeaderboardComponent},
   {path: "qr", component: CuriousUserComponent},
   {path: "qr/:random",component: CuriousUserComponent},
