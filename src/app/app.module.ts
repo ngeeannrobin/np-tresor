@@ -8,6 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components & Dialogs
 import { CampaignComponent } from './campaign/campaign.component';
+import { CampaignMapComponent } from './campaign-map/campaign-map.component';
 import { CuriousUserComponent } from './curious-user/curious-user.component';
 import { How2playComponent } from './how2play/how2play.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
@@ -54,11 +55,13 @@ import { AppConfigService } from './app-config.service';
 
 
 
+
 @NgModule({
   declarations: [
     // Components
     AppComponent,
     CampaignComponent,
+    CampaignMapComponent,
     CuriousUserComponent,
     How2playComponent,
     LeaderboardComponent,
@@ -72,7 +75,6 @@ import { AppConfigService } from './app-config.service';
     SingleQuestComponent,
     ViewQuestComponent,
     CuriousUserComponent,
-    
     // Dialogs
   ],
   imports: [
