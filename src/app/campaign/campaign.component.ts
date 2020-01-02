@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./campaign.component.css']
 })
 export class CampaignComponent implements OnInit {
-
+  id: string;
   nextable: boolean = false;
 
   state: string;
@@ -39,7 +39,8 @@ export class CampaignComponent implements OnInit {
 
     this.auth.CheckLogin().then(loggedIn => {
       if (loggedIn){
-        this.FetchCampaign(this.route.snapshot.paramMap.get("id"));
+        this.id = this.route.snapshot.paramMap.get("id")
+        this.FetchCampaign(this.id);
       } else {
         this.router.navigate(["login"]);
       }
@@ -47,22 +48,23 @@ export class CampaignComponent implements OnInit {
   }
 
   FetchCampaign(id:string): void{
-    this.gameservice.FetchSingleCampaign(id).then(
-      campaign => {
-        this.campaign = campaign;
-        this.questKeys = this.GetQuestKeys(campaign.quest,campaign.startQuest);
+    this.gameservice.FetchSingleCampaign(id,this.auth.GetUserId()).then(campaign => {
+      this.campaign = campaign;
+      this.questKeys = this.GetQuestKeys(campaign.quest,campaign.startQuest);
 
-        this.questKeys.forEach(quest=>{
-          this.campaign.quest[quest].done = false;
-        })
+      // set current quest to the first quest that is not done
+      this.currentQuestId = campaign.startQuest;
 
-        this.state = "backstory";
-        this.Next();
-      },
-      err => {
-        console.log(err);
+      while (this.campaign.quest[this.currentQuestId].done){
+        this.currentQuestId = campaign.quest[this.currentQuestId].nextQuest;
       }
-    )
+
+      this.state = "backstory";
+      this.Next();
+    },
+    err => {
+      console.log(err);
+    })
   }
 
   // returns an array of questIds in reverse order
@@ -98,16 +100,12 @@ export class CampaignComponent implements OnInit {
         } else {
           this.textindex = -1;
           this.state = "quests";
-          this.scrollTo(this.campaign.startQuest);
           this.Next();
         }
         break;
       
       case "quests":
-        if (!this.currentQuestId){
-          this.currentQuestId = this.campaign.startQuest;
-        }
-        this.scrollTo(this.currentQuestId);
+        this.scrollTo(this.campaign.quest[this.currentQuestId].nextQuest || this.currentQuestId);
         // check if current quest has a story
         if (this.campaign.quest[this.currentQuestId].questStory){
           if (this.textindex < this.campaign.quest[this.currentQuestId].questStory.length-1){
@@ -167,20 +165,27 @@ export class CampaignComponent implements OnInit {
 
   eventReceiver(data): void{
     if (data.key == "solved"){
-      this.nextQuest();
+      this.completeQuest();
       console.log("solved")
     }
   }
 
-  nextQuest(): void {
+  completeQuest(): void {
+    // update cloud data
+    this.gameservice.CompleteQuestCampaign(this.id, this.auth.GetUserId(), this.campaign);
+
+    // update local data
     this.currentQuest.done = true;
     this.currentQuestId = this.currentQuest.nextQuest;
+
+    // clear currentQuest to show campaign line
     this.currentQuest = null;
-    console.log(this.currentQuestId);
-    if (this.currentQuestId == null){
+    
+    // if last quest is completed
+    if (this.currentQuestId == null)
       this.state = "completed";
-      
-    }
+
+    // display story if any
     this.Next();
   }
 
