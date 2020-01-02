@@ -1,0 +1,11 @@
+.map {
+    height: 100vh;
+    width: 100vw;
+
+    background-image: url("../../assets/image/sample_level_map.png");
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+
+    position: relative;
+}

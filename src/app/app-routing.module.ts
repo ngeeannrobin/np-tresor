@@ -7,6 +7,7 @@ import { CuriousUserComponent } from './curious-user/curious-user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { How2playComponent } from './how2play/how2play.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { CampaignMapComponent } from './campaign-map/campaign-map.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,9 @@ const routes: Routes = [
   {path: "qr/:random",component: CuriousUserComponent},
   {path: "about", component: CuriousUserComponent},
   {path: "tutorial", component: How2playComponent},
-  {path: "", pathMatch: "full", redirectTo:"login"}
+  {path: "", pathMatch: "full", redirectTo:"login"},
+
+  {path: "campaign", component: CampaignMapComponent}
 ];
 
 @NgModule({
