@@ -227,4 +227,9 @@ export class RealtimedatabaseService {
     let userRef = this.db.doc(`user/${uuid}`);
     return userRef.set({tutorial: true},{merge:true});
   }
+
+  // campaign
+  FetchSingleCampaign(id): Promise<any> {
+    return this.GetRequest(this.db.doc(`campaign/${id}`));
+  }
 }

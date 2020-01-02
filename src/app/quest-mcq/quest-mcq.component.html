@@ -1,0 +1,11 @@
+<div>
+    {{quest.questData.question}}
+</div>
+<div>
+    <div *ngFor="let option of optionArray" (click)="select(option)">
+        {{option==selectedOption?' x ':' - '}}{{option}}
+    </div>
+</div>
+<div *ngIf="selectedOption" (click)=check()>
+    continue
+</div>

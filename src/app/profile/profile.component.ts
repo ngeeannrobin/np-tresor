@@ -64,4 +64,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  tut() {
+    this.router.navigate(['/Campaign/Tutorial']);
+  }
 }

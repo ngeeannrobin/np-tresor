@@ -1,0 +1,42 @@
+
+
+<div *ngIf="nextable" class="cover-screen" (click)="Next()"></div>
+
+
+<div *ngIf="state=='backstory'" class="text-box at-center-of-screen">
+    <div class="campaign-title">{{campaign.title}}</div>
+    {{displayText}}
+    <div class="arrow-right"></div>
+</div>
+<div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen">
+    {{displayText}}
+    <div class="arrow-right"></div>
+</div>
+
+<div *ngIf="showCampaign">
+    <div *ngFor="let questId of questKeys" class="path" [attr.id]="questId" [ngClass]="{'end':questId==campaign.endQuest,'start':questId==campaign.startQuest}">
+        <div class="quest-node" (click)="SelectQuest(questId)" 
+        [ngClass]="{'blink': questId == currentQuestId,'done': campaign.quest[questId].done}">
+            <div *ngIf="questId == currentQuestId" class="guy"></div>
+        </div>
+    </div>
+    <div *ngIf="!questStoryOver" class="path invisible"></div>
+</div>
+
+<div *ngIf="currentQuest" class="cover-screen default-background">
+    <div *ngIf="currentQuest.questType == 'quiz-hangman'">
+        <quest-hangman (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-hangman>
+    </div>
+    <div *ngIf="currentQuest.questType == 'proximity-gps'">
+        <quest-proximity (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-proximity>
+    </div>
+    <div *ngIf="currentQuest.questType == 'qr'">
+        <p (click)="nextQuest()">I'm too scared to touch the code for the qr code, so here is a placeholder for QR Quest, click me to continue</p>
+    </div>
+    <div *ngIf="currentQuest.questType == 'quiz-mcq'">
+        <quest-mcq (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-mcq>
+    </div>
+    <div *ngIf="currentQuest.questType == 'quiz-oeq'">
+        <quest-openended (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-openended>
+    </div>
+</div>

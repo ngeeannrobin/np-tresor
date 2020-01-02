@@ -48,4 +48,8 @@ export class GameService {
   SetTutorialDone(uuid): Promise<void> {
     return this.db.SetTutorialDone(uuid);
   }
+
+  FetchSingleCampaign(id): Promise<any> {
+    return this.db.FetchSingleCampaign(id);
+  }
 }

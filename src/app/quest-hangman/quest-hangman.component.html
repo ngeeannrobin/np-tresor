@@ -1,0 +1,14 @@
+<div>
+    <div class="answer-container">
+        <span *ngFor="let c of displayText" class="answer">
+            {{c}}
+        </span>
+    </div>
+    <div class="key-outer-container">
+        <span *ngFor="let c of alphabets" class="key-container" (click)=reveal(c) [ngClass]="{'key-used-container': alphabetsRevealed.indexOf(c)!=-1}">
+            <span class="key">
+                {{c}}
+            </span>
+        </span>
+    </div>
+</div>
