@@ -51,6 +51,8 @@ import * as firebase from 'firebase';
 firebase.initializeApp(firebaseConfig);
 
 import { AppConfigService } from './app-config.service';
+import { GameorganiserComponent } from './gameorganiser/gameorganiser.component';
+import { NewcampaignComponent } from './newcampaign/newcampaign.component';
 
 
 
@@ -75,6 +77,8 @@ import { AppConfigService } from './app-config.service';
     SingleQuestComponent,
     ViewQuestComponent,
     CuriousUserComponent,
+    GameorganiserComponent,
+    NewcampaignComponent,
     // Dialogs
   ],
   imports: [
