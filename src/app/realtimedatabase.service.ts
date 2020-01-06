@@ -229,7 +229,36 @@ export class RealtimedatabaseService {
   }
 
   // campaign
-  FetchSingleCampaign(id): Promise<any> {
-    return this.GetRequest(this.db.doc(`campaign/${id}`));
+  FetchSingleCampaign(id,uuid): Promise<any> {
+    console.log(id,uuid);
+    const campaignPromise = this.GetRequest(this.db.doc(`campaign/${id}`));
+    const userPromise = this.GetRequest(this.db.doc(`userCampaignData/${uuid}`));
+
+    const promise = new Promise((res,rej)=>{
+      Promise.all([campaignPromise,userPromise]).then(values=>{
+        let campaign = values[0];
+        let campaignData = values[1][id] || {};
+
+        campaign.questCompleted = campaignData.questCompleted || 0;
+
+        // set quest done
+        let questId = campaign.startQuest;
+        for (let i=0; i<campaignData.questCompleted; i-=-1){
+          campaign.quest[questId].done = true;
+          questId = campaign.quest[questId].nextQuest;
+        }
+        res(campaign);
+      })
+    })
+    return promise;
+  }
+
+  CompleteQuestCampaign(id,uuid,campaign): Promise<any> {
+    console.log("test");
+    let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`);
+    let obj = {};
+    obj[id] = {};
+    obj[id].questCompleted = campaign.questCompleted+1;
+    return userCampaignRef.set(obj,{merge: true});
   }
 }
