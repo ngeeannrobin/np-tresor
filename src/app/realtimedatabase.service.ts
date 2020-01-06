@@ -230,7 +230,6 @@ export class RealtimedatabaseService {
 
   // campaign
   FetchSingleCampaign(id,uuid): Promise<any> {
-    console.log(id,uuid);
     const campaignPromise = this.GetRequest(this.db.doc(`campaign/${id}`));
     const userPromise = this.GetRequest(this.db.doc(`userCampaignData/${uuid}`));
 
@@ -248,8 +247,14 @@ export class RealtimedatabaseService {
           questId = campaign.quest[questId].nextQuest;
         }
         res(campaign);
+      }).catch(err=>{ // for the record, im not proud of this
+        campaignPromise.then(campaign=>{
+          campaign.questCompleted = 0;
+          res(campaign);
+        })
+
       })
-    })
+    });
     return promise;
   }
 
