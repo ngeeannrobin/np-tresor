@@ -239,6 +239,7 @@ export class RealtimedatabaseService {
         let campaignData = values[1][id] || {};
 
         campaign.questCompleted = campaignData.questCompleted || 0;
+        campaign.savedData = campaignData.savedData || {};
 
         // set quest done
         let questId = campaign.startQuest;
@@ -259,11 +260,26 @@ export class RealtimedatabaseService {
   }
 
   CompleteQuestCampaign(id,uuid,campaign): Promise<any> {
-    console.log("test");
     let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`);
     let obj = {};
     obj[id] = {};
     obj[id].questCompleted = campaign.questCompleted+1;
+    obj[id].savedData = {};
     return userCampaignRef.set(obj,{merge: true});
+  }
+
+  SaveCampaignData(id,uuid,data): Promise<void> {
+    let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`);
+    let obj = {};
+    obj[id] = {};
+    obj[id].savedData = data;
+    return userCampaignRef.set(obj,{merge:true});
+  }
+
+
+
+  CreateCampaign(id,campaign): Promise<any> {
+    let campaignRef = this.db.doc(`campaign/${id}`);
+    return campaignRef.set(campaign);
   }
 }

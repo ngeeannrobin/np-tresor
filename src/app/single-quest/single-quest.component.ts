@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-single-quest',
+  selector: 'quest-qr',
   templateUrl: './single-quest.component.html',
   styleUrls: ['./single-quest.component.css'],
 })
@@ -20,7 +20,11 @@ export class SingleQuestComponent implements OnInit {
 
   loaded: boolean = false;
   questId: string;
-  quest: any = {hint:{}};
+  @Input() simplified: boolean = false;
+  @Input() partOfCampaign: boolean = false;
+  @Input() quest: any = {hint:{}};
+  @Input() savedData: any;
+  @Output() eventEmitter = new EventEmitter();
   showCamera: boolean = false;
   showHint: boolean = true;
   object = Object;
@@ -31,19 +35,34 @@ export class SingleQuestComponent implements OnInit {
   loadingHint: boolean = false;
   userId: string = "";
   awarding: boolean = false;
-  // hintTaken: number = 0;
-  // hintAvailable: number = 0;
-  // pointAwarded: number = 0;
-  
 
   ngOnInit() {
     this.auth.CheckLogin().then(loggedIn => {
       if (loggedIn){
-        this.userId = this.auth.GetUserId();
-        this.questId = this.route.snapshot.paramMap.get("id");
-        this.FetchQuest(this.questId);
+        if (!this.partOfCampaign){
+          this.userId = this.auth.GetUserId();
+          this.questId = this.route.snapshot.paramMap.get("id");
+          this.FetchQuest(this.questId);
+        } else if (!this.simplified){
+          this.InjectData(this.savedData);
+        }
+        
       }
     })
+  }
+
+  InjectData(data: any){
+    if (data){
+      const hintTakenCount = data.hintTaken || 0;
+      this.quest.hintTakenCount = hintTakenCount;
+      this.quest.hintAvailCount = this.quest.hint.length - hintTakenCount;
+      for (let i=0; i<hintTakenCount; i++){
+        this.quest.point -= this.quest.hint[i].point;
+      }
+    } else { // not required, but just in case
+      this.quest.hintTakenCount = 0;
+      this.quest.hintAvailCount = this.quest.hint.length;
+    }
   }
 
   FetchQuest(id){
@@ -58,23 +77,37 @@ export class SingleQuestComponent implements OnInit {
   }
 
   TakeHint(){
+    // disable camera if camera is showing
     if (this.showCamera){
       this.ToggleCamera();
     }
     if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
-      this.loadingHint = true;
-      this.gameservice.TakeHint(this.quest,this.userId).then(
-        _ => {
-          this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
-          this.quest.hintTakenCount += 1;
-          this.quest.hintAvailCount -= 1;
-          this.loadingHint = false;
-        },
-        err=>{
-          this.loadingHint = false;
-          console.log(err);
-        }
-      )
+      if (!this.partOfCampaign){
+        this.loadingHint = true;
+        this.gameservice.TakeHint(this.quest,this.userId).then(
+          _ => {
+            this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
+            this.quest.hintTakenCount += 1;
+            this.quest.hintAvailCount -= 1;
+            this.loadingHint = false;
+          },
+          err=>{
+            this.loadingHint = false;
+            console.log(err);
+          }
+        )
+      } else {
+        // CODE TO EMIT SAVE DATA IDK LOL
+        this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
+        this.quest.hintTakenCount -= -1;
+        this.quest.hintAvailCount += -1;
+
+        const dataEmitted:any = {key:"save"};
+        dataEmitted.data = {hintTaken: this.quest.hintTakenCount};
+
+        this.emit(dataEmitted);
+      }
+
     }
   }
 
@@ -102,9 +135,14 @@ export class SingleQuestComponent implements OnInit {
       this.message = "You got it! Tap anywhere to return back to quests!"
       if (!this.awarding){
         this.awarding = true;
-        this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
-          this.correct=true;
-        })
+        if (!this.partOfCampaign){
+          this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
+            this.correct=true;
+          })
+        } else {
+          this.correct = true;
+        }
+        
       }
     } else {
       this.message = "That's ain't it, chief! Tap anywhere to continue."
@@ -122,7 +160,12 @@ export class SingleQuestComponent implements OnInit {
   async dismiss(){
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
-        this.back();
+        if (!this.partOfCampaign){
+          this.back();
+        } else {
+          this.emit({key:"solved"});
+        }
+        
       } else { // re-display hints and stuff
         this.animate = -1;
         this.showMessage = true;
@@ -136,4 +179,11 @@ export class SingleQuestComponent implements OnInit {
   async delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms));
   }
+
+  emit(data){
+    this.eventEmitter.emit(data);
+  }
+
+
+
 }

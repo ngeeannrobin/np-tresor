@@ -8,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 export class QuestHangmanComponent implements OnInit {
   @Input() quest: any;
   @Output() eventEmitter = new EventEmitter();
+  @Input() savedData: any;
 
   displayText: Array<string>;
   alphabets: Array<string> = 
@@ -19,10 +20,18 @@ export class QuestHangmanComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.InjectData(this.savedData);
+
+    this.alphabetsRevealed += this.quest.questData.given || "";
+    
+
     this.quest.questData.answer = this.quest.questData.answer.toUpperCase();
-    if (this.quest.questData.given)
-      this.alphabetsRevealed += this.quest.questData.given.toUpperCase();
+    this.alphabetsRevealed.toUpperCase();
     this.constructDisplayText();
+  }
+
+  InjectData(data:any){
+    this.alphabetsRevealed += this.savedData.alphabetsUsed || "";
   }
   
   constructDisplayText() {
@@ -40,6 +49,12 @@ export class QuestHangmanComponent implements OnInit {
   reveal(c){
     if (this.alphabetsRevealed.indexOf(c) == -1){
       this.alphabetsRevealed+=c;
+      this.savedData.alphabetsUsed = (this.savedData.alphabetsUsed || "") + c;
+
+      const dataEmitted:any = {key:"save"};
+      dataEmitted.data = {alphabetsUsed: this.savedData.alphabetsUsed};
+      this.emit(dataEmitted)
+
       this.constructDisplayText();
       if (this.displayText.indexOf("_") == -1){
         this.emit({key:"solved"})

@@ -1,37 +1,56 @@
 
 
+
+
+
+<div class="cover-screen but-at-the-back backstory-background"></div>
+
 <div *ngIf="nextable" class="cover-screen" (click)="Next()"></div>
 
 
 <div *ngIf="state=='backstory'" class="text-box at-center-of-screen">
-    <div class="campaign-title">{{campaign.title}}</div>
-    {{displayText}}
-    <div class="arrow-right"></div>
+    <div *ngIf="!showImage">
+        <div class="campaign-title">{{campaign.title}}</div>
+        {{displayText}}
+        <div class="arrow-right"></div>
+    </div>
+    <div *ngIf="showImage" class="in-center-of-container">
+        <img [src]="'data:image/png;base64,' + displayText" class="dun-too-big appear-small-to-big-and-spin-in">
+    </div>
 </div>
-<div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen">
-    {{displayText}}
-    <div class="arrow-right"></div>
+<div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen wooden white">
+    <div *ngIf="!showImage">
+        {{displayText}}
+        <div class="arrow-right white"></div>
+    </div>
+    <div *ngIf="showImage" class="in-center-of-container appear-small-to-big">
+        <img [src]="'data:image/png;base64,' + displayText" class="dun-too-big">
+    </div>
 </div>
 
 <div *ngIf="showCampaign">
     <div *ngFor="let questId of questKeys" class="path" [attr.id]="questId" [ngClass]="{'end':questId==campaign.endQuest,'start':questId==campaign.startQuest}">
         <div class="quest-node" (click)="SelectQuest(questId)" 
         [ngClass]="{'blink': questId == currentQuestId,'done': campaign.quest[questId].done}">
-            <div *ngIf="questId == currentQuestId" class="guy"></div>
+            <div *ngIf="questId == currentQuestId && state!='completed'" class="guy"></div>
         </div>
+        <div *ngIf="questId == campaign.endQuest && state=='completed'" class="guy guy-won"></div>
     </div>
-    <div *ngIf="!questStoryOver" class="path invisible"></div>
+    <div class="path empty"></div>
 </div>
 
 <div *ngIf="currentQuest" class="cover-screen default-background">
     <div *ngIf="currentQuest.questType == 'quiz-hangman'">
-        <quest-hangman (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-hangman>
+        <quest-hangman (eventEmitter)="eventReceiver($event)" [quest]="currentQuest" [savedData]="campaign.savedData"></quest-hangman>
     </div>
     <div *ngIf="currentQuest.questType == 'proximity-gps'">
         <quest-proximity (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-proximity>
     </div>
     <div *ngIf="currentQuest.questType == 'qr'">
-        <p (click)="completeQuest()">I'm too scared to touch the code for the qr code, so here is a placeholder for QR Quest, click me to continue</p>
+        <quest-qr (eventEmitter)="eventReceiver($event)" [quest]="currentQuest.questData" [partOfCampaign]="true" [savedData]="campaign.savedData"></quest-qr>
+    </div>
+    <div *ngIf="currentQuest.questType == 'qr-simple'">
+        <quest-qr (eventEmitter)="eventReceiver($event)" [quest]="currentQuest.questData" [partOfCampaign]="true" [savedData]="campaign.savedData" [simplified]="true"></quest-qr>
     </div>
     <div *ngIf="currentQuest.questType == 'quiz-mcq'">
         <quest-mcq (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-mcq>

@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./campaign.component.css']
 })
 export class CampaignComponent implements OnInit {
+
   id: string;
   nextable: boolean = false;
 
@@ -17,6 +18,7 @@ export class CampaignComponent implements OnInit {
   campaign: any;
   textindex: number = -1;
   displayText: string = "";
+  showImage: boolean = false;
   showCampaign: boolean = false;
 
   questKeys: Array<string>;
@@ -88,8 +90,10 @@ export class CampaignComponent implements OnInit {
           this.dISPLAYtEXT(this.campaign.backStory[this.textindex]);
         } else {
           this.textindex = -1;
-          this.state = this.campaign.introText?"intro":"quests";
+          this.state = ((this.campaign.introText) && (this.currentQuestId==this.campaign.startQuest))?"intro":"quests";
           this.showCampaign = true;
+          if (this.state == "quests")
+            this.dISPLAYtEXT("Your progress was saved when you left.");
           this.Next();
         }
         break;
@@ -114,6 +118,8 @@ export class CampaignComponent implements OnInit {
             this.dISPLAYtEXT(this.campaign.quest[this.currentQuestId].questStory[this.textindex]);
           } else {
             this.questStoryOver = true;
+            if (this.currentQuestId === this.campaign.startQuest)
+              this.scrollTo(this.currentQuestId,true);
             this.nextable = false;
             this.textindex = -1;
           }
@@ -147,14 +153,21 @@ export class CampaignComponent implements OnInit {
     } 
   }
 
-  async dISPLAYtEXT(text:string){
+  async dISPLAYtEXT(text){
 
     this.nextable = false;
 
-    for (let i=0; i<=text.length; i-=-1){
-      this.displayText = text.slice(0,i);
-      await this.sleep(10);
+    if (!text.img){
+      this.showImage = false;
+      for (let i=0; i<=text.length; i-=-1){
+        this.displayText = text.slice(0,i);
+        await this.sleep(10);
+      }
+    } else { // display image
+      this.showImage = true;
+      this.displayText = text.base64;
     }
+
 
     this.nextable = true;
   }
@@ -166,7 +179,8 @@ export class CampaignComponent implements OnInit {
   eventReceiver(data): void{
     if (data.key == "solved"){
       this.completeQuest();
-      console.log("solved")
+    } else if (data.key == "save"){
+      this.gameservice.SaveCampaignData(this.id, this.auth.GetUserId(), data.data);
     }
   }
 
@@ -190,9 +204,12 @@ export class CampaignComponent implements OnInit {
   }
 
 
-  scrollTo(id: string): void {
+  scrollTo(id: string, atBottom: boolean = false): void {
     let el: Element = document.getElementById(id);
-    el.scrollIntoView({behavior:"smooth"});
+    if (atBottom)
+      el.scrollIntoView({behavior:"smooth",block: "end"});
+    else
+      el.scrollIntoView({behavior:"smooth"});
     
   }
 
