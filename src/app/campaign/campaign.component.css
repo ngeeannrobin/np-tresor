@@ -1,3 +1,6 @@
+
+
+
 .cover-screen {
     position: fixed;
     width: 100vw;
@@ -6,8 +9,26 @@
     top: 0; left: 0;
 }
 
+.but-at-the-back {
+    z-index: 0;
+}
+
+.backstory-background {
+    background-image: url("../../assets/image/campaign/smokybackstorybackground.png");
+    background-size: 100% 100%;
+}
+
 .default-background {
     background-color: white;
+}
+
+.dun-too-big{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.in-center-of-container {
+    text-align: center;
 }
 
 .at-center-of-screen {
@@ -41,6 +62,8 @@
 
 .text-box{
     z-index: 999;
+    
+    
     background-color: lightgray;
     border: 1px solid black;
     font-size: larger;
@@ -49,23 +72,37 @@
     border-radius: 3px;
 }
 
+.wooden {
+    background-image: url("../../assets/image/campaign/wooddialogbox.png");
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+}
+
+.text-box.white {
+    color: white;
+}
+
+.arrow-right.white {
+    border-color: transparent transparent transparent white;
+}
+
 .arrow-right{
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0.5em 0 0.5em 1em;
-    border-color: transparent transparent transparent #000000;
+    border-color: transparent transparent transparent black;
 
     margin-left: 95%;
 }
 
 .path {
-    background-image: url("../../assets/image/campaign/testpath.png");
+    background-image: url("../../assets/image/campaign/treasuremappath.png");
     background-size: 100% 100%;
     margin-left: 50%;
     transform: translateX(-50%);
-    width: 75%;
-    height: 200px;
+    width: 100%;
+    height: 50vw;
     position: relative;
 }
 
@@ -73,12 +110,16 @@
     transform: translateX(-50%) scaleX(-1);
 }
 
+.empty {
+    background-image: url("../../assets/image/campaign/treasuremappath-empty.png");
+}
+
 .start {
-    background-image: url("../../assets/image/campaign/testpath-start.png");
+    background-image: url("../../assets/image/campaign/treasuremappath-start.png");
 }
 
 .end {
-    background-image: url("../../assets/image/campaign/testpath-end.png");
+    background-image: url("../../assets/image/campaign/treasuremappath-end.png");
 }
 
 .guy {
@@ -88,6 +129,11 @@
     height: 50px;
     position: absolute;
     transform:translate(-100%,-50%);
+}
+
+.guy-won {
+    transform:translate(-50%,50%);
+    margin-left: 46.2%; margin-right: 24.6%; /* these values changes depending on the end image path */
 }
 
 /* consider changing to image */
@@ -100,7 +146,7 @@
     top: 50%;
     transform:translate(-50%,-50%);
 
-    margin-left: 74.8%; /* this value changes depending on the image path */
+    margin-left: 72.6%; /* this value changes depending on the image path */
     background-color: lightgray;
 
     border: 1px solid #aaaaaa;
@@ -116,4 +162,22 @@
 
 @keyframes blink{
     50% {background-color: forestgreen;}
+}
+
+.appear-small-to-big {
+    animation: appear 0.5s;
+}
+
+.appear-small-to-big-and-spin-in {
+    animation: appear-spin 2s;
+}
+
+@keyframes appear {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
+}
+
+@keyframes appear-spin {
+    from {transform: scale(0) rotate(-1440deg);}
+    to {transform: scale(1) rotate(0deg);}
 }

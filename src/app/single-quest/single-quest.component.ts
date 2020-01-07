@@ -20,9 +20,10 @@ export class SingleQuestComponent implements OnInit {
 
   loaded: boolean = false;
   questId: string;
-  @Input() savedData: any;
-  @Input() partOfCampaign: boolean = true;
+  @Input() simplified: boolean = false;
+  @Input() partOfCampaign: boolean = false;
   @Input() quest: any = {hint:{}};
+  @Input() savedData: any;
   @Output() eventEmitter = new EventEmitter();
   showCamera: boolean = false;
   showHint: boolean = true;
@@ -34,10 +35,6 @@ export class SingleQuestComponent implements OnInit {
   loadingHint: boolean = false;
   userId: string = "";
   awarding: boolean = false;
-  // hintTaken: number = 0;
-  // hintAvailable: number = 0;
-  // pointAwarded: number = 0;
-  
 
   ngOnInit() {
     this.auth.CheckLogin().then(loggedIn => {
@@ -46,10 +43,8 @@ export class SingleQuestComponent implements OnInit {
           this.userId = this.auth.GetUserId();
           this.questId = this.route.snapshot.paramMap.get("id");
           this.FetchQuest(this.questId);
-        } else {
+        } else if (!this.simplified){
           this.InjectData(this.savedData);
-          console.log(this.quest);
-          console.log(this.savedData);
         }
         
       }
