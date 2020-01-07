@@ -167,6 +167,8 @@ export class CampaignComponent implements OnInit {
     if (data.key == "solved"){
       this.completeQuest();
       console.log("solved")
+    } else if (data.key == "save"){
+      this.gameservice.SaveCampaignData(this.id, this.auth.GetUserId(), data.data);
     }
   }
 

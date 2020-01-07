@@ -56,4 +56,8 @@ export class GameService {
   CompleteQuestCampaign(id,uuid,campaign): Promise<any>{
     return this.db.CompleteQuestCampaign(id,uuid,campaign);
   }
+
+  SaveCampaignData(id,uuid,data): Promise<void>{
+    return this.db.SaveCampaignData(id,uuid,data);
+  }
 }
