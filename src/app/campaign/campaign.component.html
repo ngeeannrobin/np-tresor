@@ -50,7 +50,8 @@
         <quest-qr (eventEmitter)="eventReceiver($event)" [quest]="currentQuest.questData" [partOfCampaign]="true" [savedData]="campaign.savedData"></quest-qr>
     </div>
     <div *ngIf="currentQuest.questType == 'qr-simple'">
-        <quest-qr (eventEmitter)="eventReceiver($event)" [quest]="currentQuest.questData" [partOfCampaign]="true" [savedData]="campaign.savedData" [simplified]="true"></quest-qr>
+        <!-- <quest-qr (eventEmitter)="eventReceiver($event)" [quest]="currentQuest.questData" [partOfCampaign]="true" [savedData]="campaign.savedData" [simplified]="true"></quest-qr> -->
+        <quest-simpleqr (eventEmitter)="eventReceiver($event)" [quest]="currentQuest.questData" [questName]="'Quest '+ (questKeys.length - questKeys.indexOf(currentQuestId)) + ' of ' + questKeys.length"></quest-simpleqr>
     </div>
     <div *ngIf="currentQuest.questType == 'quiz-mcq'">
         <quest-mcq (eventEmitter)="eventReceiver($event)" [quest]="currentQuest"></quest-mcq>

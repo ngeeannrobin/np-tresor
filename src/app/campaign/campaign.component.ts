@@ -181,6 +181,8 @@ export class CampaignComponent implements OnInit {
       this.completeQuest();
     } else if (data.key == "save"){
       this.gameservice.SaveCampaignData(this.id, this.auth.GetUserId(), data.data);
+    } else if (data.key == "back") {
+      this.currentQuest = null;
     }
   }
 
