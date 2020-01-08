@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { GameService } from '../game.service';
@@ -16,8 +16,7 @@ export class SingleQuestComponent implements OnInit {
     private route: ActivatedRoute,
     private gameservice: GameService,
     private location: Location,
-    private router: Router,
-    private elem: ElementRef) { }
+    private router: Router) { }
 
   loaded: boolean = false;
   questId: string;
