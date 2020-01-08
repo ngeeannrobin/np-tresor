@@ -1,6 +1,6 @@
 <div class="nav-bar">
   <div class="nav-item-container">
-    <div *ngFor="let nav of navs" (click)="NavTo(nav.route)" class="nav-item">
+    <div *ngFor="let nav of navs" (click)="NavTo(nav.route)" class="nav-item" [ngClass]="{ 'active': activeTab == nav.route }">
       {{nav.text}}
     </div>
   </div>

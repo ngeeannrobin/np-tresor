@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
+  activeTab: string;
+
   constructor(
     private router: Router
   ) { }
@@ -19,10 +21,15 @@ export class NavBarComponent implements OnInit {
   ]
 
   ngOnInit() {
+    this.activeTab = this.router.url;
   }
 
   NavTo(route){
+    // Navigate
     this.router.navigate([route]);
+    
+    // Update active tab
+    this.activeTab = this.router.url;
   }
 
 }

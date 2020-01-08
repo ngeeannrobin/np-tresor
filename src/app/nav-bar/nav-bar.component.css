@@ -27,9 +27,14 @@
 }
 
 .nav-item {
+    color: #969696;
     font-size: 0.75em;
     text-align: center;
     display: inline-block;
     padding: 1vw;
     width: 22vw;
+}
+
+.nav-item.active {
+    color: #000000;
 }
