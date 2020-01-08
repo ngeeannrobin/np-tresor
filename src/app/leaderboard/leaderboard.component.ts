@@ -16,7 +16,7 @@ export class LeaderboardComponent implements OnInit {
     private router: Router,
   ) { }
 
-  top: any = {};
+  top: any = [];
   uuid: string;
 
   ngOnInit() {
