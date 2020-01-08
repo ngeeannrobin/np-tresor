@@ -53,6 +53,7 @@ firebase.initializeApp(firebaseConfig);
 import { AppConfigService } from './app-config.service';
 import { GameorganiserComponent } from './gameorganiser/gameorganiser.component';
 import { NewcampaignComponent } from './newcampaign/newcampaign.component';
+import { QuestSimpleqrComponent } from './quest-simpleqr/quest-simpleqr.component';
 
 
 
@@ -79,6 +80,7 @@ import { NewcampaignComponent } from './newcampaign/newcampaign.component';
     CuriousUserComponent,
     GameorganiserComponent,
     NewcampaignComponent,
+    QuestSimpleqrComponent,
     // Dialogs
   ],
   imports: [
