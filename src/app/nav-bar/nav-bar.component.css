@@ -19,7 +19,7 @@
 }
 
 .nav-item-container {
-    padding: 0 5vw;
+    margin: 0 6vw;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -30,6 +30,6 @@
     font-size: 0.75em;
     text-align: center;
     display: inline-block;
-    padding: 1em;
-    width: 30vw;
+    padding: 1vw;
+    width: 22vw;
 }
