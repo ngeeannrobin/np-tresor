@@ -8,20 +8,28 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
+  activeTab: string;
+
   constructor(
     private router: Router
   ) { }
   navs: Array<any> = [
-    {text: "Quests", route: "/ViewQuest"},
+    {text: "Wander", route: "/ViewQuest"},
+    {text: "Campaign", route: "/Campaign/OpenHouse2020"},
     {text: "Leaderboard", route: "/leaderboard"},
     {text: "Profile", route: "/profile"}
   ]
 
   ngOnInit() {
+    this.activeTab = this.router.url;
   }
 
   NavTo(route){
+    // Navigate
     this.router.navigate([route]);
+    
+    // Update active tab
+    this.activeTab = this.router.url;
   }
 
 }
