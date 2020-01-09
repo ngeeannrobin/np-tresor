@@ -58,6 +58,7 @@
 
 .quest-back-btn {
     text-decoration: underline;
+    color: gray;
 }
 
 .camera-container {
@@ -96,7 +97,7 @@
     border-radius: 50%;
     display: inline-block;
     width: 90vmin; height: 90vmin;
-    box-shadow: black 0 0 0 100px, inset 0 0 2.5vmin 2.5vmin black;
+    box-shadow: black 0 0 0 50vmax, inset 0 0 2.5vmin 2.5vmin black;
     border: inset;
 }
 
