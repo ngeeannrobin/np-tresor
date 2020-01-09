@@ -9,7 +9,7 @@
             {{quest.title}}
         </div>
         <div *ngIf="quest.image64" class="quest-img">
-            <img [src]="'data:image/png;base64,' + quest.image64">
+            <img [src]="'data:image/png;base64,' + quest.image64" class="imagemsg">
         </div>
     </div>
     <div *ngIf = "showMessage">

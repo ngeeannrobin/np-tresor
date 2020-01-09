@@ -36,6 +36,11 @@
     width: 100%;
 }
 
+.imagemsg {
+    max-width: 100%;
+    max-height: 50vh;
+}
+
 .quest-img {
     text-align: center;
 }
