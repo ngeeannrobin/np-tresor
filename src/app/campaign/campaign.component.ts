@@ -187,12 +187,17 @@ export class CampaignComponent implements OnInit {
   }
 
   completeQuest(): void {
-    // update cloud data
-    this.gameservice.CompleteQuestCampaign(this.id, this.auth.GetUserId(), this.campaign);
-
+    
     // update local data
     this.currentQuest.done = true;
     this.currentQuestId = this.currentQuest.nextQuest;
+    this.campaign.questCompleted++;
+
+
+    // update cloud data
+    this.gameservice.CompleteQuestCampaign(this.id, this.auth.GetUserId(), this.campaign.questCompleted);
+
+
 
     // clear currentQuest to show campaign line
     this.currentQuest = null;

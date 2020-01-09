@@ -53,8 +53,8 @@ export class GameService {
     return this.db.FetchSingleCampaign(id,uuid);
   }
 
-  CompleteQuestCampaign(id,uuid,campaign): Promise<any>{
-    return this.db.CompleteQuestCampaign(id,uuid,campaign);
+  CompleteQuestCampaign(id,uuid,questCompleted): Promise<any>{
+    return this.db.CompleteQuestCampaign(id,uuid,questCompleted);
   }
 
   SaveCampaignData(id,uuid,data): Promise<void>{

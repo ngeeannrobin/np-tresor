@@ -259,11 +259,11 @@ export class RealtimedatabaseService {
     return promise;
   }
 
-  CompleteQuestCampaign(id,uuid,campaign): Promise<any> {
+  CompleteQuestCampaign(id,uuid,questcompleted): Promise<any> {
     let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`);
     let obj = {};
     obj[id] = {};
-    obj[id].questCompleted = campaign.questCompleted+1;
+    obj[id].questCompleted = questcompleted;
     obj[id].savedData = {};
     return userCampaignRef.set(obj,{merge: true});
   }
