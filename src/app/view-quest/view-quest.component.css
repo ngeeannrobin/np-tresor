@@ -81,11 +81,18 @@
 }
 .three-way-tab-move-left {
     animation: left-animate 1s;
+    -webkit-animation: left-animate 1s;
 }
 .three-way-tab-move-right{
     animation: right-animate 1s;
+    -webkit-animation: right-animate 1s;
 }
 @keyframes left-animate {
+    from{transform: translateX(0);}
+    50%{transform: translateX(calc(-25vw));}
+    to{transform: translateX(calc(-25vw));}
+}
+@-webkit-keyframes left-animate {
     from{transform: translateX(0);}
     50%{transform: translateX(calc(-25vw));}
     to{transform: translateX(calc(-25vw));}
@@ -95,6 +102,12 @@
     50%{transform: translateX(calc(25vw));}
     to{transform: translateX(calc(25vw))}
 }
+@-webkit-keyframes right-animate {
+    from{transform: translateX(0);}
+    50%{transform: translateX(calc(25vw));}
+    to{transform: translateX(calc(25vw))}
+}
+
 
 .quest-container {
     padding: 22px 15px 22px 25px;

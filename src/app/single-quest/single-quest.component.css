@@ -100,24 +100,40 @@
 
 .down-animate{
     animation: down-animate 1s;
+    -webkit-animation: down-animate 1s;
 }
 .up-animate{
     animation: up-animate 1s;
+    -webkit-animation: up-animate 1s;
 }
 /* .up-animate-slow{
     animation: up-animate 4s;
 } */
+
+
 
 @keyframes down-animate {
     from{transform: translateY(0);}
     50%{transform: translateY(100vh)}
     to{transform: translateY(100vh)}
 }
+@-webkit-keyframes down-animate {
+    from{transform: translateY(0);}
+    50%{transform: translateY(100vh)}
+    to{transform: translateY(100vh)}
+}
+
 @keyframes up-animate {
     from{transform: translateY(100vh);}
     50%{transform: translateY(0)}
     to{transform: translateY(0)}
 }
+@-webkit-keyframes up-animate {
+    from{transform: translateY(100vh);}
+    50%{transform: translateY(0)}
+    to{transform: translateY(0)}
+}
+
 
 
 /* message */
