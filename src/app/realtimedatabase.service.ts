@@ -229,33 +229,44 @@ export class RealtimedatabaseService {
   }
 
   // campaign
-  FetchSingleCampaign(id,uuid): Promise<any> {
+  FetchSingleCampaign(id,uuid,isGuest): Promise<any> {
     const campaignPromise = this.GetRequest(this.db.doc(`campaign/${id}`));
-    const userPromise = this.GetRequest(this.db.doc(`userCampaignData/${uuid}`));
-
-    const promise = new Promise((res,rej)=>{
-      Promise.all([campaignPromise,userPromise]).then(values=>{
-        let campaign = values[0];
-        let campaignData = values[1][id] || {};
-
-        campaign.questCompleted = campaignData.questCompleted || 0;
-        campaign.savedData = campaignData.savedData || {};
-
-        // set quest done
-        let questId = campaign.startQuest;
-        for (let i=0; i<campaignData.questCompleted; i-=-1){
-          campaign.quest[questId].done = true;
-          questId = campaign.quest[questId].nextQuest;
-        }
-        res(campaign);
-      }).catch(err=>{ // for the record, im not proud of this
+    const userPromise = isGuest?null:this.GetRequest(this.db.doc(`userCampaignData/${uuid}`));
+    let promise;
+    if (isGuest){
+      promise = new Promise((res,rej)=>{
         campaignPromise.then(campaign=>{
-          campaign.questCompleted = 0;
+          campaign.questcompleted = 0;
+          campaign.savedData = {};
           res(campaign);
+        });
+      });
+    } else {
+      promise = new Promise((res,rej)=>{
+        Promise.all([campaignPromise,userPromise]).then(values=>{
+          let campaign = values[0];
+          let campaignData = values[1][id] || {};
+  
+          campaign.questCompleted = campaignData.questCompleted || 0;
+          campaign.savedData = campaignData.savedData || {};
+  
+          // set quest done
+          let questId = campaign.startQuest;
+          for (let i=0; i<campaignData.questCompleted; i-=-1){
+            campaign.quest[questId].done = true;
+            questId = campaign.quest[questId].nextQuest;
+          }
+          res(campaign);
+        }).catch(err=>{ // for the record, im not proud of this
+          campaignPromise.then(campaign=>{
+            campaign.questCompleted = 0;
+            res(campaign);
+          })
+  
         })
+      });
+    }
 
-      })
-    });
     return promise;
   }
 
@@ -263,8 +274,19 @@ export class RealtimedatabaseService {
     let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`);
     let obj = {};
     obj[id] = {};
-    obj[id].questCompleted = campaign.questCompleted+1;
+
     obj[id].savedData = {};
+    obj[id].questCompleted = campaign.questCompleted;
+   
+    if (campaign.questCompleted>=Object.keys(campaign.quest).length){
+      obj[id].questCompleted = 0;
+      obj[id].savedData = {completed: true}
+      if (!campaign.savedData.completed){
+        this.AwardPoint(campaign.point,uuid);
+      }
+      
+    }
+    
     return userCampaignRef.set(obj,{merge: true});
   }
 

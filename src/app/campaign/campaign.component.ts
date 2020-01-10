@@ -27,6 +27,10 @@ export class CampaignComponent implements OnInit {
   currentQuest: any;
   questStoryOver: boolean = false;
 
+  userId: string;
+  userName: string;
+  isGuest: boolean = false;
+
   constructor(
     private gameservice: GameService,
     private auth: AuthService,
@@ -36,21 +40,23 @@ export class CampaignComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
-
-
     this.auth.CheckLogin().then(loggedIn => {
       if (loggedIn){
-        this.id = this.route.snapshot.paramMap.get("id")
-        this.FetchCampaign(this.id);
+        this.userId = this.auth.GetUserId();
+        this.userName = this.auth.GetUserDisplayName();
       } else {
-        this.router.navigate(["login"]);
+        //this.router.navigate(["login"]);
+        // enable guest mode
+        this.userName = `Hunter #${Math.floor(Math.random()*9000 + 1000)}`;
+        this.isGuest = true;
       }
+      this.id = this.route.snapshot.paramMap.get("id");
+      this.FetchCampaign(this.id);
     })
   }
 
   FetchCampaign(id:string): void{
-    this.gameservice.FetchSingleCampaign(id,this.auth.GetUserId()).then(campaign => {
+    this.gameservice.FetchSingleCampaign(id,this.userId,this.isGuest).then(campaign => {
       this.campaign = campaign;
       this.questKeys = this.GetQuestKeys(campaign.quest,campaign.startQuest);
 
@@ -153,11 +159,13 @@ export class CampaignComponent implements OnInit {
     } 
   }
 
-  async dISPLAYtEXT(text){
+  async dISPLAYtEXT(data){
 
     this.nextable = false;
 
-    if (!text.img){
+    if (!data.img){
+      let text:string = data;
+      text = text.replace("{{username}}",this.userName);
       this.showImage = false;
       for (let i=0; i<=text.length; i-=-1){
         this.displayText = text.slice(0,i);
@@ -165,7 +173,7 @@ export class CampaignComponent implements OnInit {
       }
     } else { // display image
       this.showImage = true;
-      this.displayText = text.base64;
+      this.displayText = data.base64;
     }
 
 
@@ -180,19 +188,29 @@ export class CampaignComponent implements OnInit {
     if (data.key == "solved"){
       this.completeQuest();
     } else if (data.key == "save"){
-      this.gameservice.SaveCampaignData(this.id, this.auth.GetUserId(), data.data);
+      if (!this.isGuest){
+        this.gameservice.SaveCampaignData(this.id, this.userId, data.data);
+      }
     } else if (data.key == "back") {
       this.currentQuest = null;
     }
   }
 
   completeQuest(): void {
-    // update cloud data
-    this.gameservice.CompleteQuestCampaign(this.id, this.auth.GetUserId(), this.campaign);
-
+    
     // update local data
     this.currentQuest.done = true;
     this.currentQuestId = this.currentQuest.nextQuest;
+    this.campaign.questCompleted++;
+
+
+    // update cloud data
+    if (!this.isGuest){
+      this.gameservice.CompleteQuestCampaign(this.id, this.userId, this.campaign  );
+    }
+    
+
+
 
     // clear currentQuest to show campaign line
     this.currentQuest = null;
