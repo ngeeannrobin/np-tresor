@@ -187,20 +187,6 @@ export class RealtimedatabaseService {
     return promise;
   }
 
-  Test() {
-    let col = this.db.collection("quest").ref;
-    
-    col.where("point","==",3).get().then(snapshot => {
-      if (snapshot.empty) {
-        console.log('No matching documents.');
-        return;
-      }  
-      snapshot.forEach(doc => {
-        console.log(doc.id, '=>', doc.data());
-      });
-    });
-  }
-
   // Profile
   FetchUsername(uuid): Promise<string> {
     return new Promise((res,rej)=>{
@@ -231,6 +217,7 @@ export class RealtimedatabaseService {
   // campaign
   FetchSingleCampaign(id,uuid,isGuest): Promise<any> {
     const campaignPromise = this.GetRequest(this.db.doc(`campaign/${id}`));
+    const questPromise = this.GetRequest(this.db.collection(`campaign/${id}/quest`))
     const userPromise = isGuest?null:this.GetRequest(this.db.doc(`userCampaignData/${uuid}`));
     let promise;
     if (isGuest){
@@ -243,12 +230,18 @@ export class RealtimedatabaseService {
       });
     } else {
       promise = new Promise((res,rej)=>{
-        Promise.all([campaignPromise,userPromise]).then(values=>{
+        Promise.all([campaignPromise,userPromise,questPromise]).then(values=>{
           let campaign = values[0];
           let campaignData = values[1][id] || {};
-  
+          let questData = values[2];
+    
           campaign.questCompleted = campaignData.questCompleted || 0;
           campaign.savedData = campaignData.savedData || {};
+          campaign.quest = {};
+
+          questData.forEach(quest => {
+            campaign.quest[quest.id] = quest;
+          });
   
           // set quest done
           let questId = campaign.startQuest;
@@ -256,6 +249,8 @@ export class RealtimedatabaseService {
             campaign.quest[questId].done = true;
             questId = campaign.quest[questId].nextQuest;
           }
+
+          console.log(campaign);
           res(campaign);
         }).catch(err=>{ // for the record, im not proud of this
           campaignPromise.then(campaign=>{
@@ -266,6 +261,11 @@ export class RealtimedatabaseService {
         })
       });
     }
+
+
+    questPromise.then(data=>{;
+      console.table(data);
+    })
 
     return promise;
   }
