@@ -214,77 +214,63 @@ export class RealtimedatabaseService {
     return userRef.set({tutorial: true},{merge:true});
   }
 
-  // campaign
   FetchSingleCampaign(id,uuid,isGuest): Promise<any> {
     const campaignPromise = this.GetRequest(this.db.doc(`campaign/${id}`));
-    const questPromise = this.GetRequest(this.db.collection(`campaign/${id}/quest`))
-    const userPromise = isGuest?null:this.GetRequest(this.db.doc(`userCampaignData/${uuid}`));
-    let promise;
-    if (isGuest){
-      promise = new Promise((res,rej)=>{
-        campaignPromise.then(campaign=>{
-          campaign.questcompleted = 0;
-          campaign.savedData = {};
-          res(campaign);
-        });
-      });
-    } else {
-      promise = new Promise((res,rej)=>{
-        Promise.all([campaignPromise,userPromise,questPromise]).then(values=>{
-          let campaign = values[0];
-          let campaignData = values[1][id] || {};
-          let questData = values[2];
+    const campaignQuestPromise = this.GetRequest(this.db.collection(`campaign/${id}/quest`))
+    const userCampaignDataPromise = this.GetRequest(this.db.doc(`userCampaignData/${uuid}`).collection("campaign").doc(id));
     
-          campaign.questCompleted = campaignData.questCompleted || 0;
-          campaign.savedData = campaignData.savedData || {};
-          campaign.quest = {};
-
-          questData.forEach(quest => {
-            campaign.quest[quest.id] = quest;
-          });
-  
-          // set quest done
+    let promise = new Promise((res,rej)=>{
+      Promise.all([campaignPromise,campaignQuestPromise]).then(values=>{
+        let campaign = values[0];
+        let campaignQuest = values[1];
+        // inject quests
+        campaign.quest = {};
+        campaignQuest.forEach(quest => {
+          campaign.quest[quest.id] = quest;
+        });
+        // personalise campaign to user
+        userCampaignDataPromise.then(userCampaignData=>{
+          // inject data saved in user profile
+          campaign.questCompleted = userCampaignData.questCompleted || 0;
+          campaign.savedData = userCampaignData.savedData || {};
+          campaign.completed = userCampaignData.completed || false;
+          // mark quests as done
           let questId = campaign.startQuest;
-          for (let i=0; i<campaignData.questCompleted; i-=-1){
+          for (let i=0; i<userCampaignData.questCompleted; i-=-1){
             campaign.quest[questId].done = true;
             questId = campaign.quest[questId].nextQuest;
           }
-
-          console.log(campaign);
           res(campaign);
-        }).catch(err=>{ // for the record, im not proud of this
-          campaignPromise.then(campaign=>{
-            campaign.questCompleted = 0;
-            res(campaign);
-          })
-  
+        // probably guest mode
+        },err=>{
+          campaign.questCompleted = 0;
+          campaign.savedData = {};
+          campaign.completed = false;
+          res(campaign);
         })
-      });
-    }
-
-
-    questPromise.then(data=>{;
-      console.table(data);
-    })
-
+      })
+    });
     return promise;
   }
 
   CompleteQuestCampaign(id,uuid,campaign): Promise<any> {
-    let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`);
-    let obj = {};
-    obj[id] = {};
-
-    obj[id].savedData = {};
-    obj[id].questCompleted = campaign.questCompleted;
-   
+    let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`).collection("campaign").doc(id);
+    let obj:any = {};
+    
+    // reset savedData
+    obj.savedData = {};
+    // update questCompleted count
+    obj.questCompleted = campaign.questCompleted;
+    // campaign is complete
     if (campaign.questCompleted>=Object.keys(campaign.quest).length){
-      obj[id].questCompleted = 0;
-      obj[id].savedData = {completed: true}
-      if (!campaign.savedData.completed){
+      // reset questCompleted
+      obj.questCompleted = 0;
+      // set completed to true
+      obj.completed = true;
+      // award points if first time completing
+      if (!campaign.completed){
         this.AwardPoint(campaign.point,uuid);
       }
-      
     }
     
     return userCampaignRef.set(obj,{merge: true});
