@@ -15,10 +15,11 @@ export class UserService {
     return userPromise;
   }
 
-  AwardPoint(point,uuid): Promise<any> {
-    let userRef = this.fs.doc(`user/${uuid}`);
-    return userRef.update({totalPoint: firestore.FieldValue.increment(point)});
-  }
+  // AwardPoint(point,uuid): Promise<any> {
+    
+  //   let userRef = this.fs.doc(`user/${uuid}`);
+  //   return userRef.update({totalPoint: firestore.FieldValue.increment(point)});
+  // }
 
 
   GetUserPoints(uuid): Promise<any> {
@@ -30,17 +31,20 @@ export class UserService {
     return promise;
   }
 
-  GetUserCompleteQuests(uuid): Promise<any> {
+  GetUserQuestsDoneCount(uuid): Promise<any> {
     const userPromise = this.fs.GetRequest(this.fs.doc(`user/${uuid}`));
     const promise = new Promise((res, rej) => {
-      Promise.all([userPromise]).then(values => { res(values[0].questCompleted); })
+      userPromise.then(userData=>{
+        userData = userData || {};
+        res(userData.questCompleted || 0)
+      })
     });
-
     return promise;
   }
 
   // Profile
   FetchUsername(uuid): Promise<string> {
+    console.log(uuid);
     return new Promise((res,rej)=>{
       this.FetchUser(uuid).then(userdoc => {
         res(userdoc.username);
@@ -56,7 +60,8 @@ export class UserService {
   FetchTutorialStatus(uuid): Promise<boolean> {
     return new Promise((res,rej)=>{
       this.FetchUser(uuid).then(userdoc => {
-        res(userdoc.tutorial);
+        userdoc = userdoc || {};
+        res(userdoc.tutorial || false);
       })
     })
   }
@@ -79,6 +84,13 @@ export class UserService {
     })
 
     return promise;
+  }
+
+  IncreaseField(uuid, field, amount): Promise<any>{
+    const userRef = this.fs.doc(`user/${uuid}`);
+    const obj = {};
+    obj[field] = firestore.FieldValue.increment(amount)
+    return userRef.update(obj);
   }
 
 }

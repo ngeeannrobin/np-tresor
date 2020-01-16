@@ -45,8 +45,8 @@ export class ProfileComponent implements OnInit {
         this.userS.GetUserPoints(this.id).then(pts => {
           this.total_points = pts;
         });
-        this.userS.GetUserCompleteQuests(this.id).then(quests => {
-          this.quests_completed = quests.length;
+        this.userS.GetUserQuestsDoneCount(this.id).then(qd => {
+          this.quests_completed = qd;
         });
       } else {
         this.router.navigate(["login"]);

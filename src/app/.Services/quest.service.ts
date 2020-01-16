@@ -19,7 +19,7 @@ export class QuestService {
 
   FetchQuest(uuid): Promise<any> {
     const allQuestPromise = this.fs.GetRequest(this.fs.collection("quest"));
-    const userDataPromise = this.fs.GetRequest(this.fs.collection(`userData/${uuid}/quest`));
+    const userDataPromise = this.fs.GetRequest(this.fs.collection(`user/${uuid}/quest`));
     const promise = new Promise((res,rej)=>{
       Promise.all([allQuestPromise,userDataPromise]).then(values=>{
         const allQuest = values[0];
@@ -75,7 +75,7 @@ export class QuestService {
   // Single Quest
   FetchSingleQuest(id,uuid): Promise<any> {
     const questPromise = this.fs.GetRequest(this.fs.doc(`quest/${id}`));
-    const userDataPromise = this.fs.GetRequest(this.fs.doc(`userData/${uuid}`).collection("quest").doc(id));
+    const userDataPromise = this.fs.GetRequest(this.fs.doc(`user/${uuid}`).collection("quest").doc(id));
     const promise = new Promise((res,rej)=>{
       Promise.all([questPromise,userDataPromise]).then(values=>{
         const quest = values[0];
@@ -97,24 +97,29 @@ export class QuestService {
   }
 
   TakeHint(quest,uuid): Promise<any> {
-    const userRef = this.fs.doc(`userData/${uuid}`).collection("quest").doc(quest.questId);
+    const userRef = this.fs.doc(`user/${uuid}`).collection("quest").doc(quest.questId);
     const obj = {hintTaken: firestore.FieldValue.increment(1),id: quest.questId}
-    return this.fs.SetRequest(userRef,{},{merge: true});
-    return userRef.set({},{merge: true})
+    return userRef.set(obj, {merge:true})
   }
 
   private QuestDone(questId,uuid): Promise<any> {
-    let userRef = this.fs.doc(`userData/${uuid}`).collection("quest").doc(questId);
-    return userRef.set({completed: true, id:questId}, {merge:true});
+    const userRef = this.fs.doc(`user/${uuid}`).collection("quest").doc(questId);
+    const obj = {completed: true, id:questId}
+    return userRef.set(obj, {merge:true});
   }
 
   CompleteQuest(quest,uuid): Promise<any> {
+    const awardPointPromise =  this.u.IncreaseField(uuid,"totalPoint",quest.point);;
+    const questDonePromise = this.QuestDone(quest.questId,uuid);
+    const increaseQCPromise = this.u.IncreaseField(uuid,"questCompleted",1);
     const promise = new Promise((res,rej)=>{
-      Promise.all([
-        this.u.AwardPoint(quest.point,uuid),
-        this.QuestDone(quest.questId,uuid)]).then(values=>{
-          res(undefined);
-      })
+      Promise.all([awardPointPromise,questDonePromise,increaseQCPromise]).then(
+        values=>{
+          res(true);
+        },err=>{
+          rej(err)
+        }
+      )
     })
     return promise;
   }
