@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BrowserService } from './.Services/browser.service';
 import { RoutingStateService } from './.Services/routing-state.service';
+import { AuthService } from "./.Services/auth.service"
+import { GameService } from "./.Services/game.service"
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,9 @@ export class AppComponent {
 
   constructor(
     private browserService: BrowserService,
-    private routingStateService: RoutingStateService) {
+    private routingStateService: RoutingStateService,
+    private authService: AuthService,
+    private gameService: GameService) {
 
     // begin updating location
     browserService.beginLocationUpdate();
@@ -23,9 +27,26 @@ export class AppComponent {
 
   }
 
+  ngOnInit(){
+    console.log("test");
+    this.authService.CheckLogin().then(loggedIn=>{
+      this.checkInitialUsername();
+    })
+  }
+
   toggleTheme(){
     document.documentElement.setAttribute("data-theme",this.dark?"default":"dark");
     this.dark = !this.dark;
+  }
+
+
+
+  checkInitialUsername(){
+    this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
+      if (username=="Hunter"){
+        this.gameService.SetUsername(this.authService.GetUserDisplayName(),this.authService.GetUserId());
+      }
+    })
   }
 
 }

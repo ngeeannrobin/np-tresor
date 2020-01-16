@@ -48,8 +48,7 @@ export class LoginComponent implements OnInit {
           if (loggedIn){
             // stop spinner
             this.displayProgressSpinner = false;
-
-            this.checkInitialUsername();
+            this.router.navigate(["/ViewQuest"]);
           } else {
             this.loggedIn = false;
           }
@@ -61,21 +60,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.CheckLogin().then(loggedIn=>{
       if (loggedIn){
-        this.checkInitialUsername();
+        this.router.navigate(["/ViewQuest"]);
       } else {
         this.loggedIn = false;
-      }
-    })
-  }
-
-  checkInitialUsername(){
-    this.gameService.FetchUsername(this.authService.GetUserId()).then(username=>{
-      if (username=="Player"){
-        this.gameService.SetUsername(this.authService.GetUserDisplayName(),this.authService.GetUserId()).then(_=>{
-          this.router.navigate(["/ViewQuest"]);
-        })
-      } else {
-        this.router.navigate(["/ViewQuest"]);
       }
     })
   }
