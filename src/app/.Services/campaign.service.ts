@@ -66,7 +66,8 @@ export class CampaignService {
       obj.completed = true;
       // award points if first time completing
       if (!campaign.completed){
-        this.u.AwardPoint(campaign.point,uuid);
+        this.u.IncreaseField(uuid,"totalPoint",campaign.point);
+        this.u.IncreaseField(uuid,"campaignCompleted",1);
       }
     }
     return userCampaignRef.set(obj,{merge: true});

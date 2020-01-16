@@ -109,10 +109,11 @@ export class QuestService {
   }
 
   CompleteQuest(quest,uuid): Promise<any> {
-    const awardPointPromise =  this.u.AwardPoint(quest.point,uuid);
+    const awardPointPromise =  this.u.IncreaseField(uuid,"totalPoint",quest.point);;
     const questDonePromise = this.QuestDone(quest.questId,uuid);
+    const increaseQCPromise = this.u.IncreaseField(uuid,"questCompleted",1);
     const promise = new Promise((res,rej)=>{
-      Promise.all([awardPointPromise,questDonePromise]).then(
+      Promise.all([awardPointPromise,questDonePromise,increaseQCPromise]).then(
         values=>{
           res(true);
         },err=>{

@@ -15,10 +15,11 @@ export class UserService {
     return userPromise;
   }
 
-  AwardPoint(point,uuid): Promise<any> {
-    let userRef = this.fs.doc(`user/${uuid}`);
-    return userRef.update({totalPoint: firestore.FieldValue.increment(point)});
-  }
+  // AwardPoint(point,uuid): Promise<any> {
+    
+  //   let userRef = this.fs.doc(`user/${uuid}`);
+  //   return userRef.update({totalPoint: firestore.FieldValue.increment(point)});
+  // }
 
 
   GetUserPoints(uuid): Promise<any> {
@@ -83,6 +84,13 @@ export class UserService {
     })
 
     return promise;
+  }
+
+  IncreaseField(uuid, field, amount): Promise<any>{
+    const userRef = this.fs.doc(`user/${uuid}`);
+    const obj = {};
+    obj[field] = firestore.FieldValue.increment(amount)
+    return userRef.update(obj);
   }
 
 }
