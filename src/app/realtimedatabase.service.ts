@@ -49,12 +49,19 @@ export class RealtimedatabaseService {
 
   FetchQuest(uuid): Promise<any> {
     const allQuestPromise = this.GetRequest(this.db.collection("quest"));
-    const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
+    const userDataPromise = this.GetRequest(this.db.collection(`userData/${uuid}/quest`));
     const promise = new Promise((res,rej)=>{
-      Promise.all([allQuestPromise,userPromise]).then(values=>{
+      Promise.all([allQuestPromise,userDataPromise]).then(values=>{
         const allQuest = values[0];
-        const questCompleted: Array<any> = values[1].questCompleted?values[1].questCompleted:[];
-        const hintTaken: Array<any> = values[1].hintTaken?values[1].hintTaken:[];
+        const userData = values[1];
+
+        const userQuestData = {};
+        userData.forEach(quest => {
+          userQuestData[quest.id] = {};
+          userQuestData[quest.id].completed = quest.completed;
+          userQuestData[quest.id].hintTaken = quest.hintTaken;
+        });
+
         const sortedQuest = {done: [], notdone: []};
         
         // get features for filtering quests by range
@@ -66,12 +73,12 @@ export class RealtimedatabaseService {
         allQuest.forEach(quest => {
           // inititalise available hint count to the number of hints available
           quest.availHintCount = quest.hint.length;
+
+          userQuestData[quest.questId] = userQuestData[quest.questId] || {};
           // subtract hints taken by user from the total number of hints available
-          if (hintTaken[quest.questId]){
-            quest.availHintCount -= hintTaken[quest.questId];
-          }
+          quest.availHintCount -= userQuestData[quest.questId].hintTaken || 0;
           // sort quests by done/notdone
-          if (questCompleted.includes(quest.questId)){
+          if (userQuestData[quest.questId].completed || false){
             sortedQuest.done.push(quest);
           } else {
             // only include quests within quest_range in notdone
@@ -84,7 +91,6 @@ export class RealtimedatabaseService {
                 latitude: quest.latitude,
                 longitude: quest.longitude
               });
-
               // if distance is within defined range, show quest
               if (dist <= quest_range) { sortedQuest.notdone.push(quest); }
             }
@@ -99,15 +105,15 @@ export class RealtimedatabaseService {
   // Single Quest
   FetchSingleQuest(id,uuid): Promise<any> {
     const questPromise = this.GetRequest(this.db.doc(`quest/${id}`));
-    const userPromise = this.GetRequest(this.db.doc(`user/${uuid}`));
+    const userDataPromise = this.GetRequest(this.db.doc(`userData/${uuid}`).collection("quest").doc(id));
     const promise = new Promise((res,rej)=>{
-      Promise.all([questPromise,userPromise]).then(values=>{
-        const completedQuest = values[1].questCompleted?values[1].questCompleted:[];
-        if (completedQuest.includes(id)){
+      Promise.all([questPromise,userDataPromise]).then(values=>{
+        const quest = values[0];
+        const userData = values[1] || {};
+        if (userData.completed){
           res(null);
         } else {
-          const quest = values[0];
-          const hintTakenCount = values[1].hintTaken?(values[1].hintTaken[id]?values[1].hintTaken[id]:0):0;
+          const hintTakenCount = userData.hintTaken || 0;
           quest.hintAvailCount = quest.hint.length - hintTakenCount;
           quest.hintTakenCount = hintTakenCount;
           for (let i=0; i<hintTakenCount; i++){
@@ -121,10 +127,8 @@ export class RealtimedatabaseService {
   }
 
   TakeHint(quest,uuid): Promise<any> {
-    let userRef = this.db.doc(`user/${uuid}`);
-    let obj = {};
-    obj[quest.questId] = quest.hintTakenCount+1;
-    return userRef.set({hintTaken: obj},{merge: true});
+    let userRef = this.db.doc(`userData/${uuid}`).collection("quest").doc(quest.questId);
+    return userRef.set({hintTaken: firestore.FieldValue.increment(1),id: quest.questId},{merge: true})
   }
 
   private AwardPoint(point,uuid): Promise<any> {
@@ -133,8 +137,8 @@ export class RealtimedatabaseService {
   }
 
   private QuestDone(questId,uuid): Promise<any> {
-    let userRef = this.db.doc(`user/${uuid}`);
-    return userRef.update({questCompleted: firestore.FieldValue.arrayUnion(questId)});
+    let userRef = this.db.doc(`userData/${uuid}`).collection("quest").doc(questId);
+    return userRef.set({completed: true, id:questId}, {merge:true});
   }
 
   CompleteQuest(quest,uuid): Promise<any> {
@@ -217,7 +221,7 @@ export class RealtimedatabaseService {
   FetchSingleCampaign(id,uuid,isGuest): Promise<any> {
     const campaignPromise = this.GetRequest(this.db.doc(`campaign/${id}`));
     const campaignQuestPromise = this.GetRequest(this.db.collection(`campaign/${id}/quest`))
-    const userCampaignDataPromise = this.GetRequest(this.db.doc(`userCampaignData/${uuid}`).collection("campaign").doc(id));
+    const userCampaignDataPromise = this.GetRequest(this.db.doc(`userData/${uuid}`).collection("campaign").doc(id));
     
     let promise = new Promise((res,rej)=>{
       Promise.all([campaignPromise,campaignQuestPromise]).then(values=>{
@@ -231,6 +235,7 @@ export class RealtimedatabaseService {
         // personalise campaign to user
         userCampaignDataPromise.then(userCampaignData=>{
           // inject data saved in user profile
+          userCampaignData = userCampaignData || {};
           campaign.questCompleted = userCampaignData.questCompleted || 0;
           campaign.savedData = userCampaignData.savedData || {};
           campaign.completed = userCampaignData.completed || false;
@@ -254,9 +259,8 @@ export class RealtimedatabaseService {
   }
 
   CompleteQuestCampaign(id,uuid,campaign): Promise<any> {
-    let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`).collection("campaign").doc(id);
+    let userCampaignRef = this.db.doc(`userData/${uuid}`).collection("campaign").doc(id);
     let obj:any = {};
-    
     // reset savedData
     obj.savedData = {};
     // update questCompleted count
@@ -272,19 +276,15 @@ export class RealtimedatabaseService {
         this.AwardPoint(campaign.point,uuid);
       }
     }
-    
     return userCampaignRef.set(obj,{merge: true});
   }
 
   SaveCampaignData(id,uuid,data): Promise<void> {
-    let userCampaignRef = this.db.doc(`userCampaignData/${uuid}`);
-    let obj = {};
-    obj[id] = {};
-    obj[id].savedData = data;
+    let userCampaignRef = this.db.doc(`userData/${uuid}`).collection("campaign").doc(id);
+    let obj:any = {};
+    obj.savedData = data;
     return userCampaignRef.set(obj,{merge:true});
   }
-
-
 
   CreateCampaign(id,campaign): Promise<any> {
     let campaignRef = this.db.doc(`campaign/${id}`);
