@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BrowserService } from './browser.service';
-import { RoutingStateService } from './routing-state.service';
+import { BrowserService } from './.Services/browser.service';
+import { RoutingStateService } from './.Services/routing-state.service';
 
 @Component({
   selector: 'app-root',

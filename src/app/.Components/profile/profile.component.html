@@ -1,0 +1,28 @@
+<div class="profile">
+    <div class="back-bar">
+        <a (click)="goBack()" class="back"></a>
+    </div>
+    <img src="{{photoUrl?photoUrl:defaultPhotoUrl}}" class="profile-img" />
+    <div class="google-info">
+        <div class="name">{{name?name:"Guest"}}</div>
+        <div class="email" *ngIf="email">{{email}}</div>
+    </div>
+    <div class="player-info">
+        <div class="header">MY STATS</div>
+        <div class="total-points">
+            <span class="points">{{total_points}}</span>
+            <img src="../../../assets/image/gold_coin.png" />
+        </div>
+        <div class="quests-completed">
+            <span class="quests">{{quests_completed}}</span>
+            <img src="../../../assets/image/green_check.png" />
+        </div>
+    </div>
+    <div class="logout">
+        <a (click)="signOut()">Logout</a>
+    </div>
+</div>
+<div class="version" (click)=test()>
+    v2.3.0
+</div>
+<app-nav-bar></app-nav-bar> 

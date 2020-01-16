@@ -1,0 +1,35 @@
+.nav-bar, .phantom-nav-bar {
+    width: 100vw;
+    height: 3em;
+}
+
+.nav-bar {
+    position: fixed;
+    bottom: 0;
+    background-color: var(--bar-background-color);
+    color: var(--main-text-color);
+    box-shadow: var(--bar-shadow-color) 0 -1px 3px;
+    /* background-color: pink; */
+    /* text-align: center; */
+}
+
+.nav-item-container {
+    margin: 0 6vw;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.nav-item {
+    color: #969696;
+    font-size: 0.75em;
+    text-align: center;
+    display: inline-block;
+    padding: 1vw;
+    width: 22vw;
+}
+
+.nav-item.active {
+    color: #000000;
+}
