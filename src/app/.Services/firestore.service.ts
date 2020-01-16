@@ -42,10 +42,6 @@ export class FirestoreService {
     })
   }
 
-  SetRequest(ref,data,option): Promise<any>{
-    return ref.set(data,option)
-  }
-
   doc(path): AngularFirestoreDocument<unknown>{return this.db.doc(path)}
   collection(path,query?): AngularFirestoreCollection<unknown>{return this.db.collection(path,query)}
 

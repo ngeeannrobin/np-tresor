@@ -56,7 +56,8 @@ export class UserService {
   FetchTutorialStatus(uuid): Promise<boolean> {
     return new Promise((res,rej)=>{
       this.FetchUser(uuid).then(userdoc => {
-        res(userdoc.tutorial);
+        userdoc = userdoc || {};
+        res(userdoc.tutorial || false);
       })
     })
   }

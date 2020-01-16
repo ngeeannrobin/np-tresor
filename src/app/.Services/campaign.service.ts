@@ -14,7 +14,7 @@ export class CampaignService {
   FetchSingleCampaign(id,uuid,isGuest): Promise<any> {
     const campaignPromise = this.fs.GetRequest(this.fs.doc(`campaign/${id}`));
     const campaignQuestPromise = this.fs.GetRequest(this.fs.collection(`campaign/${id}/quest`))
-    const userCampaignDataPromise = this.fs.GetRequest(this.fs.doc(`userData/${uuid}`).collection("campaign").doc(id));
+    const userCampaignDataPromise = this.fs.GetRequest(this.fs.doc(`user/${uuid}`).collection("campaign").doc(id));
     
     let promise = new Promise((res,rej)=>{
       Promise.all([campaignPromise,campaignQuestPromise]).then(values=>{
@@ -52,7 +52,7 @@ export class CampaignService {
   }
 
   CompleteQuestCampaign(id,uuid,campaign): Promise<any> {
-    let userCampaignRef = this.fs.doc(`userData/${uuid}`).collection("campaign").doc(id);
+    let userCampaignRef = this.fs.doc(`user/${uuid}`).collection("campaign").doc(id);
     let obj:any = {};
     // reset savedData
     obj.savedData = {};
@@ -73,7 +73,7 @@ export class CampaignService {
   }
 
   SaveCampaignData(id,uuid,data): Promise<void> {
-    let userCampaignRef = this.fs.doc(`userData/${uuid}`).collection("campaign").doc(id);
+    let userCampaignRef = this.fs.doc(`user/${uuid}`).collection("campaign").doc(id);
     let obj:any = {};
     obj.savedData = data;
     return userCampaignRef.set(obj,{merge:true});
