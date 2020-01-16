@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as firebase from 'firebase/app';
-import { UserService } from '../../.Services/user.service';
+import { UserService } from '../user.service';
 import { NumberFormatStyle } from '@angular/common';
 import { Router } from '@angular/router';
-import { RoutingStateService } from '../../.Services/routing-state.service';
-import { AuthService } from '../../.Services/auth.service';
+import { RoutingStateService } from '../routing-state.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   total_points:number;
   quests_completed:NumberFormatStyle;
 
-  defaultPhotoUrl = "../../../assets/image/default_avatar.png";
+  defaultPhotoUrl = "../../assets/image/default_avatar.png";
 
   constructor(
     public userS: UserService,

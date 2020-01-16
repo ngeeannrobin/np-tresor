@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { GameService } from '../../.Services/game.service';
-import { AuthService } from '../../.Services/auth.service';
+import { GameService } from '../game.service';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'quest-simpleqr',
   templateUrl: './quest-simpleqr.component.html',

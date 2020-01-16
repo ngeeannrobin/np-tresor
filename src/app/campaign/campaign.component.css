@@ -14,7 +14,7 @@
 }
 
 .backstory-background {
-    background-image: url("../../../assets/image/campaign/smokybackstorybackground.png");
+    background-image: url("../../assets/image/campaign/smokybackstorybackground.png");
     background-size: 100% 100%;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .wooden {
-    background-image: url("../../../assets/image/campaign/wooddialogbox.png");
+    background-image: url("../../assets/image/campaign/wooddialogbox.png");
     background-repeat: repeat-y;
     background-size: 100% auto;
 }
@@ -97,7 +97,7 @@
 }
 
 .path {
-    background-image: url("../../../assets/image/campaign/treasuremappath.png");
+    background-image: url("../../assets/image/campaign/treasuremappath.png");
     background-size: 100% 100%;
     margin-left: 50%;
     transform: translateX(-50%);
@@ -111,19 +111,19 @@
 }
 
 .empty {
-    background-image: url("../../../assets/image/campaign/treasuremappath-empty.png");
+    background-image: url("../../assets/image/campaign/treasuremappath-empty.png");
 }
 
 .start {
-    background-image: url("../../../assets/image/campaign/treasuremappath-start.png");
+    background-image: url("../../assets/image/campaign/treasuremappath-start.png");
 }
 
 .end {
-    background-image: url("../../../assets/image/campaign/treasuremappath-end.png");
+    background-image: url("../../assets/image/campaign/treasuremappath-end.png");
 }
 
 .guy {
-    background-image: url("../../../assets/image/campaign/testguy.png");
+    background-image: url("../../assets/image/campaign/testguy.png");
     background-size: 100% 100%;
     width: 50px;
     height: 50px;

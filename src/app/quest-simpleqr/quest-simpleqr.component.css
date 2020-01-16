@@ -3,7 +3,7 @@
     z-index: -1;
     top: 0; left:0;
     width: 100vw; height: 100vh;
-    background-image: url("../../../assets/image/campaign/treasuremappath-empty.png");
+    background-image: url("../../assets/image/campaign/treasuremappath-empty.png");
     background-size: 100% auto;
     background-repeat: repeat-y;
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BrowserService } from './.Services/browser.service';
-import { RoutingStateService } from './.Services/routing-state.service';
-import { AuthService } from "./.Services/auth.service"
-import { GameService } from "./.Services/game.service"
+import { BrowserService } from './browser.service';
+import { RoutingStateService } from './routing-state.service';
+import { AuthService } from "./auth.service"
+import { GameService } from "./game.service"
 
 @Component({
   selector: 'app-root',

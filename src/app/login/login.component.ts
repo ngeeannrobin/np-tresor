@@ -3,9 +3,9 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as firebase from 'firebase/app';
-import { GameService } from '../../.Services/game.service';
-import { AuthService } from '../../.Services/auth.service';
-import { RoutingStateService } from '../../.Services/routing-state.service';
+import { GameService } from '../game.service';
+import { AuthService } from '../auth.service';
+import { RoutingStateService } from '../routing-state.service';
 
 @Component({
   selector: 'app-login',

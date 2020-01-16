@@ -20,7 +20,7 @@
       }">
       <div class="quest-point-node"></div>
       <div class="quest-point-text">
-        {{quest.point}}<img src="../../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
+        {{quest.point}}<img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
       </div>
     </div>
     <!-- IMAGE -->
@@ -82,8 +82,8 @@
       }">
       <div class="msg-image-container">
         <div class="msg-image-node"></div>
-        <img src="../../../assets/image/grats.gif" class="msg-image" *ngIf="correct"/>
-        <img src="../../../assets/image/tryagain.gif" class="msg-image" *ngIf="!correct"/>
+        <img src="../../assets/image/grats.gif" class="msg-image" *ngIf="correct"/>
+        <img src="../../assets/image/tryagain.gif" class="msg-image" *ngIf="!correct"/>
       </div>
       <div class="msg-text-container">
         <div class="msg-text-node"></div>
@@ -104,17 +104,17 @@
     </div>
 
     <!-- USED TO "OFFSET" THE HINTS SO THAT USER CAN SCROLL ABOVE THE THING LOL -->
-    <img src="../../../assets/image/lightgray-hill.png" class="button-container-resize"/>
+    <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
   </div>
 </div>
 
 <!-- BUTTON -->
 <div class="button-container">
-  <img src="../../../assets/image/lightgray-hill.png" class="button-container-resize"/>
+  <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
   <div class="button-solve" (click)="ToggleCamera()">{{showHint?"Solve!":"Nevermind"}}</div>
   <div class="button-hint" (click)="TakeHint()" *ngIf="!simplified" >
     <span *ngIf="quest.hintAvailCount>0">
-      Get Hint (-{{quest.hint[quest.hintTakenCount].point}}<img src="../../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
+      Get Hint (-{{quest.hint[quest.hintTakenCount].point}}<img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
     </span>
     <span *ngIf="quest.hintAvailCount==0">
       No more hints :(
