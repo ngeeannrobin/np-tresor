@@ -7,20 +7,21 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components & Dialogs
-import { CampaignComponent } from './campaign/campaign.component';
-import { CampaignMapComponent } from './campaign-map/campaign-map.component';
-import { CuriousUserComponent } from './curious-user/curious-user.component';
-import { How2playComponent } from './how2play/how2play.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { LoginComponent } from './login/login.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { ProfileComponent } from './profile/profile.component';
-import { QuestHangmanComponent } from './quest-hangman/quest-hangman.component';
-import { QuestMcqComponent } from './quest-mcq/quest-mcq.component';
-import { QuestOpenendedComponent } from './quest-openended/quest-openended.component';
-import { QuestProximityComponent } from './quest-proximity/quest-proximity.component';
-import { SingleQuestComponent } from './single-quest/single-quest.component';
-import { ViewQuestComponent } from './view-quest/view-quest.component';
+import { CampaignComponent } from './.Components/campaign/campaign.component';
+import { CampaignMapComponent } from './.Components/campaign-map/campaign-map.component';
+import { CuriousUserComponent } from './.Components/curious-user/curious-user.component';
+import { How2playComponent } from './.Components/how2play/how2play.component';
+import { LeaderboardComponent } from './.Components/leaderboard/leaderboard.component';
+import { LoginComponent } from './.Components/login/login.component';
+import { NavBarComponent } from './.Components/nav-bar/nav-bar.component';
+import { ProfileComponent } from './.Components/profile/profile.component';
+import { QuestHangmanComponent } from './.Components/quest-hangman/quest-hangman.component';
+import { QuestMcqComponent } from './.Components/quest-mcq/quest-mcq.component';
+import { QuestOpenendedComponent } from './.Components/quest-openended/quest-openended.component';
+import { QuestProximityComponent } from './.Components/quest-proximity/quest-proximity.component';
+import { QuestSimpleqrComponent } from './.Components/quest-simpleqr/quest-simpleqr.component';
+import { SingleQuestComponent } from './.Components/single-quest/single-quest.component';
+import { ViewQuestComponent } from './.Components/view-quest/view-quest.component';
 
 // AngularFire
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -33,14 +34,13 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 // For spinner
 import { AppOverlayModule } from './overlay/overlay.module';
-import { ProgressSpinnerModule, ProgressSpinnerComponent } from './progress-spinner/progress-spinner.module';
+import { ProgressSpinnerModule, ProgressSpinnerComponent } from './.Components/progress-spinner/progress-spinner.module';
 
 // Http modules
 import { HttpClientModule } from '@angular/common/http';
 
 // To calculate distance between 2 points
 import { HaversineService } from "ng2-haversine";
-
 
 // Forms Control
 import { FormsModule } from "@angular/forms";
@@ -50,10 +50,8 @@ import * as firebase from 'firebase';
 
 firebase.initializeApp(firebaseConfig);
 
-import { AppConfigService } from './app-config.service';
-import { GameorganiserComponent } from './gameorganiser/gameorganiser.component';
-import { NewcampaignComponent } from './newcampaign/newcampaign.component';
-import { QuestSimpleqrComponent } from './quest-simpleqr/quest-simpleqr.component';
+import { AppConfigService } from './.Services/app-config.service';
+
 
 
 
@@ -75,12 +73,9 @@ import { QuestSimpleqrComponent } from './quest-simpleqr/quest-simpleqr.componen
     QuestMcqComponent,
     QuestOpenendedComponent,
     QuestProximityComponent,
+    QuestSimpleqrComponent,
     SingleQuestComponent,
     ViewQuestComponent,
-    CuriousUserComponent,
-    GameorganiserComponent,
-    NewcampaignComponent,
-    QuestSimpleqrComponent,
     // Dialogs
   ],
   imports: [
