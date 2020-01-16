@@ -30,17 +30,20 @@ export class UserService {
     return promise;
   }
 
-  GetUserCompleteQuests(uuid): Promise<any> {
+  GetUserQuestsDoneCount(uuid): Promise<any> {
     const userPromise = this.fs.GetRequest(this.fs.doc(`user/${uuid}`));
     const promise = new Promise((res, rej) => {
-      Promise.all([userPromise]).then(values => { res(values[0].questCompleted); })
+      userPromise.then(userData=>{
+        userData = userData || {};
+        res(userData.questCompleted || 0)
+      })
     });
-
     return promise;
   }
 
   // Profile
   FetchUsername(uuid): Promise<string> {
+    console.log(uuid);
     return new Promise((res,rej)=>{
       this.FetchUser(uuid).then(userdoc => {
         res(userdoc.username);
