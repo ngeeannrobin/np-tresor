@@ -30,7 +30,9 @@ export class AppComponent {
   ngOnInit(){
     console.log("test");
     this.authService.CheckLogin().then(loggedIn=>{
-      this.checkInitialUsername();
+      if (loggedIn){
+        this.checkInitialUsername();
+      }
     })
   }
 
