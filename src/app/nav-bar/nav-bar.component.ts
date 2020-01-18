@@ -14,8 +14,8 @@ export class NavBarComponent implements OnInit {
     private router: Router
   ) { }
   navs: Array<any> = [
-    {text: "Wander", route: "/ViewQuest"},
-    {text: "Campaign", route: "/Campaign/OpenHouse2020"},
+    // {text: "Wander", route: "/ViewQuest"},
+    // {text: "Campaign", route: "/Campaign/OpenHouse2020"},
     {text: "Leaderboard", route: "/leaderboard"},
     {text: "Profile", route: "/profile"}
   ]
