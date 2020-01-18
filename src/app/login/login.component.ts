@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           if (loggedIn){
             // stop spinner
             this.displayProgressSpinner = false;
-            this.router.navigate(["/ViewQuest"]);
+            this.router.navigate(["/MainMenu"]);
           } else {
             this.loggedIn = false;
           }
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.CheckLogin().then(loggedIn=>{
       if (loggedIn){
-        this.router.navigate(["/ViewQuest"]);
+        this.router.navigate(["/MainMenu"]);
       } else {
         this.loggedIn = false;
       }

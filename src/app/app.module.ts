@@ -51,6 +51,8 @@ import * as firebase from 'firebase';
 firebase.initializeApp(firebaseConfig);
 
 import { AppConfigService } from './app-config.service';
+import { QuestMakerComponent } from './quest-maker/quest-maker.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 
 
@@ -76,6 +78,8 @@ import { AppConfigService } from './app-config.service';
     QuestSimpleqrComponent,
     SingleQuestComponent,
     ViewQuestComponent,
+    QuestMakerComponent,
+    MainMenuComponent,
     // Dialogs
   ],
   imports: [

@@ -1,0 +1,110 @@
+
+.bg-container, .title-container{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+.bg-container{
+    z-index: -2;
+}
+
+.bg, .bg-xtra{
+    height: 100%;
+    position: absolute;
+    right: 0%;
+    transform: translateX(13.3%);
+    /* filter: brightness(0.95); */
+}
+
+.bg-xtra{
+    transform: scaleX(-1) translateX(calc(86.7% - 1px));
+}
+
+.title-container {
+    z-index: -1;
+}
+
+.title {
+    position: absolute;
+    max-height: 14.3%;
+    width: auto;
+    max-width: 95%; /*90%*/
+    left: 50%;
+    top: 22.3%;
+    transform: translateX(-50%);
+    animation: float 10s ease-in-out infinite;
+}
+
+.main-menu-button.wander{
+    top: 40.5%;
+}
+
+.main-menu-button.campaign{
+    top: 51.0%;
+}
+
+.main-menu-button.create{
+    top:64.5%;
+}
+
+
+.main-menu-button
+{
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    background: linear-gradient(180deg, #9c5633 51%, transparent 50%),
+                linear-gradient(  0deg, #7b432b 51%, transparent 50%);
+    border-bottom: 3px solid #5d250d;
+    border-radius: 3px;
+    box-shadow: 0 0 1px 2px #20262d, 
+                inset 0 0 2px 1px #925633,
+                inset 0 0 2px 3px #7b432b;
+    color: #f6cea1;
+    font-family: 'Godzilla';
+    font-size: 3ch;
+    padding: 1.5ch 0 1ch 0;
+    text-align: center;
+    text-shadow: -1px 0 #7b2d13, 0 2px #7b2d13, 1px 0 #7b2d13, 0 -1px #7b2d13;
+    
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    
+    width: 18ch;
+    max-width: 86.4%;
+    height: 8.00%;
+
+}
+
+.main-menu-button:active
+{
+    background: linear-gradient(180deg, #97512e 51%, transparent 50%),
+                linear-gradient(  0deg, #763e26 51%, transparent 50%);
+    border-bottom: 1px solid #5d250d;
+    color: #f1c99c;
+    margin-top: 2px;
+}
+
+.main-menu-button-text{
+    font-family: inherit;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-45%);
+}
+
+@keyframes float {
+	0% {
+		/* box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); */
+		transform: translate(-50%,0%);
+	}
+	50% {
+		/* box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2); */
+		transform: translate(-50%,-5%) scale(1.05);
+	}
+	100% {
+		/* box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); */
+		transform: translate(-50%,0%);
+	}
+}

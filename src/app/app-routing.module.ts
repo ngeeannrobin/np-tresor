@@ -9,6 +9,8 @@ import { How2playComponent } from './how2play/how2play.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { CampaignComponent } from './campaign/campaign.component';
 import { CampaignMapComponent } from './campaign-map/campaign-map.component';
+import { QuestMakerComponent } from './quest-maker/quest-maker.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 
 const routes: Routes = [
@@ -23,6 +25,8 @@ const routes: Routes = [
   {path: "about", component: CuriousUserComponent},
   {path: "tutorial", component: How2playComponent},
   {path: "campaign", component: CampaignMapComponent},
+  {path: "questmaker", component: QuestMakerComponent},
+  {path: "MainMenu", component: MainMenuComponent},
   {path: "", pathMatch: "full", redirectTo:"login"},
   
 ];
