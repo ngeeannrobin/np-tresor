@@ -22,12 +22,12 @@ export class LoginComponent implements OnInit {
   mode = 'indeterminate';
   value = 50;
 
-  // message: string = "Redirecting...";
-  loggedIn:boolean = true;
+  message: string = "";
+
+  redirec: boolean = false;
 
   constructor(
     private router: Router,
-    private gameService: GameService,
     private authService: AuthService,
     private routingStateService: RoutingStateService) {
 
@@ -37,34 +37,55 @@ export class LoginComponent implements OnInit {
   }
   
 
-  signInWithGoogle() {
+  async signInWithGoogle() {
+    await this.Delay(300);
     // start spinner
     this.displayProgressSpinner = true;
-
-    if (!this.loggedIn){
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then((result) => {
-        this.authService.CheckLogin().then(loggedIn=>{
-          if (loggedIn){
-            // stop spinner
-            this.displayProgressSpinner = false;
-            this.router.navigate(["/MainMenu"]);
-          } else {
-            this.loggedIn = false;
-          }
+    this.authService.CheckLogin().then(loggedIn=>{
+      if (!loggedIn){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        this.message = "Google Pop-up opened."
+        firebase.auth().signInWithPopup(provider).then(result => {
+          this.message = "Checking authentication details..."
+          this.authService.CheckLogin().then(loggedIn=>{
+            if (loggedIn){
+              this.message = "Redirecting...";
+              this.redirect();
+             
+            } else {
+              this.displayProgressSpinner = false;
+              this.message = "Unknown error: Authentication failed."
+            }
+          })
+        }, err=>{
+          this.message=`Error: ${err.message}`;
+          this.displayProgressSpinner = false;
         })
-      });
-    }
+      } else {
+        this.displayProgressSpinner = false;
+      }
+    })
+    
+  }
+
+  async redirect(){
+    this.redirec = true;
+    this.displayProgressSpinner = false;
+    await this.Delay(300);
+    this.router.navigate(["/MainMenu"]);
   }
 
   ngOnInit() {
     this.authService.CheckLogin().then(loggedIn=>{
       if (loggedIn){
-        this.router.navigate(["/MainMenu"]);
-      } else {
-        this.loggedIn = false;
+        this.redirect();
+        this.message = "Redirecting..."; 
       }
     })
+  }
+
+  async Delay(ms){
+    return new Promise( resolve => setTimeout(resolve, ms));
   }
 
 }
