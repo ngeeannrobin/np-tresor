@@ -8,7 +8,7 @@
     z-index: -2;
 }
 
-.bg, .bg-xtra{
+.bg, .bg.xtra{
     height: 100%;
     position: absolute;
     right: 0%;
@@ -16,8 +16,28 @@
     /* filter: brightness(0.95); */
 }
 
-.bg-xtra{
+.bg.xtra, .bg-water.xtra{
     transform: scaleX(-1) translateX(calc(86.7% - 1px));
+}
+
+div.bg-water {
+    height: 100%;
+    width: auto;;
+    position: absolute;
+    right: 0%;
+    transform: translateX(13.3%);
+    background-image: url("../../assets/image/main-menu/main_menu_bg_water.png");
+    background-size: 100%;
+    filter: url("#turbulence");
+}
+
+img.bg-water{
+    height: 100%;
+
+}
+
+.bg-water.invisible{
+    /* visibility: hidden; */
 }
 
 .title-container {

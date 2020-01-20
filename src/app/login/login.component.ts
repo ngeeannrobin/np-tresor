@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   message: string = "";
 
-  redirec: boolean = false;
+  // redirec: boolean = false;
 
   constructor(
     private router: Router,
@@ -43,13 +43,13 @@ export class LoginComponent implements OnInit {
     this.displayProgressSpinner = true;
     this.authService.CheckLogin().then(loggedIn=>{
       if (!loggedIn){
+        this.Checker();
         var provider = new firebase.auth.GoogleAuthProvider();
         this.message = "Google Pop-up opened."
         firebase.auth().signInWithPopup(provider).then(result => {
           this.message = "Checking authentication details..."
           this.authService.CheckLogin().then(loggedIn=>{
             if (loggedIn){
-              this.message = "Redirecting...";
               this.redirect();
              
             } else {
@@ -64,12 +64,25 @@ export class LoginComponent implements OnInit {
       } else {
         this.displayProgressSpinner = false;
       }
-    })
-    
+    }) 
+  }
+
+
+  async Checker(){
+    while (true){
+      await this.Delay(1000);
+      this.authService.CheckLogin().then(loggedIn=>{
+        if (loggedIn){
+          this.redirect();
+          
+        }
+      })
+    }
   }
 
   async redirect(){
-    this.redirec = true;
+    this.message = "Redirecting...";
+    // this.redirec = true;
     this.displayProgressSpinner = false;
     await this.Delay(300);
     this.router.navigate(["/MainMenu"]);
