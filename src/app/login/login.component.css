@@ -1,4 +1,4 @@
-div.container {
+/* div.container {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -15,9 +15,9 @@ div.container {
     background-size: contain,
                      contain;
                         
-}
+} */
 
-.g-signin-btn {
+/* .g-signin-btn {
     width: 40%;
 }
 
@@ -40,4 +40,78 @@ div.container {
     font-weight: bold;
     font-size: 1.5em;
 }
+ */
+ .main-menu-button
+ {
+     left: 50%;
+     transform: translateX(-50%);
+     position: absolute;
+     background: linear-gradient(180deg, #9c5633 51%, transparent 50%),
+                 linear-gradient(  0deg, #7b432b 51%, transparent 50%);
+     border-bottom: 3px solid #5d250d;
+     border-radius: 3px;
+     box-shadow: 0 0 1px 2px #20262d, 
+                 inset 0 0 2px 1px #925633,
+                 inset 0 0 2px 3px #7b432b;
+     color: #f6cea1;
+     font-family: 'Godzilla';
+     font-size: 3ch;
+     padding: 1.5ch 0 1ch 0;
+     text-align: center;
+     text-shadow: -1px 0 #7b2d13, 0 2px #7b2d13, 1px 0 #7b2d13, 0 -1px #7b2d13;
+     
+     transition: all 0.3s;
+     -webkit-transition: all 0.3s;
+     
+     width: 18ch;
+     max-width: 86.4%;
+     height: 8.00%;
+ 
+ }
+ 
+ .main-menu-button:active
+ {
+     background: linear-gradient(180deg, #97512e 51%, transparent 50%),
+                 linear-gradient(  0deg, #763e26 51%, transparent 50%);
+     border-bottom: 1px solid #5d250d;
+     color: #f1c99c;
+     margin-top: 2px;
+ }
+ 
+ .main-menu-button-text{
+     font-family: inherit;
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%,-45%);
+     width: 100
+ }
 
+ .main-menu-button.google{
+    top:64.5%;
+ }
+
+ .main-menu-button-text.google{
+    font-size: 1.5ch;
+ }
+
+ .login-message {
+     position: absolute;
+     width: 100%;
+     bottom: 2.5%;
+     color: white;
+     text-align: center;
+ }
+
+ /* .redirect {
+     position: absolute;
+     background-color: black;
+     width: 100%;
+     height: 100%;
+     animation: redirect 300ms linear;
+ }
+
+ @keyframes redirect {
+     from {transform: scale(0);}
+     to {transform: scale(1);}
+ } */
