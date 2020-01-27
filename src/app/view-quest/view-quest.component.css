@@ -1,3 +1,20 @@
+.back {
+    display: inline-block;
+    position: absolute;
+    left: 5%;
+    width: 5vw;
+    height: 5vw;
+    
+    /* margin-top: 20px; */
+    transform: translateY(50%);
+
+    background-image: var(--back-button);
+    background-size: contain;
+    z-index: 1000;
+}
+
+
+
 /* 
 .three-way-tab-phantom {
     height: 7.5vh;

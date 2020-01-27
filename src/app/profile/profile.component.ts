@@ -56,7 +56,8 @@ export class ProfileComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate([this.routingStateService.getPreviousUrl()]);
+    let url = this.routingStateService.getPreviousUrl();
+    this.router.navigate([url||'login']);
   }
 
   signOut() {
