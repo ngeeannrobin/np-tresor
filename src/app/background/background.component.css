@@ -5,7 +5,7 @@
 }
 
 .bg-container{
-    z-index: -2;
+    background-color: #168FBF;
 }
 
 .bg, .bg.xtra{
@@ -37,11 +37,7 @@ img.bg-water{
 }
 
 .bg-water.invisible{
-    /* visibility: hidden; */
-}
-
-.title-container {
-    z-index: -1;
+    visibility: hidden;
 }
 
 .title {

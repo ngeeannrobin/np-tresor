@@ -12,6 +12,16 @@
     top:64.5%;
 }
 
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+  }
+
 
 .main-menu-button
 {
@@ -41,11 +51,12 @@
 
 }
 
-.main-menu-button:active
-{
+.main-menu-button:active, .round-main-menu-button:active{
     background: linear-gradient(180deg, #97512e 51%, transparent 50%),
                 linear-gradient(  0deg, #763e26 51%, transparent 50%);
     border-bottom: 1px solid #5d250d;
+}
+.main-menu-button:active{
     color: #f1c99c;
     margin-top: 2px;
 }
@@ -57,6 +68,76 @@
     left: 50%;
     transform: translate(-50%,-45%);
 }
+
+.round-main-menu-button-container{
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+}
+
+.round-main-menu-button{
+    position: relative;
+    margin-top: 10px;
+    min-height: 7.5vh;
+    min-width: 7.5vh;
+    width: 15vmin;
+    height: 15vmin;
+    max-height: 10vh;
+    max-width: 10vh;
+
+    border-radius: 50%;
+
+    background: linear-gradient(180deg, #9c5633 51%, transparent 50%),
+                linear-gradient(  0deg, #7b432b 51%, transparent 50%);
+    box-shadow: 0 0 1px 2px #20262d, 
+                inset 0 0 2px 1px #925633,
+                inset 0 0 2px 3px #7b432b;
+    color: #f6cea1;
+    overflow: hidden;
+}
+
+.profile-icon {
+	background: #f6cea1;
+}
+.profile-icon.head {
+
+	border-radius: 100%;
+	width: 35%;
+	height: 35%;
+	margin: 25% auto 5%;
+}
+.profile-icon.body {
+	width: 65%;
+	height: 40%;
+	margin: auto;
+	border-top-left-radius: 50%;
+	border-top-right-radius: 50%;
+}
+.leaderboard-icon {
+    position: absolute;
+    bottom: 25%;
+    width: 15%;
+    background: #f6cea1;
+    display: inline-block;
+    transform: translateX(-50%);
+    color: #B29577;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+.leaderboard-icon.first{
+    left: 50%;
+    height: 50%;
+}
+.leaderboard-icon.second{
+    left: 30%;
+    height: 40%;
+}
+.leaderboard-icon.third{
+    left: 70%;
+    height: 30%;
+}
+
 /* 
 .entry {
     position: absolute;

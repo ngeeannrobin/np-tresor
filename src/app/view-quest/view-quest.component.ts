@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
+import { RoutingStateService } from '../routing-state.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class ViewQuestComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private gameservice: GameService,
-    private router: Router
+    private router: Router,
+    private routingStateService: RoutingStateService
   ) { }
   
   displayProgressSpinner = true;
@@ -101,5 +103,10 @@ export class ViewQuestComponent implements OnInit {
         }
       }
     )
+  }
+
+  goBack() {
+    let url = this.routingStateService.getPreviousUrl();
+    this.router.navigate([url||'login']);
   }
 }

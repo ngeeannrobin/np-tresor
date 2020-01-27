@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { RoutingStateService } from '../routing-state.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -14,6 +15,7 @@ export class LeaderboardComponent implements OnInit {
     private gameservice: GameService,
     private auth: AuthService,
     private router: Router,
+    private routingStateService: RoutingStateService
   ) { }
 
   top: any = [];
@@ -35,7 +37,6 @@ export class LeaderboardComponent implements OnInit {
     this.gameservice.FetchTop(n,this.uuid).then(
       top=>{
         this.top = top;
-        console.log(top);
       },
       err => {
         console.log(err);
@@ -43,4 +44,8 @@ export class LeaderboardComponent implements OnInit {
     )
   }
 
+  goBack() {
+    let url = this.routingStateService.getPreviousUrl();
+    this.router.navigate([url||'login']);
+  }
 }
