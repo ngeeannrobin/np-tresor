@@ -14,7 +14,7 @@
 }
 
 .backstory-background {
-    background-image: url("../../assets/image/campaign/smokybackstorybackground.png");
+    background-image: url("../../assets/image/campaign/apocalypse-backstory-background.png");
     background-size: 100% 100%;
 }
 
@@ -73,13 +73,13 @@
 }
 
 .wooden {
-    background-image: url("../../assets/image/campaign/wooddialogbox.png");
+    background-image: url("../../assets/image/campaign/apocalypse-tooltip-background.png");
     background-repeat: repeat-y;
     background-size: 100% auto;
 }
 
 .text-box.white {
-    color: white;
+    color: rgb(156, 146, 146);
 }
 
 .arrow-right.white {
@@ -97,7 +97,7 @@
 }
 
 .path {
-    background-image: url("../../assets/image/campaign/treasuremappath.png");
+    background-image: url("../../assets/image/campaign/apocalypsepath.png");
     background-size: 100% 100%;
     margin-left: 50%;
     transform: translateX(-50%);
@@ -111,19 +111,19 @@
 }
 
 .empty {
-    background-image: url("../../assets/image/campaign/treasuremappath-empty.png");
+    background-image: url("../../assets/image/campaign/apocalypsepath-empty.png");
 }
 
 .start {
-    background-image: url("../../assets/image/campaign/treasuremappath-start.png");
+    background-image: url("../../assets/image/campaign/apocalypsepath-start.png");
 }
 
 .end {
-    background-image: url("../../assets/image/campaign/treasuremappath-end.png");
+    background-image: url("../../assets/image/campaign/apocalypsepath-end.png");
 }
 
 .guy {
-    background-image: url("../../assets/image/campaign/testguy.png");
+    background-image: url("../../assets/image/campaign/apocalypse-guy.png");
     background-size: 100% 100%;
     width: 50px;
     height: 50px;
@@ -147,7 +147,7 @@
     transform:translate(-50%,-50%);
 
     margin-left: 72.6%; /* this value changes depending on the image path */
-    background-color: lightgray;
+    background-color: rgb(80,80,100);
 
     border: 1px solid #aaaaaa;
 }

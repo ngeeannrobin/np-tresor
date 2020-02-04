@@ -1,4 +1,4 @@
-.bg-container, .title-container{
+.bg-container {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -8,16 +8,36 @@
     background-color: #168FBF;
 }
 
-.bg, .bg.xtra{
-    height: 100%;
-    position: absolute;
-    right: 0%;
+.default {
     transform: translateX(13.3%);
+    right: 0%;
     /* filter: brightness(0.95); */
 }
 
-.bg.xtra, .bg-water.xtra{
+.one {
+    left: 0;
+}
+
+.two {
+    transform: translateX(25%);
+    right: 0;
+}
+
+.bg, .bg.xtra{
+    height: 100%;
+    position: absolute;
+}
+
+.bg.xtra.default, .bg-water.xtra.default {
     transform: scaleX(-1) translateX(calc(86.7% - 1px));
+}
+
+.bg.xtra.one {
+    transform: scaleX(-1) translateX(calc(-100% + 1px));
+}
+
+.bg.xtra.two {
+    transform: scaleX(-1) translateX(calc(75% - 1px))
 }
 
 div.bg-water {
@@ -25,8 +45,7 @@ div.bg-water {
     width: auto;;
     position: absolute;
     right: 0%;
-    transform: translateX(13.3%);
-    background-image: url("../../assets/image/main-menu/main_menu_bg_water.png");
+    background-image: url("../../assets/image/background/default-bg-water.png");
     background-size: 100%;
     filter: url("#turbulence");
 }
@@ -64,3 +83,6 @@ img.bg-water{
 		transform: translate(-50%,0%);
 	}
 }
+
+
+

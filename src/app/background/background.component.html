@@ -1,24 +1,37 @@
 <div class="bg-container">
-    <img src="../../assets/image/main-menu/main_menu_bg.png" class="bg xtra">
-    <img src="../../assets/image/main-menu/main_menu_bg.png" class="bg">
-    <div class="bg-water">
-        <img src="../../assets/image/main-menu/main_menu_bg_water.png" class="bg-water invisible">
+    <div *ngIf="!v">
+        <img src="../../assets/image/background/default-bg.png" class="bg xtra default">
+        <img src="../../assets/image/background/default-bg.png" class="bg default">
+        <div class="bg-water default">
+            <img src="../../assets/image/background/default-bg-water.png" class="bg-water invisible">
+        </div>
+        <div class="bg-water xtra default">
+            <img src="../../assets/image/background/default-bg-water.png" class="bg-water invisible">
+        </div>
+        <img src="../../assets/image/background/default-bg-mountain.png" class="bg default">
+        <img src="../../assets/image/background/default-bg-mountain.png" class="bg xtra default">
+        <svg>
+            <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+              <feTurbulence id="sea-filter" numOctaves="3" seed="2" baseFrequency="0.02 0.05"></feTurbulence>
+              <feDisplacementMap scale="20" in="SourceGraphic"></feDisplacementMap>
+            </filter>
+            <animate xlink:href="#sea-filter" attributeName="baseFrequency" dur="120s" keyTimes="0;0.5;1" values="0.02 0.06;0.04 0.08;0.02 0.06" repeatCount="indefinite"/>
+        </svg>
     </div>
-    <div class="bg-water xtra">
-        <img src="../../assets/image/main-menu/main_menu_bg_water.png" class="bg-water invisible">
+
+    <div *ngIf="v===1">
+        
+        <img src="../../assets/image/background/1-bg.png" class="bg one">
+        <img src="../../assets/image/background/1-bg.png" class="bg xtra one">
     </div>
-    <img src="../../assets/image/main-menu/main_menu_bg_mountain.png" class="bg">
-    <img src="../../assets/image/main-menu/main_menu_bg_mountain.png" class="bg xtra">
+
+    <div *ngIf="v===2">
+        <img src="../../assets/image/background/2-bg.png" class="bg two">
+        <img src="../../assets/image/background/2-bg.png" class="bg xtra two">
+    </div>
 
 
-    <svg>
-        <filter id="turbulence" x="0" y="0" width="100%" height="100%">
-          <feTurbulence id="sea-filter" numOctaves="3" seed="2" baseFrequency="0.02 0.05"></feTurbulence>
-          <feDisplacementMap scale="20" in="SourceGraphic"></feDisplacementMap>
-        </filter>
-        <animate xlink:href="#sea-filter" attributeName="baseFrequency" dur="120s" keyTimes="0;0.5;1" values="0.02 0.06;0.04 0.08;0.02 0.06" repeatCount="indefinite"/>
-    </svg>
-    
+    <img src="../../assets/image/background/logo.png" class="title" *ngIf="showTitle">
 </div>
 
-<img src="../../assets/image/main-menu/main_menu_logo.png" class="title">
+

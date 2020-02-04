@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'background',
@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class BackgroundComponent implements OnInit {
 
   constructor() { }
+  @Input() v: number;
+  @Input() showTitle: boolean;
 
   ngOnInit() {
   }

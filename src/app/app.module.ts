@@ -54,6 +54,8 @@ import { AppConfigService } from './app-config.service';
 import { QuestMakerComponent } from './quest-maker/quest-maker.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { BackgroundComponent } from './background/background.component';
+import { CreateComponent } from './create/create.component';
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 
 
@@ -82,6 +84,8 @@ import { BackgroundComponent } from './background/background.component';
     QuestMakerComponent,
     MainMenuComponent,
     BackgroundComponent,
+    CreateComponent,
+    CreateCampaignComponent,
     // Dialogs
   ],
   imports: [

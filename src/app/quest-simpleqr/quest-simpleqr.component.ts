@@ -44,6 +44,16 @@ export class QuestSimpleqrComponent implements OnInit {
       this.correct = true;
     } else {
       this.message = "That's ain't it, chief! Tap anywhere to continue."
+      console.log(this.quest.wrong);
+      if (this.quest.wrong){
+        this.message = "That's ain't it, chief! Tap anywhere to continue."
+        this.quest.wrong.forEach(element => {
+          if (element.qr == qr_data){
+            this.message = element.msg;
+            return;
+          }
+        });
+      }
       this.correct = false;
     }
     this.showMessage = true;
