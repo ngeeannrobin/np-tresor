@@ -10,8 +10,8 @@
 
 <div *ngIf="state=='backstory'" class="text-box at-center-of-screen">
     <div *ngIf="!showImage">
-        <div class="campaign-title">{{campaign.title}}</div>
-        {{displayText}}
+        <div class="campaign-title" style="font-family:'Lunchtime Doubly So';letter-spacing:-2px">{{campaign.title}}</div>
+        <div style="font-family:'Lunchtime Doubly So';letter-spacing:-2px">{{displayText}}</div>
         <div class="arrow-right"></div>
     </div>
     <div *ngIf="showImage" class="in-center-of-container">
@@ -19,7 +19,7 @@
     </div>
 </div>
 <div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen wooden white">
-    <div *ngIf="!showImage">
+    <div *ngIf="!showImage" style="font-family:'Lunchtime Doubly So';letter-spacing:-1px">
         {{displayText}}
         <div class="arrow-right white"></div>
     </div>
