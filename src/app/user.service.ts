@@ -44,7 +44,6 @@ export class UserService {
 
   // Profile
   FetchUsername(uuid): Promise<string> {
-    console.log(uuid);
     return new Promise((res,rej)=>{
       this.FetchUser(uuid).then(userdoc => {
         res(userdoc.username);

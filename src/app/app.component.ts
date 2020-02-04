@@ -28,7 +28,6 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    console.log("test");
     this.authService.CheckLogin().then(loggedIn=>{
       if (loggedIn){
         this.checkInitialUsername();

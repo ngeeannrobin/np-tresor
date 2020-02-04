@@ -1,16 +1,16 @@
-<background></background>
+<background [showTitle]="true"></background>
 
-<div class="main-menu-button wander" (click)="NavTo('ViewQuest')">
+<div class="main-menu-button wander" (click)="NavTo('quest')">
     <div class="main-menu-button-text noselect">
         Wander
     </div>
 </div>
-<div class="main-menu-button campaign" (click)="NavTo('/Campaign/OpenHouse2020')">
+<div class="main-menu-button campaign" (click)="NavTo('/campaign/DemoDay')">
     <div class="main-menu-button-text noselect">
         Campaign
     </div>
 </div>
-<div class="main-menu-button create">
+<div class="main-menu-button create" (click)="NavTo('/create')">
     <div class="main-menu-button-text noselect">
         Create
     </div>

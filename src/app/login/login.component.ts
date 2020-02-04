@@ -69,10 +69,12 @@ export class LoginComponent implements OnInit {
 
 
   async Checker(){
-    while (true){
+    let checking = true;
+    while (checking){
       await this.Delay(1000);
       this.authService.CheckLogin().then(loggedIn=>{
         if (loggedIn){
+          checking=false;
           this.redirect();
           
         }
