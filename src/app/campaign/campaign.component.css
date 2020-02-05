@@ -128,7 +128,7 @@
     width: 50px;
     height: 50px;
     position: absolute;
-    transform:translate(-30%,-110%);
+    transform:translate(-18%,-110%);
 }
 
 .guy-won {
@@ -139,26 +139,26 @@
 /* consider changing to image */
 .quest-node {
     border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     
     position: absolute;
-    top: 31%;
+    top: 28%;
     transform:translate(-50%,-50%);
 
-    margin-left: 80%; /* this value changes depending on the image path */
-    background-color: rgb(80,80,100);
+    margin-left: 81.5%; /* this value changes depending on the image path */
+    background-color: rgb(156, 156, 156);
 
-    border: 1px solid #aaaaaa;
+    border: 2px solid #848484;
 }
 
 .quest-node.even {
     top: 67.5%;
-    left: -40%;
+    left: -43%;
 }
 
 .done {
-    background-color: forestgreen;
+    background-color: #ffb03c;
 }
 
 .blink {
@@ -166,7 +166,7 @@
 }
 
 @keyframes blink{
-    50% {background-color: forestgreen;}
+    50% {background-color: #ffb03c;}
 }
 
 .appear-small-to-big {
