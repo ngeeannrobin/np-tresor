@@ -18,7 +18,7 @@
         <img [src]="'data:image/png;base64,' + displayText" class="dun-too-big appear-small-to-big-and-spin-in">
     </div>
 </div>
-<div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen wooden white">
+<div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen solid white">
     <div *ngIf="!showImage" style="font-family:'Lunchtime Doubly So';letter-spacing:-1px">
         {{displayText}}
         <div class="arrow-right white"></div>

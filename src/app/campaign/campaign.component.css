@@ -63,23 +63,28 @@
 .text-box{
     z-index: 999;
     
-    
     background-color: lightgray;
     border: 1px solid black;
-    font-size: larger;
-    padding: 2.5% 5%;
+    font-size: large;
+    padding: 4% 4%;
     width: 80%;
     border-radius: 3px;
 }
 
 .wooden {
     background-image: url("../../assets/image/campaign/apocalypse-tooltip-background.png");
-    background-repeat: repeat-y;
-    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.solid {
+    background-color: #222222;
+    outline: 3px solid white;
+    outline-offset: -8px;
 }
 
 .text-box.white {
-    color: rgb(156, 146, 146);
+    color: rgb(212, 196, 196);
 }
 
 .arrow-right.white {
