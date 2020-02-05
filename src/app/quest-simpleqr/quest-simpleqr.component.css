@@ -19,23 +19,26 @@
   }
 
 .content {
-    margin-top: 20%;
+    margin-top: 25%;
     padding: 0 10%;
 }
 
 .quest-name, .quest-title {
-    font-size: 1.25em;
     font-family: "Lunchtime Doubly So";
 }
 
 .quest-name {
-    color: #7A6E5E;
+    color: #ffca83;
     font-weight: bold;
+    text-shadow: -2px 0 #654f33;
+    font-size: 1.25em;
 }
 
 .quest-title {
-    color: #403C39;
+    color: #bdb1a7;
     font-weight: bolder;
+    text-shadow: -1px 2px #67605b;
+    font-size: 1.3em;
 }
 
 .max-size{
