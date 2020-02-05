@@ -157,12 +157,15 @@ export class CampaignComponent implements OnInit {
   }
 
   playAudio(){
-    let audio = new Audio();
-    audio.src = "../assets/music/" +  this.campaign.backgroundMusic;
-    audio.loop = true;
-    audio.volume = 0.2;
-    audio.load();
-    audio.play();
+    if (this.campaign.backgroundMusic){
+      let audio = new Audio();
+      audio.src = "../assets/music/" +  this.campaign.backgroundMusic;
+      audio.loop = true;
+      audio.volume = 0.2;
+      audio.load();
+      audio.play();
+    }
+    
   }
 
   SelectQuest(questId:string):void {
