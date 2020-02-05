@@ -143,13 +143,18 @@
     height: 25px;
     
     position: absolute;
-    top: 50%;
+    top: 31%;
     transform:translate(-50%,-50%);
 
-    margin-left: 72.6%; /* this value changes depending on the image path */
+    margin-left: 80%; /* this value changes depending on the image path */
     background-color: rgb(80,80,100);
 
     border: 1px solid #aaaaaa;
+}
+
+.quest-node.even {
+    top: 67.5%;
+    left: -40%;
 }
 
 .done {
