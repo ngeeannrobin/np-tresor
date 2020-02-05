@@ -12,7 +12,7 @@ import { CampaignMapComponent } from './campaign-map/campaign-map.component';
 import { QuestMakerComponent } from './quest-maker/quest-maker.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { CreateComponent } from './create/create.component';
-
+import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -20,7 +20,10 @@ const routes: Routes = [
   {path: "quest/:id",component: SingleQuestComponent},
   {path: "campaign", component: CampaignMapComponent},
   {path: "campaign/:id",component: CampaignComponent},
-  {path: "create", component: CreateComponent},
+  {path: "c/:id",component: CampaignComponent},
+  {path: "create", component: CreateCampaignComponent},
+  // {path: "create/campaign", component: CreateCampaignComponent},
+  
 
   {path: "profile", component: ProfileComponent},
   {path: "leaderboard", component: LeaderboardComponent},
