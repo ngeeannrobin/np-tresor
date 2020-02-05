@@ -67,7 +67,7 @@
     <div class="path empty"></div>
 </div>
 
-<div *ngIf="currentQuest" class="cover-screen default-background">
+<div *ngIf="currentQuest" class="cover-screen default-background" [ngClass]="{'black-background':currentQuest.questType == 'qr-simple'}">
     <div *ngIf="currentQuest.questType == 'quiz-hangman'">
         <quest-hangman (eventEmitter)="eventReceiver($event)" [quest]="currentQuest" [savedData]="campaign.savedData"></quest-hangman>
     </div>

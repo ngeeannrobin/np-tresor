@@ -3,10 +3,20 @@
     z-index: -1;
     top: 0; left:0;
     width: 100vw; height: 100vh;
-    background-image: url("../../assets/image/campaign/treasuremappath-empty.png");
+    background-image: url("../../assets/image/campaign/apocalypsepath-empty.png");
     background-size: 100% auto;
     background-repeat: repeat-y;
+
+    filter: blur(1.5px);
 }
+
+.background:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
 
 .content {
     margin-top: 20%;
@@ -15,6 +25,7 @@
 
 .quest-name, .quest-title {
     font-size: 1.25em;
+    font-family: "Lunchtime Doubly So";
 }
 
 .quest-name {
