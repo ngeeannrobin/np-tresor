@@ -74,6 +74,7 @@ export class CampaignComponent implements OnInit {
       console.log(err);
     })
   }
+  
 
   // returns an array of questIds in reverse order
   GetQuestKeys(questObj:any,startQuest:string): Array<string>{
@@ -91,6 +92,7 @@ export class CampaignComponent implements OnInit {
   Next(){
     switch(this.state){
       case "backstory":
+        this.playAudio();
         if (this.textindex < this.campaign.backStory.length-1){
           this.textindex++;
           this.dISPLAYtEXT(this.campaign.backStory[this.textindex]);
@@ -104,6 +106,7 @@ export class CampaignComponent implements OnInit {
         }
         break;
       case "intro":
+        this.playAudio();
         if (this.textindex < this.campaign.introText.length-1){
           this.textindex++;  
           this.dISPLAYtEXT(this.campaign.introText[this.textindex]);
@@ -151,6 +154,15 @@ export class CampaignComponent implements OnInit {
         break;
     }
     
+  }
+
+  playAudio(){
+    let audio = new Audio();
+    audio.src = "../assets/music/" +  this.campaign.backgroundMusic;
+    audio.loop = true;
+    audio.volume = 0.2;
+    audio.load();
+    audio.play();
   }
 
   SelectQuest(questId:string):void {
