@@ -12,6 +12,89 @@
     top:64.5%;
 }
 
+.main-menu-button
+{
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    background: linear-gradient(180deg, #9c5633 51%, transparent 50%),
+                linear-gradient(  0deg, #7b432b 51%, transparent 50%);
+    border-bottom: 3px solid #5d250d;
+    border-radius: 3px;
+    box-shadow: 0 0 1px 2px #20262d, 
+                inset 0 0 2px 1px #925633,
+                inset 0 0 2px 3px #7b432b;
+    color: #f6cea1;
+    font-family: 'Godzilla';
+    font-size: 3ch;
+    padding: 1.5ch 0 1ch 0;
+    text-align: center;
+    text-shadow: -1px 0 #7b2d13, 0 2px #7b2d13, 1px 0 #7b2d13, 0 -1px #7b2d13;
+    
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    
+    width: 18ch;
+    max-width: 86.4%;
+    height: 8.00%;
+
+}
+
+.main-menu-button:active, .round-main-menu-button:active{
+    background: linear-gradient(180deg, #97512e 51%, transparent 50%),
+                linear-gradient(  0deg, #763e26 51%, transparent 50%);
+    border-bottom: 1px solid #5d250d;
+}
+.main-menu-button:active{
+    color: #f1c99c;
+    margin-top: 2px;
+}
+
+.main-menu-button-text{
+    font-family: inherit;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-45%);
+}
+
+.round-main-menu-button-container{
+    position: fixed;
+    right: 5%;
+    bottom: 5%;
+}
+
+.round-main-menu-button{
+    position: relative;
+    margin-top: 10px;
+    min-height: 7.5vh;
+    min-width: 7.5vh;
+    width: 15vmin;
+    height: 15vmin;
+    max-height: 10vh;
+    max-width: 10vh;
+
+    border-radius: 50%;
+
+    background: linear-gradient(180deg, #9c5633 51%, transparent 50%),
+                linear-gradient(  0deg, #7b432b 51%, transparent 50%);
+    box-shadow: 0 0 1px 2px #20262d, 
+                inset 0 0 2px 1px #925633,
+                inset 0 0 2px 3px #7b432b;
+    color: #f6cea1;
+    overflow: hidden;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
 .profile-icon {
 	background: #f6cea1;
 }

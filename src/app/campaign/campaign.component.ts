@@ -74,6 +74,15 @@ export class CampaignComponent implements OnInit {
       // set current quest to the first quest that is not done
       this.currentQuestId = campaign.startQuest;
 
+      // set theme
+      if (this.campaign.theme) {
+        let root = document.documentElement;
+        root.style.setProperty('--theme-path', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath.png")`);
+        root.style.setProperty('--theme-path-empty', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath-empty.png")`);
+        root.style.setProperty('--theme-path-start', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath-start.png")`);
+        root.style.setProperty('--theme-path-end', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath-end.png")`);
+      }
+
       while (this.campaign.quest[this.currentQuestId].done){
         this.currentQuestId = campaign.quest[this.currentQuestId].nextQuest;
       }

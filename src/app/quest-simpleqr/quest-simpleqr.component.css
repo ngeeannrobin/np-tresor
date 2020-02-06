@@ -3,7 +3,7 @@
     z-index: -1;
     top: 0; left:0;
     width: 100vw; height: 100vh;
-    background-image: url("../../assets/image/campaign/theme0/apocalypsepath-empty.png");
+    background-image: var(--theme-path-empty);
     background-size: 100% auto;
     background-repeat: repeat-y;
 
@@ -61,7 +61,7 @@
 
 .nav-button-container {
     position: fixed;
-    bottom: 20%;
+    bottom: 10%;
     text-align: center;
     width: 100%;
 }
