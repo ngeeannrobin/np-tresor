@@ -50,6 +50,12 @@
     width: 100%;
 }
 
+.message {
+    font-family: "Lunchtime Doubly So";
+    color: rgb(212, 196, 196);
+    margin-top: 5%;
+}
+
 .imagemsg {
     max-width: 100%;
     max-height: 50vh;
