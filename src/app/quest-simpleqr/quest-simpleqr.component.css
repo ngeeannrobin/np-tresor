@@ -69,14 +69,18 @@
 .quest-solve-btn {
     display: inline-block;
     color: #F0DED0;
-    background-color: #8B513B;
-    border-radius: 50vw;
-    padding: 10px 100px
+    background-color: #1f1f1f;
+    border-radius: 30px;
+    border: 2px solid #a56a16;
+    padding: 10px 100px;
+    font-family: "Lunchtime Doubly So";
 }
 
 .quest-back-btn {
     text-decoration: underline;
     color: gray;
+    font-family: "Lunchtime Doubly So";
+    margin-top: 5px;
 }
 
 .camera-container {
