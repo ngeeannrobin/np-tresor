@@ -23,6 +23,9 @@ export class CampaignComponent implements OnInit {
 
   questKeys: Array<string>;
 
+  evenQuestKeys: Array<string>;
+  oddQuestKeys: Array<string>;
+
   currentQuestId: string;
   currentQuest: any;
   questStoryOver: boolean = false;
@@ -59,8 +62,26 @@ export class CampaignComponent implements OnInit {
     this.gameservice.FetchSingleCampaign(id,this.userId,this.isGuest).then(campaign => {
       this.campaign = campaign;
       this.questKeys = this.GetQuestKeys(campaign.quest,campaign.startQuest);
+
+      if (this.questKeys.length % 2 != 0) {
+        this.evenQuestKeys = this.questKeys.filter((_, index) => index % 2 == 0)
+        this.oddQuestKeys = this.questKeys.filter((_, index) => index % 2 != 0)
+      } else {
+        this.evenQuestKeys = this.questKeys.filter((_, index) => index % 2 != 0)
+        this.oddQuestKeys = this.questKeys.filter((_, index) => index % 2 == 0)
+      }
+
       // set current quest to the first quest that is not done
       this.currentQuestId = campaign.startQuest;
+
+      // set theme
+      if (this.campaign.theme) {
+        let root = document.documentElement;
+        root.style.setProperty('--theme-path', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath.png")`);
+        root.style.setProperty('--theme-path-empty', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath-empty.png")`);
+        root.style.setProperty('--theme-path-start', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath-start.png")`);
+        root.style.setProperty('--theme-path-end', `url("./assets/image/campaign/${this.campaign.theme}/apocalypsepath-end.png")`);
+      }
 
       while (this.campaign.quest[this.currentQuestId].done){
         this.currentQuestId = campaign.quest[this.currentQuestId].nextQuest;

@@ -30,7 +30,12 @@ body{
     src: 
         url('assets/font/godzilla/Godzilla.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
         url('assets/font/godzilla/Godzilla.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-  }  
+}
+
+@font-face {
+    font-family: 'Lunchtime Doubly So';
+    src: url('assets/font/lunchtime-doubly-so/lunchds.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
 /* set default font */
 * {
@@ -75,6 +80,11 @@ body{
   
     --leaderboard-odd-background-color: #EAEAEA;
     --leaderboatd-event-background-color: #F8F6F7;
+
+    --theme-path: url("./assets/image/campaign/theme0/apocalypsepath.png");
+    --theme-path-empty: url("./assets/image/campaign/theme0/apocalypsepath-empty.png");
+    --theme-path-start: url("./assets/image/campaign/theme0/apocalypsepath-start.png");
+    --theme-path-end: url("./assets/image/campaign/theme0/apocalypsepath-end.png");
 }
 
 [data-theme="dark"] {
