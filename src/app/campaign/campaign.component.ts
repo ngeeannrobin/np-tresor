@@ -65,7 +65,7 @@ export class CampaignComponent implements OnInit {
       while (this.campaign.quest[this.currentQuestId].done){
         this.currentQuestId = campaign.quest[this.currentQuestId].nextQuest;
       }
-
+      this.PlayBackgroundAudio();
       this.state = "backstory";
       this.Next();
     },
@@ -91,7 +91,6 @@ export class CampaignComponent implements OnInit {
   Next(){
     switch(this.state){
       case "backstory":
-        this.playAudio();
         if (this.textindex < this.campaign.backStory.length-1){
           this.textindex++;
           this.dISPLAYtEXT(this.campaign.backStory[this.textindex]);
@@ -105,7 +104,6 @@ export class CampaignComponent implements OnInit {
         }
         break;
       case "intro":
-        this.playAudio();
         if (this.textindex < this.campaign.introText.length-1){
           this.textindex++;  
           this.dISPLAYtEXT(this.campaign.introText[this.textindex]);
@@ -155,7 +153,15 @@ export class CampaignComponent implements OnInit {
     
   }
 
-  playAudio(){
+  PlayAudio(filename,volume){
+    let audio = new Audio();
+    audio.src = "../assets/music/" + filename;
+    audio.volume = volume;
+    audio.load();
+    audio.play();
+  }
+
+  PlayBackgroundAudio(){
     if (this.campaign.backgroundMusic){
       let audio = new Audio();
       audio.src = "../assets/music/" +  this.campaign.backgroundMusic;
@@ -164,7 +170,6 @@ export class CampaignComponent implements OnInit {
       audio.load();
       audio.play();
     }
-    
   }
 
   SelectQuest(questId:string):void {
@@ -177,7 +182,18 @@ export class CampaignComponent implements OnInit {
 
     this.nextable = false;
 
-    if (!data.img){
+    if (data.img){ // display image
+      this.showImage = true;
+      this.displayText = data.base64;
+    } else if (data.snd){
+      this.PlayAudio(data.filename, data.vol||1);
+      let text:string = data.txt;
+      this.showImage = false;
+      for (let i=0; i<=text.length; i-=-1){
+        this.displayText = text.slice(0,i);
+        await this.sleep(10);
+      }
+    } else {
       let text:string = data;
       text = text.replace("{{username}}",this.userName);
       this.showImage = false;
@@ -185,9 +201,6 @@ export class CampaignComponent implements OnInit {
         this.displayText = text.slice(0,i);
         await this.sleep(10);
       }
-    } else { // display image
-      this.showImage = true;
-      this.displayText = data.base64;
     }
 
 
