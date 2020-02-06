@@ -1,1 +1,73 @@
-<p>create-campaign works!</p>
+<div class="bg"></div>
+
+<div class="container">
+
+    <div class="progress-bar">
+        <div class="progress" [ngClass]="{'one':stage==0, 'two':stage==1, 'three':stage==2, 'four':stage==3, 'red':error}"></div>
+    </div>
+    
+    <div *ngIf="stage==0">
+        <div class = "input-container" (click)="test()">
+            Name of Campaign <span class="red star">*</span><br/>
+            <input class="input-box" [(ngModel)]="campaign.title"  (keyup.enter)="checkurl()" (blur)="checkurl()" [attr.disabled]="checkingurl?'':null"/>
+        </div>
+        <div class = "input-container">
+            URL to Campaign<br/>
+            <input class="input-box" [(ngModel)]="url" disabled/>
+        </div>
+        <div class = "input-container">
+            Back story <span class="red star">* </span> <div class="plus icon" (click)="campaign.backStory.push('test')"></div> <br/>
+            <input class="input-box" *ngFor="let bs of keys(campaign.backStory)" [(ngModel)]="campaign.backStory[bs]"/>
+        </div>
+        <div class = "input-container">
+            Intro text <div class="plus icon" (click)="campaign.introText.push('')"></div> <br/>
+            <input class="input-box" *ngFor="let it of keys(campaign.introText)" [(ngModel)]="campaign.introText[it]"/>
+        </div>
+        <div class = "input-container">
+            End text <span class="red star">* </span> <div class="plus icon" (click)="campaign.endText.push('')"></div> <br/>
+            <input class="input-box" *ngFor="let et of keys(campaign.endText)" [(ngModel)]="campaign.endText[et]"/>
+        </div>
+    </div>
+    <div *ngIf="stage==1" class="input-container">
+        Quests <span class="red star">* </span> <div class="plus icon" (click)='campaign.quest.push({questStory: [""], questData: {title:"", qr: this.randomText()}})'></div>
+        <div *ngFor="let q of campaign.quest" class="quest-container">
+            <div class="input-container">
+                Story <div class="plus icon" (click)="q.questStory.push('')"></div> <br/>
+                <input class="input-box but-white" *ngFor="let qs of keys(q.questStory)" [(ngModel)]="q.questStory[qs]"/>
+            </div>
+            <div class="input-container">
+                Title
+                <input [(ngModel)]="q.questData.title" class="input-box but-white"/>
+            </div>
+        </div>
+        <div class="right-justify">
+            <div class="plus icon" (click)='campaign.quest.push({questStory: [""], questData: {title:"", qr: this.randomText()}})'></div>
+        </div>
+        
+    </div>
+    <div *ngIf="stage==2">
+        <div *ngIf="error" class="red message">
+            {{msg}}
+        </div>
+        <div *ngIf="!error" class="message">
+            Loading...
+        </div>
+    </div>
+    <div *ngIf="stage==3">
+
+        <div class="final-message">
+            Nice! We've received your campaign & have generated the relevant QR codes for your quests. Do download the PDF file below & put the QR codes up.
+
+            <div class="pdf" (click)="DownloadPDF()">
+                {{campaign.id}}_QR_Codes.pdf <div class="download icon"></div>
+            </div>
+            
+            If you'd like, you can share & play through your campaign at <strong>https://np-tresor.web.app/c/{{campaign.id}}</strong> ! <br/><br/>
+            You can be redirected back once you have downloaded the pdf.
+        </div>
+    </div>
+</div>
+<div class="button-container">
+    <div class="left button" (click) = "next(-1)" *ngIf="stage>0 && stage<3 || pdfDownloaded">Back</div>
+    <div class="right button" (click) = "next(1)" *ngIf="stage<2">{{stage==1?"Submit":"Next"}}</div>
+</div>

@@ -1,30 +1,22 @@
 <div class="all-container">
   <!-- VERTICAL LINE -->
-  <div class="quest-line" [ngClass]="{ 'invisible': showCamera }">
+  <div class="quest-line">
     <!-- TITLE -->
     <div class="quest-title-container"
-      *ngIf="showHint && correct==undefined" 
-      [ngClass]="{
-        'down-animate':animate==1,
-        'up-animate':animate==-1
-      }">
+      [ngClass]="{'upupandaway': correct!=undefined || showMessage}">
       <div class="quest-title-node"></div>
       <div class="quest-title-text">{{quest.title}}</div>
     </div>
     <!-- POINT -->
     <div class="quest-point-container"
-      *ngIf="showHint && correct==undefined && !simplified" 
-      [ngClass]="{
-        'down-animate':animate==1,
-        'up-animate':animate==-1
-      }">
+      [ngClass]="{'upupandaway': correct!=undefined || showMessage}">
       <div class="quest-point-node"></div>
       <div class="quest-point-text">
-        {{quest.point}}<img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
+        {{quest.point}} <img src="../../assets/image/gold_coin.png" alt="points" class="quest-point-coin">
       </div>
     </div>
     <!-- IMAGE -->
-    <div class="quest-hint-outer-container" 
+    <!-- <div class="quest-hint-outer-container" 
       *ngIf="showHint && correct==undefined && simplified && quest.image64" 
       [ngClass]="{
         'down-animate':animate==1,
@@ -34,15 +26,11 @@
         <div class="quest-hint-node"></div>
         <img *ngIf="quest.image64" [src]="'data:image/png;base64,'+quest.image64" class="not-too-big abit-gap-on-left-side">
       </div>
-    </div>
+    </div> -->
 
     <!-- HINT -->
     <div class="quest-hint-outer-container" 
-      *ngIf="showHint && correct==undefined && !simplified" 
-      [ngClass]="{
-        'down-animate':animate==1,
-        'up-animate':animate==-1
-      }">
+      [ngClass]="{'upupandaway': correct!=undefined || showMessage}">
       <div class="quest-hint-container" *ngFor="let hintIndex of object.keys(quest.hint)">
         <div *ngIf="hintIndex < quest.hintTakenCount">
           <div class="quest-hint-node"></div>
@@ -60,26 +48,18 @@
       </div>
     </div>
     <!-- CAMERA -->
-    <div class="camera-container"
-      *ngIf="showCamera"
-      [ngClass]="{
-        'down-animate':animate==-1,
-        'up-animate':animate==1
-      }">
+    <!-- <div class="camera-container"
+      *ngIf="showCamera">
       <div class="camera-node"></div>
       <span class="camera-load-message">Camera loading...</span>
       <zxing-scanner (scanSuccess)="ScanCallback($event)" [formats]="['BarcodeFormat.QR_CODE']" class="camera"></zxing-scanner>
-    </div>
+    </div> -->
 
 
 
     <!-- IMAGE -->
-    <div class="msg-container"
-      *ngIf="correct!=undefined || showMessage"
-      [ngClass]="{
-        'up-animate': animate==-1 && correct!=undefined,
-        'down-animate': animate==-1 && showMessage
-      }">
+    <div class="msg-container flyinfrombottom"
+      *ngIf="correct!=undefined || showMessage">
       <div class="msg-image-container">
         <div class="msg-image-node"></div>
         <img src="../../assets/image/grats.gif" class="msg-image" *ngIf="correct"/>
@@ -107,12 +87,18 @@
     <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
   </div>
 </div>
-
+<!-- CAMERA -->
+<div class="camera-container fadein" *ngIf="showCamera">
+  <div class="camera-temp-background"></div>
+  <div class="camera-loading">Camera loading...</div>
+  <zxing-scanner (scanSuccess)="ScanCallback($event)" [formats]="['BarcodeFormat.QR_CODE']" class="camera"></zxing-scanner>
+  <div class="rounded-camera"></div>
+</div>
 <!-- BUTTON -->
-<div class="button-container">
+<div class="button-container" [ngClass]="{'button-container-background': !showCamera}">
   <img src="../../assets/image/lightgray-hill.png" class="button-container-resize"/>
-  <div class="button-solve" (click)="ToggleCamera()">{{showHint?"Solve!":"Nevermind"}}</div>
-  <div class="button-hint" (click)="TakeHint()" *ngIf="!simplified" >
+  <div class="button-solve" (click)="ToggleCamera()"  [ngClass]="{'button-solve-lower': showCamera}">{{showHint?"Solve!":"Nevermind"}}</div>
+  <div class="button-hint" (click)="TakeHint()" [ngClass]="{'button-hint-invis': showCamera}" >
     <span *ngIf="quest.hintAvailCount>0">
       Get Hint (-{{quest.hint[quest.hintTakenCount].point}}<img src="../../assets/image/gold_coin.png" alt="points" class="hint-point-coin">)
     </span>
