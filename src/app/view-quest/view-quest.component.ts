@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
 import { RoutingStateService } from '../routing-state.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class ViewQuestComponent implements OnInit {
     private auth: AuthService,
     private gameservice: GameService,
     private router: Router,
-    private routingStateService: RoutingStateService
+    private routingStateService: RoutingStateService,
+    private location: Location
   ) { }
   
   displayProgressSpinner = true;
@@ -47,7 +49,7 @@ export class ViewQuestComponent implements OnInit {
   }
 
   openNotDonePage(questId){
-    this.router.navigate([`/ViewQuest/${questId}`])
+    this.router.navigate([`/quest/${questId}`])
   }
 
   openDonePage(questId){
@@ -84,6 +86,7 @@ export class ViewQuestComponent implements OnInit {
   // download quest table from firebase
   // TODO: Refactor this in the future
   // (player should only download relevant quests depending on gamemode)
+  // Bin from 06Feb20: HAHA WHERE GOT TIME DO??
   FetchQuest(){
     this.gameservice.FetchQuest(this.userId).then(
       quest => {
@@ -106,7 +109,8 @@ export class ViewQuestComponent implements OnInit {
   }
 
   goBack() {
-    let url = this.routingStateService.getPreviousUrl();
-    this.router.navigate([url||'login']);
+    // let url = this.routingStateService.getPreviousUrl();
+    // this.router.navigate([url||'login']);
+    this.location.back();
   }
 }

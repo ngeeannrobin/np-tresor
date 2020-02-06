@@ -68,4 +68,14 @@ export class GameService {
     return this.campaignS.SaveCampaignData(id,uuid,data);
   }
 
+  // CAMPAIGN creator
+
+  CampaignExist(id): Promise<boolean> {
+    return this.campaignS.CampaignExist(id);
+  }
+
+  CreateCampaign(campaign,uuid): Promise<void> {
+    return this.campaignS.CreateCampaign(campaign,uuid);
+  }
+
 }

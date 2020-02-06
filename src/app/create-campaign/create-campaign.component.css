@@ -1,0 +1,185 @@
+.progress-bar {
+    background-color: #F5F5F5;
+    height: 1%;
+    position: fixed;
+    top: 2.5%; left: 50%;
+    width: 90vw;
+    border-radius: 100vmax;
+    transform: translateX(-50%);
+    overflow: hidden;
+    box-shadow: 25vw 0px 0px 20px white, -25vw 0px 0px 20px white;
+    pointer-events: none;
+    z-index: 999    ;
+}
+
+.progress {
+    background-color: #2727FF;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: -100%;
+
+    transition: transform 0.5s, background-color 0.5s;
+}
+
+
+.progress.one {
+    transform: translateX(5%);
+}
+
+.progress.two {
+    transform: translateX(50%);
+}
+
+.progress.three {
+    transform: translateX(75%);
+}
+
+.progress.four {
+    transform: translateX(100%);
+}
+
+.bg {
+    width: 100%;
+    height: 100%;
+    background: white;
+    position: fixed;
+    z-index: -1;
+}
+
+.container {
+    padding: 0;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.input-container {
+    margin-bottom: 10%;
+}
+
+.input-container, .quest-container {
+    position: relative;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #9797A8;
+}
+
+.input-box, .quest-container {
+    border-radius: 3px;
+    background-color: #F5F5F5;
+    box-shadow: 0 2px 2px 0px rgba(83,83,83,.16);
+    padding-left: 5%;
+    width: 100%;
+    margin-bottom: 2.5%;
+}
+
+.quest-container {
+    margin-top: 1%;
+    padding: 5% 0;
+}
+
+.input-box {
+    height: 5vh;
+    border: none;
+}
+
+.but-white {
+    background-color: #FFFFFF;
+}
+
+.input-box:disabled {
+    color: #C4C4C4;
+}
+
+.icon {
+    width: 1em; height: 1em;
+    display: inline-block;
+    background-size: contain;
+}
+
+.plus{
+    background-image: url("../../assets/image/plus.png");
+}
+.download{
+    background-image: url("../../assets/image/download.png");
+}
+
+.right-justify {
+    text-align: right;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
+    background-color: white;
+}
+
+.button {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 25%;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 50px;
+}
+
+
+.right {
+
+    /* height: 75%; */
+    background-color: #2727FF;
+    font-weight: bold;
+    color: white;
+    right: 10%;
+
+}
+
+.progress.red {
+    background-color: #C92020;
+}
+
+.error.red, .star.red {
+    color: #C92020;
+}
+
+
+.left {
+    background-color: #E6E6FF;
+    color: #3E3E3E;
+    left: 10%;
+}
+
+.message {
+    text-align: center;
+    transform: translateY(-50%);
+    width: 100%;
+
+    top: 50%;
+    position: absolute;
+}
+
+.final-message {
+    font-size: 1.1em;
+    color: #9797A8;
+    padding: 20px;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icon.download {
+    position: absolute;
+    right: 0;
+    transform: translateX(-100%);
+}
+
+.pdf {
+    margin: 50px 0;
+    color: #61616A;
+    position: relative;
+    
+}
