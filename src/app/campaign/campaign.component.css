@@ -14,8 +14,8 @@
 }
 
 .backstory-background {
-    background-image: url("../../assets/image/campaign/apocalypse-backstory-background.png");
-    background-size: 100% 100%;
+    background-image: url("../../assets/image/campaign/apocalypse-backstory-background-2.png");
+    background-size: cover;
 }
 
 .default-background {
