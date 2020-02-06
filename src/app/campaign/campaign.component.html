@@ -10,16 +10,16 @@
 
 <div *ngIf="state=='backstory'" class="text-box at-center-of-screen">
     <div *ngIf="!showImage">
-        <div class="campaign-title">{{campaign.title}}</div>
-        {{displayText}}
+        <!-- <div class="campaign-title" style="font-family:'Lunchtime Doubly So';letter-spacing:-2px">{{campaign.title}}</div> -->
+        <div style="font-family:'Lunchtime Doubly So';letter-spacing:-2px">{{displayText}}</div>
         <div class="arrow-right"></div>
     </div>
     <div *ngIf="showImage" class="in-center-of-container">
         <img [src]="'data:image/png;base64,' + displayText" class="dun-too-big appear-small-to-big-and-spin-in">
     </div>
 </div>
-<div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen wooden white">
-    <div *ngIf="!showImage">
+<div *ngIf="['intro','completed'].includes(state) || (state=='quests' && !questStoryOver)" class="text-box at-bottom-of-screen solid white">
+    <div *ngIf="!showImage" style="font-family:'Lunchtime Doubly So';letter-spacing:-1px">
         {{displayText}}
         <div class="arrow-right white"></div>
     </div>
@@ -29,17 +29,45 @@
 </div>
 
 <div *ngIf="showCampaign">
-    <div *ngFor="let questId of questKeys" class="path" [attr.id]="questId" [ngClass]="{'end':questId==campaign.endQuest,'start':questId==campaign.startQuest}">
-        <div class="quest-node" (click)="SelectQuest(questId)" 
-        [ngClass]="{'blink': questId == currentQuestId,'done': campaign.quest[questId].done}">
-            <div *ngIf="questId == currentQuestId && state!='completed'" class="guy"></div>
+    <div *ngFor="let questId of evenQuestKeys; let i = index" class="path" [ngClass]="{'end':(oddQuestKeys[i]==campaign.endQuest||evenQuestKeys[i]==campaign.endQuest),'start':i>=((questKeys.length/2)-1)}">
+        <div *ngIf="questKeys.length % 2 != 0">
+            <div *ngIf="oddQuestKeys[i]">
+                <div class="quest-node" (click)="SelectQuest(oddQuestKeys[i])" [attr.id]="oddQuestKeys[i]"
+                [ngClass]="{'blink': oddQuestKeys[i] == currentQuestId,'done': campaign.quest[oddQuestKeys[i]].done,even: true}">
+                    <div *ngIf="oddQuestKeys[i] == currentQuestId && state!='completed'" class="guy"></div>
+                </div>
+                <div *ngIf="oddQuestKeys[i] == campaign.endQuest && state=='completed'" class="guy guy-won"></div>    
+            </div>
+            <div *ngIf="evenQuestKeys[i]">
+                <div class="quest-node" (click)="SelectQuest(evenQuestKeys[i])" [attr.id]="evenQuestKeys[i]"
+                [ngClass]="{'blink': evenQuestKeys[i] == currentQuestId,'done': campaign.quest[evenQuestKeys[i]].done,odd: true}">
+                    <div *ngIf="evenQuestKeys[i] == currentQuestId && state!='completed'" class="guy"></div>
+                </div>
+                <div *ngIf="evenQuestKeys[i] == campaign.endQuest && state=='completed'" class="guy guy-won"></div>    
+            </div>
         </div>
-        <div *ngIf="questId == campaign.endQuest && state=='completed'" class="guy guy-won"></div>
+        <div *ngIf="questKeys.length % 2 == 0">
+            <div *ngIf="evenQuestKeys[i]">
+                <div class="quest-node" (click)="SelectQuest(evenQuestKeys[i])" [attr.id]="evenQuestKeys[i]"
+                [ngClass]="{'blink': evenQuestKeys[i] == currentQuestId,'done': campaign.quest[evenQuestKeys[i]].done,even: true}">
+                    <div *ngIf="evenQuestKeys[i] == currentQuestId && state!='completed'" class="guy"></div>
+                </div>
+                <div *ngIf="evenQuestKeys[i] == campaign.endQuest && state=='completed'" class="guy guy-won"></div>    
+            </div>
+
+            <div *ngIf="oddQuestKeys[i]">
+                <div class="quest-node" (click)="SelectQuest(oddQuestKeys[i])" [attr.id]="oddQuestKeys[i]"
+                [ngClass]="{'blink': oddQuestKeys[i] == currentQuestId,'done': campaign.quest[oddQuestKeys[i]].done,odd: true}">
+                    <div *ngIf="oddQuestKeys[i] == currentQuestId && state!='completed'" class="guy"></div>
+                </div>
+                <div *ngIf="oddQuestKeys[i] == campaign.endQuest && state=='completed'" class="guy guy-won"></div>    
+            </div>
+        </div>
     </div>
     <div class="path empty"></div>
 </div>
 
-<div *ngIf="currentQuest" class="cover-screen default-background">
+<div *ngIf="currentQuest" class="cover-screen default-background" [ngClass]="{'black-background':currentQuest.questType == 'qr-simple'}">
     <div *ngIf="currentQuest.questType == 'quiz-hangman'">
         <quest-hangman (eventEmitter)="eventReceiver($event)" [quest]="currentQuest" [savedData]="campaign.savedData"></quest-hangman>
     </div>

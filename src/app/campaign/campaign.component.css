@@ -22,6 +22,10 @@
     background-color: white;
 }
 
+.black-background {
+    background-color: black;
+}
+
 .dun-too-big{
     max-width: 100%;
     max-height: 100%;
@@ -63,23 +67,28 @@
 .text-box{
     z-index: 999;
     
-    
     background-color: lightgray;
     border: 1px solid black;
-    font-size: larger;
-    padding: 2.5% 5%;
+    font-size: large;
+    padding: 4% 4%;
     width: 80%;
     border-radius: 3px;
 }
 
 .wooden {
-    background-image: url("../../assets/image/campaign/wooddialogbox.png");
-    background-repeat: repeat-y;
-    background-size: 100% auto;
+    background-image: url("../../assets/image/campaign/apocalypse-tooltip-background.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.solid {
+    background-color: #222222;
+    outline: 3px solid white;
+    outline-offset: -8px;
 }
 
 .text-box.white {
-    color: rgb(156, 146, 146);
+    color: rgb(212, 196, 196);
 }
 
 .arrow-right.white {
@@ -97,29 +106,29 @@
 }
 
 .path {
-    background-image: url("../../assets/image/campaign/apocalypsepath.png");
+    background-image: var(--theme-path);
     background-size: 100% 100%;
     margin-left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    height: 50vw;
+    height: 120vw;
     position: relative;
 }
 
 .path:nth-child(even){
-    transform: translateX(-50%) scaleX(-1);
+    /* transform: translateX(-50%) scaleX(-1); */
 }
 
 .empty {
-    background-image: url("../../assets/image/campaign/apocalypsepath-empty.png");
+    background-image: var(--theme-path-empty);
 }
 
 .start {
-    background-image: url("../../assets/image/campaign/apocalypsepath-start.png");
+    background-image: var(--theme-path-start);
 }
 
 .end {
-    background-image: url("../../assets/image/campaign/apocalypsepath-end.png");
+    background-image: var(--theme-path-end);
 }
 
 .guy {
@@ -128,7 +137,7 @@
     width: 50px;
     height: 50px;
     position: absolute;
-    transform:translate(-30%,-110%);
+    transform:translate(-18%,-110%);
 }
 
 .guy-won {
@@ -139,21 +148,26 @@
 /* consider changing to image */
 .quest-node {
     border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     
     position: absolute;
-    top: 50%;
+    top: 28%;
     transform:translate(-50%,-50%);
 
-    margin-left: 72.6%; /* this value changes depending on the image path */
-    background-color: rgb(80,80,100);
+    margin-left: 81.5%; /* this value changes depending on the image path */
+    background-color: rgb(156, 156, 156);
 
-    border: 1px solid #aaaaaa;
+    border: 2px solid #848484;
+}
+
+.quest-node.even {
+    top: 67.5%;
+    left: -43%;
 }
 
 .done {
-    background-color: forestgreen;
+    background-color: #ffb03c;
 }
 
 .blink {
@@ -161,7 +175,7 @@
 }
 
 @keyframes blink{
-    50% {background-color: forestgreen;}
+    50% {background-color: #ffb03c;}
 }
 
 .appear-small-to-big {
