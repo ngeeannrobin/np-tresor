@@ -29,7 +29,11 @@
 
 
 <div class="nav-button-container">
-    <div (click)="ToggleCamera()" class="quest-solve-btn">{{showCamera?"Nevermind":"Solve!"}}</div>
+    <div (click)="ToggleCamera()" class="main-menu-button">
+        <div class="main-menu-button-text noselect">
+            {{showCamera?"Nevermind":"Solve!"}}
+        </div>
+    </div>
     <div (click)="emit({key:'back'})" class="quest-back-btn">Back to Campaign</div>
 </div>
 

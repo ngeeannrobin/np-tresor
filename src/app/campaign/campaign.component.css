@@ -106,7 +106,7 @@
 }
 
 .path {
-    background-image: url("../../assets/image/campaign/apocalypsepath.png");
+    background-image: url("../../assets/image/campaign/theme0/apocalypsepath.png");
     background-size: 100% 100%;
     margin-left: 50%;
     transform: translateX(-50%);
@@ -120,15 +120,15 @@
 }
 
 .empty {
-    background-image: url("../../assets/image/campaign/apocalypsepath-empty.png");
+    background-image: url("../../assets/image/campaign/theme0/apocalypsepath-empty.png");
 }
 
 .start {
-    background-image: url("../../assets/image/campaign/apocalypsepath-start.png");
+    background-image: url("../../assets/image/campaign/theme0/apocalypsepath-start.png");
 }
 
 .end {
-    background-image: url("../../assets/image/campaign/apocalypsepath-end.png");
+    background-image: url("../../assets/image/campaign/theme0/apocalypsepath-end.png");
 }
 
 .guy {
