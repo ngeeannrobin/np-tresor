@@ -20,11 +20,8 @@ export class SingleQuestComponent implements OnInit {
 
   loaded: boolean = false;
   questId: string;
-  @Input() simplified: boolean = false;
-  @Input() partOfCampaign: boolean = false;
-  @Input() quest: any = {hint:{}};
-  @Input() savedData: any;
-  @Output() eventEmitter = new EventEmitter();
+  quest: any = {hint:{}};
+  savedData: any;
   showCamera: boolean = false;
   showHint: boolean = true;
   object = Object;
@@ -39,30 +36,11 @@ export class SingleQuestComponent implements OnInit {
   ngOnInit() {
     this.auth.CheckLogin().then(loggedIn => {
       if (loggedIn){
-        if (!this.partOfCampaign){
           this.userId = this.auth.GetUserId();
           this.questId = this.route.snapshot.paramMap.get("id");
           this.FetchQuest(this.questId);
-        } else if (!this.simplified){
-          this.InjectData(this.savedData);
-        }
-        
       }
     })
-  }
-
-  InjectData(data: any){
-    if (data){
-      const hintTakenCount = data.hintTaken || 0;
-      this.quest.hintTakenCount = hintTakenCount;
-      this.quest.hintAvailCount = this.quest.hint.length - hintTakenCount;
-      for (let i=0; i<hintTakenCount; i++){
-        this.quest.point -= this.quest.hint[i].point;
-      }
-    } else { // not required, but just in case
-      this.quest.hintTakenCount = 0;
-      this.quest.hintAvailCount = this.quest.hint.length;
-    }
   }
 
   FetchQuest(id){
@@ -82,7 +60,6 @@ export class SingleQuestComponent implements OnInit {
       this.ToggleCamera();
     }
     if (this.quest.hintTakenCount < this.quest.hint.length && !this.loadingHint){
-      if (!this.partOfCampaign){
         this.loadingHint = true;
         this.gameservice.TakeHint(this.quest,this.userId).then(
           _ => {
@@ -93,21 +70,9 @@ export class SingleQuestComponent implements OnInit {
           },
           err=>{
             this.loadingHint = false;
-            console.log(err);
+            alert(err);
           }
         )
-      } else {
-        // CODE TO EMIT SAVE DATA IDK LOL
-        this.quest.point -= this.quest.hint[this.quest.hintTakenCount].point
-        this.quest.hintTakenCount -= -1;
-        this.quest.hintAvailCount += -1;
-
-        const dataEmitted:any = {key:"save"};
-        dataEmitted.data = {hintTaken: this.quest.hintTakenCount};
-
-        this.emit(dataEmitted);
-      }
-
     }
   }
 
@@ -135,14 +100,9 @@ export class SingleQuestComponent implements OnInit {
       this.message = "You got it! Tap anywhere to return back to quests!"
       if (!this.awarding){
         this.awarding = true;
-        if (!this.partOfCampaign){
           this.gameservice.CompleteQuest(this.quest, this.userId).then(_=>{
             this.correct=true;
           })
-        } else {
-          this.correct = true;
-        }
-        
       }
     } else {
       this.message = "That's ain't it, chief! Tap anywhere to continue."
@@ -153,6 +113,7 @@ export class SingleQuestComponent implements OnInit {
   CheckQR(qr_data):boolean{
     return qr_data == this.quest.qr;
   }
+
   back(){
     this.location.back();
   }
@@ -160,12 +121,7 @@ export class SingleQuestComponent implements OnInit {
   async dismiss(){
     if (this.animate == 0){ // don't think need to check, but just in case
       if (this.correct){
-        if (!this.partOfCampaign){
           this.back();
-        } else {
-          this.emit({key:"solved"});
-        }
-        
       } else { // re-display hints and stuff
         this.animate = -1;
         this.showMessage = true;
@@ -177,13 +133,8 @@ export class SingleQuestComponent implements OnInit {
     }
   }
   async delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms));
+    return new Promise( resolve => setTimeout(resolve, 0));
   }
-
-  emit(data){
-    this.eventEmitter.emit(data);
-  }
-
 
 
 }

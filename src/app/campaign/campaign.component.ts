@@ -59,7 +59,6 @@ export class CampaignComponent implements OnInit {
     this.gameservice.FetchSingleCampaign(id,this.userId,this.isGuest).then(campaign => {
       this.campaign = campaign;
       this.questKeys = this.GetQuestKeys(campaign.quest,campaign.startQuest);
-
       // set current quest to the first quest that is not done
       this.currentQuestId = campaign.startQuest;
 
