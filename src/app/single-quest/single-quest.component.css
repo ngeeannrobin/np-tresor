@@ -47,6 +47,11 @@
     width: calc(95vw - 39.5px);
     position: relative;
 }
+
+.quest-hint-outer-container, .quest-title-container, .quest-point-container, .quest-hint-container{
+    transition: transform 500ms;
+}
+
 .quest-title-container{margin-top: 110px;}
 .quest-point-container{margin-top: 17px;}
 .quest-hint-container{margin-top: 25px;}
@@ -98,44 +103,6 @@
     transform: translateY(-12.5%);
 }
 
-.down-animate{
-    animation: down-animate 1s;
-    -webkit-animation: down-animate 1s;
-}
-.up-animate{
-    animation: up-animate 1s;
-    -webkit-animation: up-animate 1s;
-}
-/* .up-animate-slow{
-    animation: up-animate 4s;
-} */
-
-
-
-@keyframes down-animate {
-    from{transform: translateY(0);}
-    50%{transform: translateY(100vh)}
-    to{transform: translateY(100vh)}
-}
-@-webkit-keyframes down-animate {
-    from{transform: translateY(0);}
-    50%{transform: translateY(100vh)}
-    to{transform: translateY(100vh)}
-}
-
-@keyframes up-animate {
-    from{transform: translateY(100vh);}
-    50%{transform: translateY(0)}
-    to{transform: translateY(0)}
-}
-@-webkit-keyframes up-animate {
-    from{transform: translateY(100vh);}
-    50%{transform: translateY(0)}
-    to{transform: translateY(0)}
-}
-
-
-
 /* message */
 .msg-container{
     width: calc(100vw - 39.5px);
@@ -159,37 +126,51 @@
 
 /* Camera */
 
-.camera-container{
+/* .camera-container{
     height: 100vh;
     position: absolute;
     top: 0;
-}
-
+} */
+/* 
 .camera-load-message{
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%,-50%);
     z-index: -1;
-}
+} */
 
-.camera{
+/* .camera{
     height: 100vh;
     min-width: calc(100vw - 39.5px);
-    /* background-color: gray; */
+    background-color: gray;
+} */
+
+.upupandaway {
+    transform: translateY(-100vh);
 }
+
+.flyinfrombottom {
+    animation: flyinfrombottom 500ms; -webkit-animation: flyinfrombottom 500ms;
+}
+
+@keyframes flyinfrombottom {from {transform: translateY(100vh)} to {transform: translateY(0)}}
+@-webkit-keyframes flyinfrombottom {from {transform: translateY(100vh)} to {transform: translateY(0)}}
 
 /* Buttons */
 
 .button-container{
     position: fixed;
     bottom: 0;
-    background-image: var(--btn-container-image);
     background-size: 100% 100%;
     max-height: 40vh;
     /* margin-top: 70vh; */
     width: 100vw;
     text-align: center;
     pointer-events: none;
+}
+
+.button-container-background {
+    background-image: var(--btn-container-image);
 }
 
 .button-container-resize{
@@ -214,6 +195,12 @@
     padding: 12px;
     box-shadow: 0 3px 6px var(--solve-btn-shadow-color);
     margin-bottom: 7px;
+    transition: bottom 500ms;
+}
+
+.button-solve-lower {
+    bottom: 70px;
+
 }
 
 .button-hint{
@@ -222,6 +209,11 @@
     padding: 8px;
     background-color: var(--hint-btn-background-color);
     color: var(--hint-btn-text-color);
+    transition: opacity 500mss;
+}
+
+.button-hint-invis {
+    opacity: 0;
 }
 
 .hint-point-coin{
@@ -249,10 +241,52 @@
 }
 
 :host /deep/ video{
-    height: 100vh !important;
+    min-height: 95vmin !important;
+    min-width: 95vmin !important;
 }
+
 
 .not-too-big{
     max-width: 100%;
     max-height: 50vh;
 } 
+
+.camera-container {
+    position: fixed;
+    width: 100vw; height: 100vh;
+    top: 0; left:0;
+    background-color: black;
+    text-align: center;
+}
+
+.rounded-camera, .camera {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.fadein {
+    animation: fade 500ms; -webkit-animation: fade 500ms;
+}
+@keyframes fade {from {opacity: 0} to {opacity: 1}}
+@-webkit-keyframes fade { from {opacity: 0} to {opacity: 1}}
+
+.camera-temp-background, .camera-loading {
+    position: absolute;
+    display: inline-block;;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.camera-temp-background {
+    width: 90vmin; height: 90vmin;
+    background-color: wheat;
+}
+
+.rounded-camera {
+    border-radius: 50%;
+    display: inline-block;
+    width: 90vmin; height: 90vmin;
+    box-shadow: black 0 0 0 50vmax, inset 0 0 2.5vmin 2.5vmin black;
+    border: inset;
+}
