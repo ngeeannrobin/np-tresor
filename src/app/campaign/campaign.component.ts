@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GameService } from '../game.service';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   templateUrl: './campaign.component.html',
   styleUrls: ['./campaign.component.css']
 })
-export class CampaignComponent implements OnInit {
+export class CampaignComponent implements OnInit, OnDestroy {
 
   id: string;
   nextable: boolean = false;
@@ -34,6 +34,8 @@ export class CampaignComponent implements OnInit {
   userName: string;
   isGuest: boolean = false;
 
+  audio: Array<any> = [];
+
   constructor(
     private gameservice: GameService,
     private auth: AuthService,
@@ -41,6 +43,8 @@ export class CampaignComponent implements OnInit {
     private location: Location,
     private router: Router
   ) { }
+
+
 
   ngOnInit() {
     this.auth.CheckLogin().then(loggedIn => {
@@ -50,12 +54,18 @@ export class CampaignComponent implements OnInit {
       } else {
         //this.router.navigate(["login"]);
         // enable guest mode
-        this.userName = `Hunter #${Math.floor(Math.random()*9000 + 1000)}`;
+        this.userName = `Player #${Math.floor(Math.random()*9000 + 1000)}`;
         this.isGuest = true;
       }
       this.id = this.route.snapshot.paramMap.get("id");
       this.FetchCampaign(this.id);
     })
+  }
+
+  ngOnDestroy(){
+    this.audio.forEach(audio => {
+      audio.pause();
+    });
   }
 
   FetchCampaign(id:string): void{
@@ -180,16 +190,18 @@ export class CampaignComponent implements OnInit {
     audio.volume = volume;
     audio.load();
     audio.play();
+    this.audio.push(audio);
   }
 
   PlayBackgroundAudio(){
     if (this.campaign.backgroundMusic){
       let audio = new Audio();
-      audio.src = "../assets/music/" +  this.campaign.backgroundMusic;
+      audio.src = "../assets/music/" +  this.campaign.backgroundMusic.filename;
       audio.loop = true;
-      audio.volume = 0.2;
+      audio.volume = this.campaign.backgroundMusic.vol;
       audio.load();
       audio.play();
+      this.audio.push(audio);
     }
   }
 
@@ -283,6 +295,7 @@ export class CampaignComponent implements OnInit {
 
   back(){
     this.location.back();
+
   }
 
 }
