@@ -1,3 +1,11 @@
+# Project Information
+
+This project was worked on as a Capstone Project over 5 months.
+
+The team consists of 2 developers, 1 UAT lead, and a supervisor. 
+
+More information [here](http://infinite.ict.np.edu.sg/home/browseteam/project?id=29)
+
 # Tresor
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
